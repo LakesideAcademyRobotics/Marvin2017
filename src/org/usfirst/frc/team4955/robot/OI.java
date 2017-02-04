@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4955.robot;
 
 import org.usfirst.frc.team4955.robot.commands.WinchPull;
+import org.usfirst.frc.team4955.robot.commands.WinchPush;
 import org.usfirst.frc.team4955.robot.commands.ball.StartConveyor;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.InverseDriveTrainCommand;
@@ -31,7 +32,8 @@ public class OI {
 	public static GamepadButton DRIVE_OUTPUT_RAISE_BUTTOM_NUMBER = GamepadButton.RB;
 	public static GamepadButton BALL_PICKUP = GamepadButton.X;
 	public static GamepadButton STOP_BALL_PICKUP = GamepadButton.Y;
-	public static GamepadButton WINCH_PULL = GamepadButton.A;
+	public static GamepadButton WINCH_PULL = GamepadButton.Start;
+	public static GamepadButton WINCH_PUSH = GamepadButton.Back;
 	
 	public static void init(){
 		mainJoystick = new Joystick(0);
@@ -62,5 +64,8 @@ public class OI {
 		//Winch
 		command = new JoystickButton(mainJoystick, WINCH_PULL.value());
 		command.toggleWhenActive(new WinchPull());
+		
+		command = new JoystickButton(mainJoystick, WINCH_PUSH.value());
+		command.toggleWhenActive(new WinchPush());		
 	}
 }
