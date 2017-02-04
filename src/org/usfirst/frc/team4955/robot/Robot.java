@@ -42,6 +42,9 @@ public class Robot extends IterativeRobot {
 		RobotMap.init();
         OI.init();
         
+        CameraServer.getInstance().startAutomaticCapture();
+
+        
         driveSubsystem = new DriveSubsystem();
         
         
@@ -112,7 +115,6 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		//if (autonomousCommand != null)
 		//	autonomousCommand.cancel();
-		
 		
         Command drive = new JoystickDrive();
         Scheduler.getInstance().add(drive);
