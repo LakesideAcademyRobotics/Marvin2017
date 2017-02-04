@@ -1,10 +1,8 @@
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.utils.driveTrain.DriveTrainControler.DriveType;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.SetDriveTrainMaxOutputCommand;
-import org.usfirst.frc.team4955.robot.utils.driveTrain.SetDriveTrainTypeCommand;
-import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
+import org.usfirst.frc.team4955.robot.utils.input.GyroRatationInput;
 import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
 import org.usfirst.frc.team4955.robot.utils.input.TeleopInput;
 import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadAxis;
@@ -12,7 +10,6 @@ import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,7 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	
 	public static Joystick mainJoystick;
-	public static TeleopInput controlerXInput;
+	private static TeleopInput controlerXInput;
+	public static GyroRatationInput controlerGyroInput;
 	public static TeleopInput controlerYInput;
 	
 	public static GamepadButton REVERSE_DRIVE_BUTTOM_NUMBER = GamepadButton.A;
@@ -33,9 +31,10 @@ public class OI {
 		mainJoystick = new Joystick(0);
 		
 		controlerXInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
+		controlerGyroInput = new GyroRatationInput(controlerXInput);
 		controlerYInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		
-		RobotMap.driveTrain.xInput = controlerXInput;
+		RobotMap.driveTrain.xInput = controlerGyroInput;
 		RobotMap.driveTrain.yInput = controlerYInput;
 		
 		
