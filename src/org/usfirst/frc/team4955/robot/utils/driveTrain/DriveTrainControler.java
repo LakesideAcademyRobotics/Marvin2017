@@ -16,8 +16,8 @@ public class DriveTrainControler {
 	private HashMap<MotorType, Boolean> motorsInvertedValue;
 	private DriveType currentDriveType;
 	
-	public TeleopInput xInput;
-	public TeleopInput yInput;
+	public TeleopInput rotateInput;
+	public TeleopInput moveInput;
 	
 	private double maxOutput;
 	
@@ -95,16 +95,16 @@ public class DriveTrainControler {
 		SmartDashboard.putBoolean("Drive forward", !reversed);
 		
 		
-		if(xInput == null || yInput == null){
+		if(rotateInput == null || moveInput == null){
 			System.err.println("Drive train controler needs X and Y TeleInput");
 			return;
 		}
 		
 		switch(currentDriveType){
 			case Arcade:
-				robotDrive.arcadeDrive(yInput.getInput(), xInput.getInput());
-				SmartDashboard.putNumber("X", xInput.getInput());
-				SmartDashboard.putNumber("Y", yInput.getInput());
+				robotDrive.arcadeDrive(moveInput.getInput(), rotateInput.getInput());
+				SmartDashboard.putNumber("X", rotateInput.getInput());
+				SmartDashboard.putNumber("Y", moveInput.getInput());
 				break;
 			case Mecanum:
 	            //robotDrive.mecanumDrive_Cartesian(stick1.getX(), stick1.getY(), stick1.getZ(), 0);

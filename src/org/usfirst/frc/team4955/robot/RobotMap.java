@@ -4,6 +4,7 @@ import org.usfirst.frc.team4955.robot.utils.driveTrain.DriveTrainControler;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -34,13 +35,15 @@ public class RobotMap {
 	public static CANTalon shootWheelTalon;
 	public static AnalogInput feederBallSensor;
 	
-	public static Gyro gyro;
+	public static ADXRS450_Gyro gyro;
 	
 	public static void init(){
-		driveTrain = new DriveTrainControler(3,2,0,1);
+		driveTrain = new DriveTrainControler(3,2);
 		
 		frontLeftSensor = new AnalogInput(0);	
 		frontRightSensor = new AnalogInput(1);
+		
+		gyro = new ADXRS450_Gyro();
 		
 		/*winchTalon = new Talon(0);
 		brushTalon = new Talon(0);
