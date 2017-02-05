@@ -64,9 +64,15 @@ public class DriveTrainControler {
 	}
 	
 	public void inverse(){
+		String a = "";
 		for (Entry<MotorType, Boolean> keyset : motorsInvertedValue.entrySet()) {
 			reverse(keyset.getKey());
+			a += keyset.getKey() + " - ";
+			SmartDashboard.putString("tewt", a);
 		}
+		
+		
+		SmartDashboard.putString("tewt", a);
 		reversed = !reversed;
 	}
 	
@@ -74,6 +80,7 @@ public class DriveTrainControler {
 		Boolean currentValue = motorsInvertedValue.get(motor).booleanValue();
 		motorsInvertedValue.put(motor, !currentValue);
 		robotDrive.setInvertedMotor(motor, !currentValue);
+		SmartDashboard.putString("tot", "aaaaaaaaaaa");
 	}
 	
 	public void setDriveType(DriveType type){
