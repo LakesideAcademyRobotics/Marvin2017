@@ -26,7 +26,7 @@ public class DriveTrainControler {
 	public DriveTrainControler(int LeftMotor, int RightMotor){
 		 this(-1, LeftMotor, -1, RightMotor);
 	}
-	public DriveTrainControler(int frontLeftMotor, int rearLeftMotor, int frontRightMotor, int rearRightMotor){
+	public DriveTrainControler(int frontRightMotor, int rearRightMotor, int rearLeftMotor, int frontLeftMotor){
 		try{
 			if(frontLeftMotor == -1)
 				robotDrive = new RobotDrive(rearLeftMotor,rearRightMotor);
@@ -51,7 +51,7 @@ public class DriveTrainControler {
 		
 		currentDriveType = DriveType.Arcade;
 		
-		maxOutput = 0.4;
+		maxOutput = 1;
 		robotDrive.setMaxOutput(maxOutput);
 	}
 	

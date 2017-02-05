@@ -63,15 +63,13 @@ public class Robot extends IterativeRobot {
     	System.out.println("connected " + cam0.isConnected() + ", valid" + cam0.isValid());
     	System.out.println("connected " + cam1.isConnected() + ", valid" + cam1.isValid());
         */
-    	//CameraServer.getInstance().startAutomaticCapture("Front", 0);
-        CameraServer.getInstance().startAutomaticCapture("Back", 1);
-    	//CameraServer.getInstance().startAutomaticCapture("Front", 0);
+        CameraServer.getInstance().startAutomaticCapture("Front", 0);
         /*
         System.out.println("connected " + cam0.isConnected() + ", valid" + cam0.isValid());
     	System.out.println("connected " + cam1.isConnected() + ", valid" + cam1.isValid());
         */
         
-        SmartDashboard.putBoolean("Use Trigger to move forward",false);
+        SmartDashboard.putBoolean("Use Trigger to move forward",true);
         
         //CameraServer.getInstance().startAutomaticCapture(0);
         

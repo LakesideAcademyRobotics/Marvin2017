@@ -11,6 +11,8 @@ public class GyroRatationInput implements TeleopInput{
 	Gyro gyro;
 	public double correctionFactor = 0.2;
 	
+	public double MAX_CORRECTION;
+	
 	public GyroRatationInput(TeleopInput rotationInput, Gyro gyro) {
 		super();
 		this.gyro = gyro;
@@ -18,22 +20,37 @@ public class GyroRatationInput implements TeleopInput{
 		SmartDashboard.putNumber("gyroCorr", 0.2);
 	}
 	
+	void resetGyro()
+	{
+		gyro.reset();
+	}
 	
 	@Override
 	public double getInput() {
+		
 		correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
-		if(RobotMap.driveTrain.moveInput.getInput() != 0){
-			gyro.reset();
+		SmartDashboard.putNumber("Correction", 0);
+		
+		if(RobotMap.driveTrain.moveInput.getInput() == 0){
+			resetGyro();
 			return rotationInput.getInput();
 			
 		}else{
 			if(rotationInput.getInput() == 0){
-				gyro.reset();
-				return 0;
+				double correction  = (gyro.getAngle() * correctionFactor);
 				
+				if(correction > MAX_CORRECTION){
+					correction = MAX_CORRECTION;
+				}else if(correction < -MAX_CORRECTION){
+					correction = -MAX_CORRECTION;
+				}
+				SmartDashboard.putBoolean("GyroPause", false);
+				SmartDashboard.putNumber("Correction", correction);
+				return rotationInput.getInput() - correction;
+
 			}else{
-				System.out.println("Correction : " + (gyro.getAngle() * correctionFactor));
-				return rotationInput.getInput() - gyro.getAngle() * correctionFactor;
+				resetGyro();
+				return rotationInput.getInput();
 			}
 			
 		}

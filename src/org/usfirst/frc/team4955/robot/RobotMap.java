@@ -38,10 +38,10 @@ public class RobotMap {
 	public static ADXRS450_Gyro gyro;
 	
 	public static void init(){
-		driveTrain = new DriveTrainControler(3,2);
+		driveTrain = new DriveTrainControler(0,1,2,3);
 		
-		frontLeftSensor = new AnalogInput(0);	
-		frontRightSensor = new AnalogInput(1);
+		//frontLeftSensor = new AnalogInput(0);	
+		//frontRightSensor = new AnalogInput(1);
 		
 		gyro = new ADXRS450_Gyro();
 		

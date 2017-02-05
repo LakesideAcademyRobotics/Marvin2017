@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	
 	public static Joystick mainJoystick;
-	private static TeleopInput controlerXInput;
+	private static TeleopInput controlerRotateInput;
 	public static GyroRatationInput controlerGyroInput;
-	public static TeleopInput controlerYInput;
+	public static TeleopInput controlerMoveInput;
 	
 	public static GamepadButton REVERSE_DRIVE_BUTTOM_NUMBER = GamepadButton.A;
 	public static GamepadButton SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER = GamepadButton.B;
@@ -38,11 +38,11 @@ public class OI {
 	public static void init(){
 		mainJoystick = new Joystick(0);
 		
-		controlerXInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
-		controlerGyroInput = new GyroRatationInput(controlerXInput, RobotMap.gyro);
-		controlerYInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
+		controlerRotateInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
+		controlerGyroInput = new GyroRatationInput(controlerRotateInput, RobotMap.gyro);
+		controlerMoveInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		RobotMap.driveTrain.rotateInput = controlerGyroInput;
-		RobotMap.driveTrain.moveInput = controlerYInput;
+		RobotMap.driveTrain.moveInput = controlerMoveInput;
 		
 		
 		JoystickButton command = null;
@@ -53,7 +53,7 @@ public class OI {
 			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
 	        command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
 	        command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-	        command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));	
+	        command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.4));	
 		}
 		
         
