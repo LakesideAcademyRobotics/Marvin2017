@@ -69,6 +69,20 @@ public class RobotMap {
 		return null;
 	}
 	
+	public static CANTalon tryInitCanTalon(int channel){
+		try{
+			CANTalon talon = new CANTalon(channel);
+			return talon;
+		}catch (RuntimeException re){
+			if(re.getMessage().contains("Code: -1029")){
+				System.err.println("ERRROR! CanTalon " + channel + " is not pluged-in.");
+			}else{
+				System.err.println(re.getMessage());
+			}
+		}
+		return null;
+	}
+	
 	public static ADXRS450_Gyro tryInitGyro(){
 		try{
 			ADXRS450_Gyro gyro = new ADXRS450_Gyro();
