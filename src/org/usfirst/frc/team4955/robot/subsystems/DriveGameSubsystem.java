@@ -73,6 +73,10 @@ public class DriveGameSubsystem extends Subsystem{
 			return value;
 		}
 	}
+	
+	public boolean isPresent(){
+		return RobotMap.driveTrain != null;
+	}
 
 	@Override
 	protected void initDefaultCommand() {

@@ -43,16 +43,16 @@ public class RobotMap {
 		driveTrain = new RobotDrive(2,3);
 		
 		gyro = new ADXRS450_Gyro();
-		gyro.reset();
+		
 		//frontLeftSensor = new AnalogInput(0);	
 		frontRightSensor = new AnalogInput(1);
 		
 		brushTalon = new Talon(2);
-		/*winchTalon = new Talon(0);
+		//winchTalon = new Talon(0);
 
-		elavatorTalon = new Talon(0);
-		feedWheelTalon = new Talon(0);
-		shootWheelTalon = new CANTalon(0);
-		feederBallSensor = new AnalogInput(0);*/
+		//elavatorTalon = new Talon(0);
+		//feedWheelTalon = new Talon(0);
+		//shootWheelTalon = new CANTalon(0);
+		//feederBallSensor = new AnalogInput(0);
 	}
 }

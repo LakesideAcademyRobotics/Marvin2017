@@ -9,7 +9,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
+import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
+import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +25,8 @@ public class Robot extends IterativeRobot {
 	
 	//Subsystems
 	public static DriveGameSubsystem driveSubsystem;
+	public static BallPickUpSubsystem ballPickUpSystem;
+	public static WinchSubsystem winchSystem;
 	
 
 	Command autonomousCommand;
@@ -34,12 +39,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-        OI.init();
         
+
         CameraServer.getInstance().startAutomaticCapture();
         
         driveSubsystem = new DriveGameSubsystem(RobotMap.driveTrain, RobotMap.gyro);
+        ballPickUpSystem = new BallPickUpSubsystem();
+        winchSystem = new WinchSubsystem();
+        
 
+        OI.init();
         
         //CameraServer.getInstance().startAutomaticCapture(0);
         
@@ -100,16 +109,14 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
+		
 		//if (autonomousCommand != null)
 		//	autonomousCommand.cancel();
-		
-        //Command drive = new JoystickDrive();
-        //Scheduler.getInstance().add(drive);
-        //drive.start();
+		if(driveSubsystem.isPresent()){
+			Command drive = new JoystickDrive();
+	        Scheduler.getInstance().add(drive);
+			drive.start();
+		}
 	}
 	
 	@Override
