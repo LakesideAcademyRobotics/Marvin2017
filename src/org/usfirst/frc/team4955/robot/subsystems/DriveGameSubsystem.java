@@ -1,21 +1,22 @@
 package org.usfirst.frc.team4955.robot.subsystems;
 
 import org.usfirst.frc.team4955.robot.RobotMap;
-import org.usfirst.frc.team4955.robot.utils.input.TeleopInput;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveGameSubsystem extends Subsystem{
 
 	public RobotDrive robotDrive;
+	private double MaxOutputCap = 1; //The maxium value for MaxOutput of robotDrive;
+	public boolean reverseInput = false;
 	
 	//Gyro
 	public Gyro gyro;
 	public double correctionFactor = 0.2;
 	public double MAX_CORRECTION = 0.2;
+	
 	
 	public DriveGameSubsystem(RobotDrive robotDrive, Gyro gyro) {
 		super();
@@ -23,9 +24,26 @@ public class DriveGameSubsystem extends Subsystem{
 		this.robotDrive = robotDrive;
 	}
 	
+	public void setMaxOutputCap(double newCap){
+		MaxOutputCap = newCap;
+	}
+	
+	public void SetMaxOutput(double maxOutput){
+		// Use maxOutput if it's smaller then MaxOutputCap
+		double newMaxOutput = Math.min(maxOutput, MaxOutputCap);
+		robotDrive.setMaxOutput(newMaxOutput);
+	}
+	
+	
 	public void Periodic(double movement, double rotation){
-		correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
-		SmartDashboard.putNumber("Correction", 0);
+		if(reverseInput){
+			movement = -movement;
+			rotation = -rotation;
+		}
+			
+			
+		//correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
+		//SmartDashboard.putNumber("Correction", 0);
 		
 		if(gyro == null){
 			robotDrive.arcadeDrive(movement, rotation);
@@ -49,11 +67,10 @@ public class DriveGameSubsystem extends Subsystem{
 				
 			}else{
 				double correction  = (gyro.getAngle() * correctionFactor);
-				
 				correction = CapValue(correction, -MAX_CORRECTION , MAX_CORRECTION);
 				
-				SmartDashboard.putBoolean("GyroPause", false);
-				SmartDashboard.putNumber("Correction", correction);
+				//SmartDashboard.putBoolean("GyroPause", false);
+				//SmartDashboard.putNumber("Correction", correction);
 				//We will apply the correction the correction
 				rotation -= correction;
 			}

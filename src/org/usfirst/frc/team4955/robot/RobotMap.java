@@ -19,6 +19,7 @@ public class RobotMap {
 	public static RobotDrive driveTrain;
 	
 	//Gyro
+	public static ADXRS450_Gyro gyro;
 
 
 	// Winch
@@ -37,22 +38,48 @@ public class RobotMap {
 	public static CANTalon shootWheelTalon;
 	public static AnalogInput feederBallSensor;
 	
-	public static ADXRS450_Gyro gyro;
-	
 	public static void init(){
 		driveTrain = new RobotDrive(2,3);
 		
-		gyro = new ADXRS450_Gyro();
+		gyro = tryInitGyro();
 		
 		//frontLeftSensor = new AnalogInput(0);	
 		frontRightSensor = new AnalogInput(0);
 		
-		brushTalon = new Talon(2);
-		//winchTalon = new Talon(0);
+		brushTalon = tryInitTalon(3);
+		//winchTalon = tryInitTalon(3);
 
-		//elavatorTalon = new Talon(0);
-		//feedWheelTalon = new Talon(0);
-		//shootWheelTalon = new CANTalon(0);
-		//feederBallSensor = new AnalogInput(0);
+		//elavatorTalon = tryInitTalon(3);
+		//feedWheelTalon = tryInitTalon(3);
+		//shootWheelTalon = tryInitTalon(3);
+		//feederBallSensor = tryInitTalon(3);
+	}
+	
+	public static Talon tryInitTalon(int channel){
+		try{
+			Talon talon = new Talon(channel);
+			return talon;
+		}catch (RuntimeException re){
+			if(re.getMessage().contains("Code: -1029")){
+				System.err.println("ERRROR! Talon " + channel + " is not pluged-in.");
+			}else{
+				System.err.println(re.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	public static ADXRS450_Gyro tryInitGyro(){
+		try{
+			ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+			return gyro;
+		}catch (RuntimeException re){
+			if(re.getMessage().contains("Code: -1029")){
+				System.err.println("ERRROR! Gyro is not pluged-in.");
+			}else{
+				System.err.println(re.getMessage());
+			}
+		}
+		return null;
 	}
 }

@@ -38,6 +38,7 @@ public class OI {
 		
 		// Set up the joystick
 		mainJoystick = new Joystick(0);
+		System.out.println((mainJoystick == null) + " is the joys.");
 		
 		controlerMovementInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		controlerRotationInput = new DualAxisInput(mainJoystick, GamepadAxis.RightTrigger.value(), mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
