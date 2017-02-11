@@ -10,9 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4955.robot.commands.ExampleCommand;
-import org.usfirst.frc.team4955.robot.commands.driveCommands.JoystickDrive;
+import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
 import org.usfirst.frc.team4955.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team4955.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
 import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
 import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadAxis;

@@ -39,7 +39,7 @@ public class OI {
 		mainJoystick = new Joystick(0);
 		
 		controlerXInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
-		controlerGyroInput = new GyroRatationInput(controlerXInput);
+		//controlerGyroInput = new GyroRatationInput(controlerXInput);
 		controlerYInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		//RobotMap.driveTrain.xInput = controlerGyroInput;
 		//RobotMap.driveTrain.yInput = controlerYInput;

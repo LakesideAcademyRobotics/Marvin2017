@@ -37,12 +37,13 @@ public class DriveGameSubsystem extends Subsystem{
 	
 
 	private void PeriodicWithGyro(float movement, float rotation) {
+		
 		if(movement == 0){
 			gyro.reset();
-			return rotationInput.getInput();
+			//Move as normal
 			
 		}else{
-			if(rotationInput.getInput() == 0){
+			if(rotation == 0){
 				double correction  = (gyro.getAngle() * correctionFactor);
 				
 				if(correction > MAX_CORRECTION){
@@ -52,7 +53,8 @@ public class DriveGameSubsystem extends Subsystem{
 				}
 				SmartDashboard.putBoolean("GyroPause", false);
 				SmartDashboard.putNumber("Correction", correction);
-				return rotationInput.getInput() - correction;
+				rotation -= correction;
+				//We will remove the correction
 
 			}else{
 				resetGyro();
@@ -60,6 +62,9 @@ public class DriveGameSubsystem extends Subsystem{
 			}
 			
 		}
+		
+
+		PeriodicWithGyro(movement, rotation);
 	}
 
 	@Override
