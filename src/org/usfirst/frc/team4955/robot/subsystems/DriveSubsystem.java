@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4955.robot.subsystems;
 
 import org.usfirst.frc.team4955.robot.RobotMap;
-import org.usfirst.frc.team4955.robot.commands.driveCommands.JoystickDrive;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.DriveTrainControler;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -17,6 +16,10 @@ public class DriveSubsystem extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		//new JoystickDrive();
+	}
+	
+	public boolean isPresent(){
+		return RobotMap.driveTrain != null;
 	}
 
 }

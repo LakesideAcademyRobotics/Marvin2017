@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	
 	public static Joystick mainJoystick;
-	private static TeleopInput controlerXInput;
+	private static TeleopInput controlerRotateInput;
 	public static GyroRatationInput controlerGyroInput;
-	public static TeleopInput controlerYInput;
+	public static TeleopInput controlerMoveInput;
 	
 	public static GamepadButton REVERSE_DRIVE_BUTTOM_NUMBER = GamepadButton.A;
 	public static GamepadButton SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER = GamepadButton.B;
@@ -38,34 +38,42 @@ public class OI {
 	public static void init(){
 		mainJoystick = new Joystick(0);
 		
-		controlerXInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
-		controlerGyroInput = new GyroRatationInput(controlerXInput);
-		controlerYInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
-		RobotMap.driveTrain.xInput = controlerGyroInput;
-		RobotMap.driveTrain.yInput = controlerYInput;
+		controlerRotateInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
+		controlerGyroInput = new GyroRatationInput(controlerRotateInput, RobotMap.gyro);
+		controlerMoveInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
+		RobotMap.driveTrain.rotateInput = controlerGyroInput;
+		RobotMap.driveTrain.moveInput = controlerMoveInput;
 		
 		
 		JoystickButton command = null;
 		
 		
 		//Drive
-		command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
-        command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
-        command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-        command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));
+		if(Robot.driveSubsystem.isPresent()){
+			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
+	        command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
+	        command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
+	        command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.4));	
+		}
+		
         
         // Ball pick-up
-        command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
-		command.toggleWhenActive(new StartConveyor());
-		command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
-		command.toggleWhenActive(new StopPickup());
-		
+		if(Robot.ballPickUpSubsytem.isPresent()){
+			command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
+			command.toggleWhenActive(new StartConveyor());
+			command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
+			command.toggleWhenActive(new StopPickup());	
+		}
+        
 		
 		//Winch
-		command = new JoystickButton(mainJoystick, WINCH_PULL.value());
-		command.toggleWhenActive(new WinchPull());
-		
-		command = new JoystickButton(mainJoystick, WINCH_PUSH.value());
-		command.toggleWhenActive(new WinchPush());		
+		if(Robot.wrinchSubsytem.isPresent()){
+			command = new JoystickButton(mainJoystick, WINCH_PULL.value());
+			command.toggleWhenActive(new WinchPull());
+			
+			command = new JoystickButton(mainJoystick, WINCH_PUSH.value());
+			command.toggleWhenActive(new WinchPush());	
+		}
+				
 	}
 }

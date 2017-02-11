@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4955.robot.utils.driveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class InverseDriveTrainCommand extends Command {
 
@@ -14,7 +15,8 @@ public class InverseDriveTrainCommand extends Command {
 	@Override
 	protected void initialize() {
 		driveTrainControler.inverse();
-		//System.err.println("ERROR : Ca marche inverse");
+		SmartDashboard.putNumber("test", 123);
+		SmartDashboard.putString("test123", "Kwame");
 	}
 
 	@Override

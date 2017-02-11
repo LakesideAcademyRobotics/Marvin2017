@@ -16,8 +16,8 @@ public class DriveTrainControler {
 	private HashMap<MotorType, Boolean> motorsInvertedValue;
 	private DriveType currentDriveType;
 	
-	public TeleopInput xInput;
-	public TeleopInput yInput;
+	public TeleopInput rotateInput;
+	public TeleopInput moveInput;
 	
 	private double maxOutput;
 	
@@ -26,7 +26,7 @@ public class DriveTrainControler {
 	public DriveTrainControler(int LeftMotor, int RightMotor){
 		 this(-1, LeftMotor, -1, RightMotor);
 	}
-	public DriveTrainControler(int frontLeftMotor, int rearLeftMotor, int frontRightMotor, int rearRightMotor){
+	public DriveTrainControler(int frontRightMotor, int rearRightMotor, int rearLeftMotor, int frontLeftMotor){
 		try{
 			if(frontLeftMotor == -1)
 				robotDrive = new RobotDrive(rearLeftMotor,rearRightMotor);
@@ -51,7 +51,7 @@ public class DriveTrainControler {
 		
 		currentDriveType = DriveType.Arcade;
 		
-		maxOutput = 0.4;
+		maxOutput = 1;
 		robotDrive.setMaxOutput(maxOutput);
 	}
 	
@@ -64,9 +64,15 @@ public class DriveTrainControler {
 	}
 	
 	public void inverse(){
+		String a = "";
 		for (Entry<MotorType, Boolean> keyset : motorsInvertedValue.entrySet()) {
 			reverse(keyset.getKey());
+			a += keyset.getKey() + " - ";
+			SmartDashboard.putString("tewt", a);
 		}
+		
+		
+		SmartDashboard.putString("tewt", a);
 		reversed = !reversed;
 	}
 	
@@ -74,6 +80,7 @@ public class DriveTrainControler {
 		Boolean currentValue = motorsInvertedValue.get(motor).booleanValue();
 		motorsInvertedValue.put(motor, !currentValue);
 		robotDrive.setInvertedMotor(motor, !currentValue);
+		SmartDashboard.putString("tot", "aaaaaaaaaaa");
 	}
 	
 	public void setDriveType(DriveType type){
@@ -95,16 +102,16 @@ public class DriveTrainControler {
 		SmartDashboard.putBoolean("Drive forward", !reversed);
 		
 		
-		if(xInput == null || yInput == null){
+		if(rotateInput == null || moveInput == null){
 			System.err.println("Drive train controler needs X and Y TeleInput");
 			return;
 		}
 		
 		switch(currentDriveType){
 			case Arcade:
-				robotDrive.arcadeDrive(yInput.getInput(), xInput.getInput());
-				SmartDashboard.putNumber("X", xInput.getInput());
-				SmartDashboard.putNumber("Y", yInput.getInput());
+				robotDrive.arcadeDrive(moveInput.getInput(), rotateInput.getInput());
+				SmartDashboard.putNumber("X", rotateInput.getInput());
+				SmartDashboard.putNumber("Y", moveInput.getInput());
 				break;
 			case Mecanum:
 	            //robotDrive.mecanumDrive_Cartesian(stick1.getX(), stick1.getY(), stick1.getZ(), 0);
