@@ -9,12 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4955.robot.commands.ExampleCommand;
-import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
-import org.usfirst.frc.team4955.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
-import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
-import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadAxis;
+import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +21,7 @@ import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadAxis;
 public class Robot extends IterativeRobot {
 	
 	//Subsystems
-	public static DriveSubsystem driveSubsystem;
+	public static DriveGameSubsystem driveSubsystem;
 	
 
 	Command autonomousCommand;
@@ -42,12 +37,9 @@ public class Robot extends IterativeRobot {
         OI.init();
         
         CameraServer.getInstance().startAutomaticCapture();
+        
+        driveSubsystem = new DriveGameSubsystem(RobotMap.driveTrain, RobotMap.gyro);
 
-        
-        driveSubsystem = new DriveSubsystem();
-        
-        
-        SmartDashboard.putBoolean("Use Trigger to move forward",false);
         
         //CameraServer.getInstance().startAutomaticCapture(0);
         
@@ -130,12 +122,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
-		//if(SmartDashboard.getBoolean("Use Trigger to move forward",false))
-			//RobotMap.driveTrain.yInput = new DualAxisInput(OI.mainJoystick, GamepadAxis.RightTrigger.value(), OI.mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
-		//else
-			//RobotMap.driveTrain.yInput = new JoystickInput(OI.mainJoystick, GamepadAxis.LeftY.value(), 0.14);
-		
+				
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());

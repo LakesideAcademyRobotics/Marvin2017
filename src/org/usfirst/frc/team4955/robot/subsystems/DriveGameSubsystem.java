@@ -23,7 +23,7 @@ public class DriveGameSubsystem extends Subsystem{
 		this.robotDrive = robotDrive;
 	}
 	
-	public void Periodic(float movement, float rotation){
+	public void Periodic(double movement, double rotation){
 		correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
 		SmartDashboard.putNumber("Correction", 0);
 		
@@ -36,7 +36,7 @@ public class DriveGameSubsystem extends Subsystem{
 	}
 	
 
-	private void PeriodicWithGyro(float movement, float rotation) {
+	private void PeriodicWithGyro(double movement, double rotation) {
 		
 		if(movement == 0){
 			gyro.reset();
