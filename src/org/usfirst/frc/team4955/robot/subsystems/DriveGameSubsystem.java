@@ -43,28 +43,35 @@ public class DriveGameSubsystem extends Subsystem{
 			//Move as normal
 			
 		}else{
-			if(rotation == 0){
+			if(rotation != 0){
+				//We don't apply correction when the inputed rotation wants to turn. ( not zero )
+				gyro.reset();
+				
+			}else{
 				double correction  = (gyro.getAngle() * correctionFactor);
 				
-				if(correction > MAX_CORRECTION){
-					correction = MAX_CORRECTION;
-				}else if(correction < -MAX_CORRECTION){
-					correction = -MAX_CORRECTION;
-				}
+				correction = CapValue(correction, -MAX_CORRECTION , MAX_CORRECTION);
+				
 				SmartDashboard.putBoolean("GyroPause", false);
 				SmartDashboard.putNumber("Correction", correction);
+				//We will apply the correction the correction
 				rotation -= correction;
-				//We will remove the correction
-
-			}else{
-				resetGyro();
-				return rotationInput.getInput();
 			}
 			
 		}
 		
 
 		PeriodicWithGyro(movement, rotation);
+	}
+	
+	private double CapValue(double value, double min, double max){
+		if(value > max){
+			return max;
+		}else if(value < min){
+			return min;
+		}else{
+			return value;
+		}
 	}
 
 	@Override
