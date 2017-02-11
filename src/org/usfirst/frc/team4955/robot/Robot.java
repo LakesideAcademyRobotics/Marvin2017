@@ -1,16 +1,6 @@
 
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.commands.driveCommands.JoystickDrive;
-import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
-import org.usfirst.frc.team4955.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team4955.robot.subsystems.WrinchSubsystem;
-import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
-import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
-import org.usfirst.frc.team4955.robot.utils.utils.CameraManager;
-import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadAxis;
-
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,6 +8,14 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team4955.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4955.robot.commands.driveCommands.JoystickDrive;
+import org.usfirst.frc.team4955.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team4955.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
+import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
+import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadAxis;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,8 +28,6 @@ public class Robot extends IterativeRobot {
 	
 	//Subsystems
 	public static DriveSubsystem driveSubsystem;
-	public static BallPickUpSubsystem ballPickUpSubsytem;
-	public static WrinchSubsystem wrinchSubsytem;
 	
 
 	Command autonomousCommand;
@@ -44,32 +40,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		
-        driveSubsystem = new DriveSubsystem();
-        ballPickUpSubsytem = new BallPickUpSubsystem();
-        wrinchSubsytem = new WrinchSubsystem();
-        
         OI.init();
         
+        CameraServer.getInstance().startAutomaticCapture();
+
         
-       /* UsbCamera cam0 = new UsbCamera("Front", 0);
-        UsbCamera cam1 = new UsbCamera("Back", 1);
-        if(cam0.isConnected()){
-        	System.out.println("KWAME");
-        }
-        if(cam1.isConnected()){
-        	System.out.println("KWAME");
-        }
-    	System.out.println("connected " + cam0.isConnected() + ", valid" + cam0.isValid());
-    	System.out.println("connected " + cam1.isConnected() + ", valid" + cam1.isValid());
-        */
-        CameraServer.getInstance().startAutomaticCapture("Front", 0);
-        /*
-        System.out.println("connected " + cam0.isConnected() + ", valid" + cam0.isValid());
-    	System.out.println("connected " + cam1.isConnected() + ", valid" + cam1.isValid());
-        */
+        driveSubsystem = new DriveSubsystem();
         
-        SmartDashboard.putBoolean("Use Trigger to move forward",true);
+        
+        SmartDashboard.putBoolean("Use Trigger to move forward",false);
         
         //CameraServer.getInstance().startAutomaticCapture(0);
         
@@ -137,11 +116,9 @@ public class Robot extends IterativeRobot {
 		//if (autonomousCommand != null)
 		//	autonomousCommand.cancel();
 		
-		if(RobotMap.driveTrain != null){
-			Command drive = new JoystickDrive();
-	        Scheduler.getInstance().add(drive);
-	        drive.start();	
-		}
+        //Command drive = new JoystickDrive();
+        //Scheduler.getInstance().add(drive);
+        //drive.start();
 	}
 	
 	@Override
@@ -155,13 +132,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-		
-		if(SmartDashboard.getBoolean("Use Trigger to move forward",false))
-			RobotMap.driveTrain.moveInput = new DualAxisInput(OI.mainJoystick, GamepadAxis.RightTrigger.value(), OI.mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
-		else
-			RobotMap.driveTrain.moveInput = new JoystickInput(OI.mainJoystick, GamepadAxis.LeftY.value(), 0.14);
+		//if(SmartDashboard.getBoolean("Use Trigger to move forward",false))
+			//RobotMap.driveTrain.yInput = new DualAxisInput(OI.mainJoystick, GamepadAxis.RightTrigger.value(), OI.mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
+		//else
+			//RobotMap.driveTrain.yInput = new JoystickInput(OI.mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
 	}
 
 	/**

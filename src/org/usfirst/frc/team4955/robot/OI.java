@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4955.robot;
 
 import org.usfirst.frc.team4955.robot.commands.WinchPull;
-import org.usfirst.frc.team4955.robot.commands.WinchPush;
 import org.usfirst.frc.team4955.robot.commands.ball.StartConveyor;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
+import org.usfirst.frc.team4955.robot.commands.drive.Turn135;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.SetDriveTrainMaxOutputCommand;
 import org.usfirst.frc.team4955.robot.utils.input.GyroRatationInput;
@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	
 	public static Joystick mainJoystick;
-	private static TeleopInput controlerRotateInput;
+	private static TeleopInput controlerXInput;
 	public static GyroRatationInput controlerGyroInput;
-	public static TeleopInput controlerMoveInput;
+	public static TeleopInput controlerYInput;
 	
 	public static GamepadButton REVERSE_DRIVE_BUTTOM_NUMBER = GamepadButton.A;
 	public static GamepadButton SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER = GamepadButton.B;
@@ -32,48 +32,40 @@ public class OI {
 	public static GamepadButton DRIVE_OUTPUT_RAISE_BUTTOM_NUMBER = GamepadButton.RB;
 	public static GamepadButton BALL_PICKUP = GamepadButton.X;
 	public static GamepadButton STOP_BALL_PICKUP = GamepadButton.Y;
-	public static GamepadButton WINCH_PULL = GamepadButton.Start;
-	public static GamepadButton WINCH_PUSH = GamepadButton.Back;
-	
+	public static GamepadButton WINCH_PULL = GamepadButton.A;
+	public static GamepadButton TURN_BUTTON = GamepadButton.Start;
+
 	public static void init(){
 		mainJoystick = new Joystick(0);
 		
-		controlerRotateInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
-		controlerGyroInput = new GyroRatationInput(controlerRotateInput, RobotMap.gyro);
-		controlerMoveInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
-		RobotMap.driveTrain.rotateInput = controlerGyroInput;
-		RobotMap.driveTrain.moveInput = controlerMoveInput;
+		controlerXInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
+		controlerGyroInput = new GyroRatationInput(controlerXInput);
+		controlerYInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
+		//RobotMap.driveTrain.xInput = controlerGyroInput;
+		//RobotMap.driveTrain.yInput = controlerYInput;
 		
 		
 		JoystickButton command = null;
 		
 		
 		//Drive
-		if(Robot.driveSubsystem.isPresent()){
-			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
-	        command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
-	        command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-	        command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.4));	
-		}
-		
+		//command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
+        //command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
+        //command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
+        //command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));
         
         // Ball pick-up
-		if(Robot.ballPickUpSubsytem.isPresent()){
-			command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
-			command.toggleWhenActive(new StartConveyor());
-			command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
-			command.toggleWhenActive(new StopPickup());	
-		}
-        
+        command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
+		command.toggleWhenActive(new StartConveyor());
+		command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
+		command.toggleWhenActive(new StopPickup());
 		
+		//Turn 
+        command = new JoystickButton(mainJoystick, TURN_BUTTON.value());
+        command.toggleWhenActive(new Turn135());
+        
 		//Winch
-		if(Robot.wrinchSubsytem.isPresent()){
-			command = new JoystickButton(mainJoystick, WINCH_PULL.value());
-			command.toggleWhenActive(new WinchPull());
-			
-			command = new JoystickButton(mainJoystick, WINCH_PUSH.value());
-			command.toggleWhenActive(new WinchPush());	
-		}
-				
+		command = new JoystickButton(mainJoystick, WINCH_PULL.value());
+		command.toggleWhenActive(new WinchPull());
 	}
 }
