@@ -5,7 +5,7 @@ import org.usfirst.frc.team4955.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Thrower_Stop  extends Command{
+public class Thrower_Start  extends Command{
 	@Override
 	protected boolean isFinished() {
 		return isTimedOut();
@@ -20,7 +20,7 @@ public class Thrower_Stop  extends Command{
 	}
 	@Override
 	protected void end() {
-		SmartDashboard.putBoolean("Ball Shoot", false);
+		SmartDashboard.putBoolean("Ball Pickup", false);
 		RobotMap.feedWheelTalon.set(0);
 	}
 }

@@ -23,7 +23,7 @@ public class DriveGameSubsystem extends Subsystem{
 		this.robotDrive = robotDrive;
 	}
 	
-	public void Periodic(float movement, float rotation){
+	public void Periodic(double movement, double rotation){
 		correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
 		SmartDashboard.putNumber("Correction", 0);
 		
@@ -36,35 +36,42 @@ public class DriveGameSubsystem extends Subsystem{
 	}
 	
 
-	private void PeriodicWithGyro(float movement, float rotation) {
+	private void PeriodicWithGyro(double movement, double rotation) {
 		
 		if(movement == 0){
 			gyro.reset();
 			//Move as normal
 			
 		}else{
-			if(rotation == 0){
+			if(rotation != 0){
+				//We don't apply correction when the inputed rotation wants to turn. ( not zero )
+				gyro.reset();
+				
+			}else{
 				double correction  = (gyro.getAngle() * correctionFactor);
 				
-				if(correction > MAX_CORRECTION){
-					correction = MAX_CORRECTION;
-				}else if(correction < -MAX_CORRECTION){
-					correction = -MAX_CORRECTION;
-				}
+				correction = CapValue(correction, -MAX_CORRECTION , MAX_CORRECTION);
+				
 				SmartDashboard.putBoolean("GyroPause", false);
 				SmartDashboard.putNumber("Correction", correction);
+				//We will apply the correction the correction
 				rotation -= correction;
-				//We will remove the correction
-
-			}else{
-				resetGyro();
-				return rotationInput.getInput();
 			}
 			
 		}
 		
 
 		PeriodicWithGyro(movement, rotation);
+	}
+	
+	private double CapValue(double value, double min, double max){
+		if(value > max){
+			return max;
+		}else if(value < min){
+			return min;
+		}else{
+			return value;
+		}
 	}
 
 	@Override

@@ -1,14 +1,12 @@
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.utils.driveTrain.DriveTrainControler;
 
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -18,7 +16,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  */
 public class RobotMap {
 	
-	public static DriveTrainControler driveTrain;
+	public static RobotDrive driveTrain;
 	
 	//Gyro
 
@@ -30,7 +28,7 @@ public class RobotMap {
 	public static AnalogInput frontLeftSensor;
 	public static AnalogInput frontRightSensor;
 	
-	// Ball pick
+	// Ball pickup 
 	public static Talon brushTalon;
 	public static Talon elavatorTalon;
 	
@@ -42,7 +40,8 @@ public class RobotMap {
 	public static ADXRS450_Gyro gyro;
 	
 	public static void init(){
-		//driveTrain = new DriveTrainControler(2,3);
+		driveTrain = new RobotDrive(2,3);
+		
 		gyro = new ADXRS450_Gyro();
 		gyro.reset();
 		//frontLeftSensor = new AnalogInput(0);	
