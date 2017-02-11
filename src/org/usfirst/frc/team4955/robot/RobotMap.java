@@ -39,19 +39,19 @@ public class RobotMap {
 	public static AnalogInput feederBallSensor;
 	
 	public static void init(){
-		driveTrain = new RobotDrive(2,3);
+		//driveTrain = new RobotDrive(2,3);
 		
 		gyro = tryInitGyro();
 		
 		//frontLeftSensor = new AnalogInput(0);	
 		frontRightSensor = new AnalogInput(0);
 		
-		brushTalon = tryInitTalon(3);
+		//brushTalon = tryInitTalon(3);
 		//winchTalon = tryInitTalon(3);
 
 		//elavatorTalon = tryInitTalon(3);
 		//feedWheelTalon = tryInitTalon(3);
-		//shootWheelTalon = tryInitTalon(3);
+		//shootWheelTalon = tryInitCanTalon(3);
 		//feederBallSensor = tryInitTalon(3);
 	}
 	
