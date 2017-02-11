@@ -116,9 +116,9 @@ public class Robot extends IterativeRobot {
 		//if (autonomousCommand != null)
 		//	autonomousCommand.cancel();
 		
-        Command drive = new JoystickDrive();
-        Scheduler.getInstance().add(drive);
-        drive.start();
+        //Command drive = new JoystickDrive();
+        //Scheduler.getInstance().add(drive);
+        //drive.start();
 	}
 	
 	@Override
@@ -132,12 +132,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-		if(SmartDashboard.getBoolean("Use Trigger to move forward",false))
-			RobotMap.driveTrain.yInput = new DualAxisInput(OI.mainJoystick, GamepadAxis.RightTrigger.value(), OI.mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
-		else
-			RobotMap.driveTrain.yInput = new JoystickInput(OI.mainJoystick, GamepadAxis.LeftY.value(), 0.14);
+		//if(SmartDashboard.getBoolean("Use Trigger to move forward",false))
+			//RobotMap.driveTrain.yInput = new DualAxisInput(OI.mainJoystick, GamepadAxis.RightTrigger.value(), OI.mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
+		//else
+			//RobotMap.driveTrain.yInput = new JoystickInput(OI.mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
 	}
 
 	/**

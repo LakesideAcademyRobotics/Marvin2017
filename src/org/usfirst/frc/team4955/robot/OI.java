@@ -3,6 +3,7 @@ package org.usfirst.frc.team4955.robot;
 import org.usfirst.frc.team4955.robot.commands.WinchPull;
 import org.usfirst.frc.team4955.robot.commands.ball.StartConveyor;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
+import org.usfirst.frc.team4955.robot.commands.drive.Turn135;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.utils.driveTrain.SetDriveTrainMaxOutputCommand;
 import org.usfirst.frc.team4955.robot.utils.input.GyroRatationInput;
@@ -32,25 +33,26 @@ public class OI {
 	public static GamepadButton BALL_PICKUP = GamepadButton.X;
 	public static GamepadButton STOP_BALL_PICKUP = GamepadButton.Y;
 	public static GamepadButton WINCH_PULL = GamepadButton.A;
-	
+	public static GamepadButton TURN_BUTTON = GamepadButton.Start;
+
 	public static void init(){
 		mainJoystick = new Joystick(0);
 		
 		controlerXInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
 		controlerGyroInput = new GyroRatationInput(controlerXInput);
 		controlerYInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
-		RobotMap.driveTrain.xInput = controlerGyroInput;
-		RobotMap.driveTrain.yInput = controlerYInput;
+		//RobotMap.driveTrain.xInput = controlerGyroInput;
+		//RobotMap.driveTrain.yInput = controlerYInput;
 		
 		
 		JoystickButton command = null;
 		
 		
 		//Drive
-		command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
-        command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
-        command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-        command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));
+		//command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
+        //command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
+        //command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
+        //command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));
         
         // Ball pick-up
         command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
@@ -58,7 +60,10 @@ public class OI {
 		command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
 		command.toggleWhenActive(new StopPickup());
 		
-		
+		//Turn 
+        command = new JoystickButton(mainJoystick, TURN_BUTTON.value());
+        command.toggleWhenActive(new Turn135());
+        
 		//Winch
 		command = new JoystickButton(mainJoystick, WINCH_PULL.value());
 		command.toggleWhenActive(new WinchPull());
