@@ -35,32 +35,41 @@ public class OI {
 	public static GamepadButton TURN_BUTTON = GamepadButton.Start;
 
 	public static void init(){
+		
+		// Set up the joystick
 		mainJoystick = new Joystick(0);
 		
 		controlerMovementInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		controlerRotationInput = new DualAxisInput(mainJoystick, GamepadAxis.RightTrigger.value(), mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
 		
+		
 		JoystickButton command = null;
 		
 		
 		//Drive
-		//command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
-        //command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
-        //command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-        //command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));
+		if(Robot.driveSubsystem.isPresent()){
+			//command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
+	        //command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
+	        //command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
+	        //command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));
+		}
         
         // Ball pick-up
-        command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
-		command.toggleWhenActive(new StartConveyor());
-		command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
-		command.toggleWhenActive(new StopPickup());
+		if(Robot.ballPickUpSystem.isPresent()){
+	        command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
+			command.toggleWhenActive(new StartConveyor());
+			command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
+			command.toggleWhenActive(new StopPickup());
+		}
 		
 		//Turn 
         command = new JoystickButton(mainJoystick, TURN_BUTTON.value());
         command.toggleWhenActive(new Turn135());
         
 		//Winch
-		command = new JoystickButton(mainJoystick, WINCH_PULL.value());
-		command.toggleWhenActive(new WinchPull());
+        if(Robot.winchSystem.isPresent()){
+    		command = new JoystickButton(mainJoystick, WINCH_PULL.value());
+    		command.toggleWhenActive(new WinchPull());
+        }
 	}
 }

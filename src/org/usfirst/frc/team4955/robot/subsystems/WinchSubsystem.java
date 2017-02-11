@@ -4,7 +4,7 @@ import org.usfirst.frc.team4955.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class WrinchSubsystem extends Subsystem{
+public class WinchSubsystem extends Subsystem{
 
 	@Override
 	protected void initDefaultCommand() {
