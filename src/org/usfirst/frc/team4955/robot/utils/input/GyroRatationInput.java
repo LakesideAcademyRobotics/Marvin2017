@@ -2,24 +2,57 @@ package org.usfirst.frc.team4955.robot.utils.input;
 
 import org.usfirst.frc.team4955.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GyroRatationInput implements TeleopInput{
 	
 	TeleopInput rotationInput;
+	Gyro gyro;
+	public double correctionFactor = 0.2;
 	
-	public GyroRatationInput(TeleopInput rotationInput) {
+	public double MAX_CORRECTION;
+	
+	public GyroRatationInput(TeleopInput rotationInput, Gyro gyro) {
 		super();
+		this.gyro = gyro;
 		this.rotationInput = rotationInput;
+		SmartDashboard.putNumber("gyroCorr", 0.2);
 	}
 	
+	void resetGyro()
+	{
+		gyro.reset();
+	}
 	
 	@Override
 	public double getInput() {
-		if(RobotMap.driveTrain.yInput.getInput() != 0){
+		
+		correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
+		SmartDashboard.putNumber("Correction", 0);
+		
+		if(RobotMap.driveTrain.moveInput.getInput() == 0){
+			resetGyro();
 			return rotationInput.getInput();
+			
 		}else{
-			return rotationInput.getInput() - SmartDashboard.getNumber("driftCorrection", 0.1);
+			if(rotationInput.getInput() == 0){
+				double correction  = (gyro.getAngle() * correctionFactor);
+				
+				if(correction > MAX_CORRECTION){
+					correction = MAX_CORRECTION;
+				}else if(correction < -MAX_CORRECTION){
+					correction = -MAX_CORRECTION;
+				}
+				SmartDashboard.putBoolean("GyroPause", false);
+				SmartDashboard.putNumber("Correction", correction);
+				return rotationInput.getInput() - correction;
+
+			}else{
+				resetGyro();
+				return rotationInput.getInput();
+			}
+			
 		}
 	}
 }
