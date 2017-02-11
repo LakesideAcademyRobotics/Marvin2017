@@ -26,7 +26,7 @@ public class RobotMap {
 	public static AnalogInput frontLeftSensor;
 	public static AnalogInput frontRightSensor;
 	
-	// Ball pick
+	// Ball pickup 
 	public static Talon brushTalon;
 	public static Talon elavatorTalon;
 	

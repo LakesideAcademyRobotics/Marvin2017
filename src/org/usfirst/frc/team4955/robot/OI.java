@@ -34,6 +34,7 @@ public class OI {
 	public static GamepadButton STOP_BALL_PICKUP = GamepadButton.Y;
 	public static GamepadButton WINCH_PULL = GamepadButton.Start;
 	public static GamepadButton WINCH_PUSH = GamepadButton.Back;
+	public static GamepadButton THROWER_STOP = GamepadButton.LB; 
 	
 	public static void init(){
 		mainJoystick = new Joystick(0);
