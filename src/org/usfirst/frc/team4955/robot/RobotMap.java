@@ -44,7 +44,7 @@ public class RobotMap {
 		gyro = tryInitGyro();
 		
 		//frontLeftSensor = new AnalogInput(0);	
-		frontRightSensor = new AnalogInput(1);
+		frontRightSensor = new AnalogInput(0);
 		
 		brushTalon = tryInitTalon(3);
 		//winchTalon = tryInitTalon(3);
