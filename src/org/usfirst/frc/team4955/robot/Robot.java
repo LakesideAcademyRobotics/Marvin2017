@@ -133,6 +133,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
+		
+		SmartDashboard.putNumber("Distance From Wall", RobotMap.frontRightSensor.getValue());
 	}
 
 	/**

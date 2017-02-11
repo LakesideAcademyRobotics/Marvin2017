@@ -45,7 +45,7 @@ public class RobotMap {
 		gyro = new ADXRS450_Gyro();
 		
 		//frontLeftSensor = new AnalogInput(0);	
-		frontRightSensor = new AnalogInput(1);
+		frontRightSensor = new AnalogInput(0);
 		
 		brushTalon = new Talon(2);
 		//winchTalon = new Talon(0);
