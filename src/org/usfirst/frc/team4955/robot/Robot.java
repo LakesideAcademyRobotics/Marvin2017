@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team4955.robot;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoProperty;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,6 +13,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.opencv.core.Mat;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
@@ -39,23 +43,28 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		RobotMap.init();
-        
+		RobotMap.init(); 
+		subsystemInit();
 
-        CameraServer.getInstance().startAutomaticCapture();
         
-        driveSubsystem = new DriveGameSubsystem(RobotMap.driveTrain, RobotMap.gyro);
-        ballPickUpSystem = new BallPickUpSubsystem();
-        winchSystem = new WinchSubsystem();
-        
-
         OI.init();
-        
-        //CameraServer.getInstance().startAutomaticCapture(0);
+
+        //Cameras.StartLogitechHd1080p(0);
         
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		//SmartDashboard.putData("Auto mode", chooser);
+	}
+
+	private void subsystemInit() {
+        driveSubsystem = new DriveGameSubsystem(RobotMap.driveTrain, RobotMap.gyro);
+        ballPickUpSystem = new BallPickUpSubsystem();
+        winchSystem = new WinchSubsystem();
+        
+        SmartDashboard.putBoolean("Drive", driveSubsystem.isPresent());
+        SmartDashboard.putBoolean("Gyro", RobotMap.gyro != null);
+        SmartDashboard.putBoolean("Pickup", ballPickUpSystem.isPresent());
+        SmartDashboard.putBoolean("Winch", winchSystem.isPresent());
 	}
 
 	/**
@@ -122,7 +131,6 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void robotPeriodic() {
-		NetworkTable.getTable("vision").putString("test", "KWame");
 	}
 
 	/**
@@ -130,12 +138,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-				
+
 		Scheduler.getInstance().run();
-		
-		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
-		
-		SmartDashboard.putNumber("Distance From Wall", RobotMap.frontRightSensor.getValue());
 	}
 
 	/**

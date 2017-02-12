@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4955.robot;
 
 
+import org.usfirst.frc.team4955.robot.utils.driveTrain.DriveTrainControler;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -39,7 +41,8 @@ public class RobotMap {
 	public static AnalogInput feederBallSensor;
 	
 	public static void init(){
-		//driveTrain = new RobotDrive(2,3);
+		driveTrain = new RobotDrive(0,1,2,3);
+		InverseDriveTrain(driveTrain);
 		
 		gyro = tryInitGyro();
 		
@@ -55,6 +58,12 @@ public class RobotMap {
 		//feederBallSensor = tryInitTalon(3);
 	}
 	
+	private static void InverseDriveTrain(RobotDrive driveTrain) {
+		for (RobotDrive.MotorType type : RobotDrive.MotorType.values()) {
+			driveTrain.setInvertedMotor(type, true);
+		}
+	}
+
 	public static Talon tryInitTalon(int channel){
 		try{
 			Talon talon = new Talon(channel);
@@ -87,8 +96,8 @@ public class RobotMap {
 		try{
 			ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 			return gyro;
-		}catch (RuntimeException re){
-			if(re.getMessage().contains("Code: -1029")){
+		}catch (Exception re){
+			if(re.getMessage().contains("ADXRS450")){
 				System.err.println("ERRROR! Gyro is not pluged-in.");
 			}else{
 				System.err.println(re.getMessage());

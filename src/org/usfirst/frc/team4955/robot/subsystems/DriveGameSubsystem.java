@@ -11,11 +11,12 @@ public class DriveGameSubsystem extends Subsystem{
 	public RobotDrive robotDrive;
 	private double MaxOutputCap = 1; //The maxium value for MaxOutput of robotDrive;
 	public boolean reverseInput = false;
+	public double MaxMouvementInput = 1;
 	
 	//Gyro
 	public Gyro gyro;
-	public double correctionFactor = 0.2;
-	public double MAX_CORRECTION = 0.2;
+	public double correctionFactor = 0.35;
+	public double MAX_CORRECTION = 0.3;
 	
 	
 	public DriveGameSubsystem(RobotDrive robotDrive, Gyro gyro) {
@@ -40,6 +41,7 @@ public class DriveGameSubsystem extends Subsystem{
 			movement = -movement;
 			rotation = -rotation;
 		}
+		movement *= MaxMouvementInput;
 			
 			
 		//correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
@@ -97,6 +99,11 @@ public class DriveGameSubsystem extends Subsystem{
 
 	@Override
 	protected void initDefaultCommand() {
+		
+	}
+
+	public void reverseInput() {
+		reverseInput = !reverseInput;
 		
 	}
 

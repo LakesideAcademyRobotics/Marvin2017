@@ -15,14 +15,5 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="gyroCorr"/>
-	<hidden field="Gyro Value"/>
-	<hidden field="Drive forward"/>
-	<hidden field="Use Trigger to move forward"/>
-	<hidden field="teststr"/>
-	<hidden field="X"/>
-	<hidden field="Distance From Wall"/>
-	<hidden field="Y"/>
-	<hidden field="GyroPause"/>
-	<hidden field="Correction"/>
+	
 </xml>

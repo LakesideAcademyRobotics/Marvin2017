@@ -3,6 +3,8 @@ package org.usfirst.frc.team4955.robot;
 import org.usfirst.frc.team4955.robot.commands.WinchPull;
 import org.usfirst.frc.team4955.robot.commands.ball.StartConveyor;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
+import org.usfirst.frc.team4955.robot.commands.drive.InverseDriveTrainCommand;
+import org.usfirst.frc.team4955.robot.commands.drive.SetDriveTrainMaxOutputCommand;
 import org.usfirst.frc.team4955.robot.commands.drive.Turn135;
 import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
 import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
@@ -42,7 +44,7 @@ public class OI {
 		controlerMovementInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
 		controlerRotationInput = new DualAxisInput(mainJoystick, GamepadAxis.RightTrigger.value(), mainJoystick, GamepadAxis.LeftTrigger.value(), 0, 0);
 		
-		if((mainJoystick == null)){
+		if(mainJoystick == null || mainJoystick.getName().equals("")){
 			//We dont have joystick!
 			System.err.println("There is no joystick");
 			return;
@@ -52,10 +54,10 @@ public class OI {
 		
 		//Drive
 		if(Robot.driveSubsystem.isPresent()){
-			//command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
-	        //command.whenPressed(new InverseDriveTrainCommand(RobotMap.driveTrain));
-	        //command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-	        //command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(RobotMap.driveTrain, 0.2));
+			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
+	        command.whenPressed(new InverseDriveTrainCommand());
+	        command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
+	        command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(0.2));
 		}
         
         // Ball pick-up
