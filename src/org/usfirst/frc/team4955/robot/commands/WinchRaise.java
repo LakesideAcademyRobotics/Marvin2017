@@ -1,34 +1,36 @@
 package org.usfirst.frc.team4955.robot.commands;
 
+import org.usfirst.frc.team4955.robot.DashboardKeys;
+import org.usfirst.frc.team4955.robot.Robot;
 import org.usfirst.frc.team4955.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class WinchPull extends Command {
+public class WinchRaise extends Command {
 
-	@Override
+	public WinchRaise() {
+		requires(Robot.winchSystem);
+	}
+
 	protected boolean isFinished() {
-		
 		return false;
 	}
+
 	protected void initialize() {
 		RobotMap.winchTalon.set(0.5);
-		SmartDashboard.putBoolean("Winch Active", true);
+		SmartDashboard.putBoolean(DashboardKeys.WINCH_ACTIVE, true);
 	}
+
 	@Override
 	protected void end() {
 		RobotMap.winchTalon.set(0);
-		SmartDashboard.putBoolean("Winch Active", false);
-		super.end();
+		SmartDashboard.putBoolean(DashboardKeys.WINCH_ACTIVE, false);
 	}
+
 	@Override
 	protected void interrupted() {
 		RobotMap.winchTalon.set(0);
-		SmartDashboard.putBoolean("Winch Active", false);
-		super.interrupted();
-	}
-	public WinchPull() {
-		SmartDashboard.putBoolean("Winch Active", false);
+		SmartDashboard.putBoolean(DashboardKeys.WINCH_ACTIVE, false);
 	}
 }

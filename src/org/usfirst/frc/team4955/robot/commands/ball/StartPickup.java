@@ -7,15 +7,15 @@ import org.usfirst.frc.team4955.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class StopPickup extends Command {
+public class StartPickup extends Command {
 
-	public StopPickup() {
+	public StartPickup() {
 		requires(Robot.ballPickUpSystem);
 	}
 
-	public void initialize() {
-		RobotMap.brushTalon.set(0);
-		setTimeout(2);
+	protected void initialize() {
+		RobotMap.elavatorTalon.set(0.2);
+		setTimeout(0.5);
 	}
 
 	protected boolean isFinished() {
@@ -23,12 +23,12 @@ public class StopPickup extends Command {
 	}
 
 	protected void interrupted() {
-		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, false);
-		RobotMap.elavatorTalon.set(0);
+		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, true);
+		RobotMap.brushTalon.set(0.2);
 	}
 
 	protected void end() {
-		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, false);
-		RobotMap.elavatorTalon.set(0);
+		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, true);
+		RobotMap.brushTalon.set(0.2);
 	}
 }

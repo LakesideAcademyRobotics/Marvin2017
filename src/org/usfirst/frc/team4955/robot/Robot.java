@@ -1,23 +1,20 @@
 
 package org.usfirst.frc.team4955.robot;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoProperty;
-import edu.wpi.first.wpilibj.CameraServer;
+import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
+import org.usfirst.frc.team4955.robot.commands.autonomous.RightMoveGear;
+import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
+import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
+import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
+import org.usfirst.frc.team4955.robot.subsystems.ThrowerSubsystem;
+import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.opencv.core.Mat;
-import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
-import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
-import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
-import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,44 +24,46 @@ import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-	//Subsystems
+
+	// Subsystems
 	public static DriveGameSubsystem driveSubsystem;
 	public static BallPickUpSubsystem ballPickUpSystem;
 	public static WinchSubsystem winchSystem;
-	
+	public static ThrowerSubsystem throwerSubsystem;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
+	///
+	/// INIT
+	///
 	@Override
 	public void robotInit() {
-		RobotMap.init(); 
+		DashboardKeys.init();
+
+		RobotMap.init();
 		subsystemInit();
-
-        
-        OI.init();
-
-        //Cameras.StartLogitechHd1080p(0);
-        
-		//chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		//SmartDashboard.putData("Auto mode", chooser);
+		OI.init();
+		initAutonomousCommands();
 	}
 
 	private void subsystemInit() {
-        driveSubsystem = new DriveGameSubsystem(RobotMap.driveTrain, RobotMap.gyro);
-        ballPickUpSystem = new BallPickUpSubsystem();
-        winchSystem = new WinchSubsystem();
-        
-        SmartDashboard.putBoolean("Drive", driveSubsystem.isPresent());
-        SmartDashboard.putBoolean("Gyro", RobotMap.gyro != null);
-        SmartDashboard.putBoolean("Pickup", ballPickUpSystem.isPresent());
-        SmartDashboard.putBoolean("Winch", winchSystem.isPresent());
+		driveSubsystem = new DriveGameSubsystem(RobotMap.driveTrain, RobotMap.gyro);
+		ballPickUpSystem = new BallPickUpSubsystem();
+		winchSystem = new WinchSubsystem();
+		throwerSubsystem = new ThrowerSubsystem();
+
+		SmartDashboard.putBoolean("Drive", driveSubsystem.isPresent());
+		SmartDashboard.putBoolean("Gyro", RobotMap.gyro != null);
+		SmartDashboard.putBoolean("Pickup", ballPickUpSystem.isPresent());
+		SmartDashboard.putBoolean("Thrower", throwerSubsystem.isPresent());
+		SmartDashboard.putBoolean("Winch", winchSystem.isPresent());
+	}
+
+	private void initAutonomousCommands() {
+		chooser.addDefault("Left move and gear", new LeftMoveGear());
+		chooser.addObject("Right move and gear", new RightMoveGear());
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -77,36 +76,15 @@ public class Robot extends IterativeRobot {
 
 	}
 
-	@Override
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
+	///
+	/// AUTONOMOUS
+	///
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
-	 */
-	@Override
 	public void autonomousInit() {
-		//autonomousCommand = chooser.getSelected();
+		autonomousCommand = chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		//if (autonomousCommand != null)
-			//autonomousCommand.start();
+		if (autonomousCommand != null)
+			autonomousCommand.start();
 	}
 
 	/**
@@ -117,34 +95,41 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
+	///
+	/// TELEOP
+	///
+
 	@Override
 	public void teleopInit() {
-		
-		//if (autonomousCommand != null)
-		//	autonomousCommand.cancel();
-		if(driveSubsystem.isPresent()){
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
+
+		if (driveSubsystem.isPresent()) {
 			Command drive = new JoystickDrive();
-	        Scheduler.getInstance().add(drive);
+			Scheduler.getInstance().add(drive);
 			drive.start();
 		}
 	}
-	
-	@Override
-	public void robotPeriodic() {
-	}
 
-	/**
-	 * This function is called periodically during operator control
-	 */
 	@Override
 	public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
 	}
 
-	/**
-	 * This function is called periodically during test mode
-	 */
+	@Override
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
+	///
+	/// Other
+	///
+	@Override
+	public void robotPeriodic() {
+
+	}
+
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();

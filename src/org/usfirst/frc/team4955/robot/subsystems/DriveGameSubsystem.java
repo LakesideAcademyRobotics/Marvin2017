@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 public class DriveGameSubsystem extends Subsystem{
 
 	public RobotDrive robotDrive;
-	private double MaxOutputCap = 1; //The maxium value for MaxOutput of robotDrive;
+	private double MaxOutputCap = 1; //The maximum value for MaxOutput of robotDrive;
 	public boolean reverseInput = false;
 	public double MaxMouvementInput = 1;
 	
