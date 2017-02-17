@@ -53,11 +53,11 @@ public class Robot extends IterativeRobot {
 		winchSystem = new WinchSubsystem();
 		throwerSubsystem = new ThrowerSubsystem();
 
-		SmartDashboard.putBoolean("Drive", driveSubsystem.isPresent());
-		SmartDashboard.putBoolean("Gyro", RobotMap.gyro != null);
-		SmartDashboard.putBoolean("Pickup", ballPickUpSystem.isPresent());
-		SmartDashboard.putBoolean("Thrower", throwerSubsystem.isPresent());
-		SmartDashboard.putBoolean("Winch", winchSystem.isPresent());
+		SmartDashboard.putBoolean(DashboardKeys.DRIVE, driveSubsystem.isPresent());
+		SmartDashboard.putBoolean(DashboardKeys.GYRO, RobotMap.gyro != null);
+		SmartDashboard.putBoolean(DashboardKeys.PICKUP, ballPickUpSystem.isPresent());
+		SmartDashboard.putBoolean(DashboardKeys.THROWER, throwerSubsystem.isPresent());
+		SmartDashboard.putBoolean(DashboardKeys.WINCH, winchSystem.isPresent());
 	}
 
 	private void initAutonomousCommands() {

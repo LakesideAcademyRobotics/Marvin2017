@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4955.robot.commands.Thrower;
+package org.usfirst.frc.team4955.robot.commands.thrower;
 
 import org.usfirst.frc.team4955.robot.Robot;
 

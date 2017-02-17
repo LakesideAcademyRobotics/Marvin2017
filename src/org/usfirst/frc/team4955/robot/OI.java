@@ -1,14 +1,14 @@
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.commands.WinchLower;
-import org.usfirst.frc.team4955.robot.commands.WinchRaise;
-import org.usfirst.frc.team4955.robot.commands.Thrower.ThowerStartSquence;
-import org.usfirst.frc.team4955.robot.commands.Thrower.ThrowerStop;
 import org.usfirst.frc.team4955.robot.commands.ball.StartPickup;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
 import org.usfirst.frc.team4955.robot.commands.drive.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.commands.drive.SetDriveTrainMaxOutputCommand;
 import org.usfirst.frc.team4955.robot.commands.drive.Turn135;
+import org.usfirst.frc.team4955.robot.commands.thrower.ThowerStartSquence;
+import org.usfirst.frc.team4955.robot.commands.thrower.ThrowerStop;
+import org.usfirst.frc.team4955.robot.commands.winch.WinchLower;
+import org.usfirst.frc.team4955.robot.commands.winch.WinchRaise;
 import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
 import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
 import org.usfirst.frc.team4955.robot.utils.input.TeleopInput;
