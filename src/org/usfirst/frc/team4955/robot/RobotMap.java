@@ -44,8 +44,8 @@ public class RobotMap {
 		
 
 	}
-	public static UsbCamera frontCamera;
-	public static UsbCamera backCamera;
+	//public static UsbCamera frontCamera;
+	//public static UsbCamera backCamera;
 
 	public static void init() {
 		driveTrain = new RobotDrive(2,3, 0, 1);
@@ -82,8 +82,13 @@ public class RobotMap {
 		// feederBallSensor = tryInitTalon(3);
 
 		// Cameras
+<<<<<<< HEAD
 //		frontCamera = initLogitechHd1080p(0);
 //		backCamera = initLogitechHd720p(0);
+=======
+		//frontCamera = initLogitechHd1080p(0);
+		//backCamera = initLogitechHd720p(0);
+>>>>>>> 9de6835b0cf629db16964a91d2b8db46c3f04f2f
 	}
 
 	public static UsbCamera initLogitechHd1080p(int channel) {
