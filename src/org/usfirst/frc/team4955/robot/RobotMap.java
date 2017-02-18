@@ -34,7 +34,7 @@ public class RobotMap {
 	public static Talon elavatorTalon;
 
 	// Ball shoot
-	public static Talon throwingFeedTalon;
+	public static CANTalon throwingFeedTalon;
 	public static CANTalon throwingWheelTalon;
 	public static AnalogInput feederBallSensor;
 
@@ -42,7 +42,7 @@ public class RobotMap {
 	public static UsbCamera backCamera;
 
 	public static void init() {
-		driveTrain = new RobotDrive(0, 1, 2, 3);
+		driveTrain = new RobotDrive(2,3, 0, 1);
 		InverseDriveTrain(driveTrain);
 
 		gyro = tryInitGyro();
@@ -50,17 +50,17 @@ public class RobotMap {
 		// frontLeftSensor = new AnalogInput(0);
 		frontRightSensor = new AnalogInput(0);
 
-		// brushTalon = tryInitTalon(3);
-		// winchTalon = tryInitTalon(3);
+		brushTalon = tryInitTalon(5);
+		winchTalon = tryInitTalon(4);
 
-		// elavatorTalon = tryInitTalon(3);
-		// feedWheelTalon = tryInitTalon(3);
-		// shootWheelTalon = tryInitCanTalon(3);
+		elavatorTalon = tryInitTalon(6);
+		// throwingFeedTalon = tryInitCanTalon(3);
+		// throwingWheelTalon = tryInitCanTalon(3);
 		// feederBallSensor = tryInitTalon(3);
 
 		// Cameras
-		frontCamera = initLogitechHd1080p(0);
-		backCamera = initLogitechHd720p(0);
+//		frontCamera = initLogitechHd1080p(0);
+//		backCamera = initLogitechHd720p(0);
 	}
 
 	public static UsbCamera initLogitechHd1080p(int channel) {

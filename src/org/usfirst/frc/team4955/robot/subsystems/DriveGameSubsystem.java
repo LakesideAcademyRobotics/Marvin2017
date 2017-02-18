@@ -5,6 +5,7 @@ import org.usfirst.frc.team4955.robot.RobotMap;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveGameSubsystem extends Subsystem{
 
@@ -78,9 +79,8 @@ public class DriveGameSubsystem extends Subsystem{
 			}
 			
 		}
-		
 
-		PeriodicWithGyro(movement, rotation);
+		robotDrive.arcadeDrive(movement, rotation);
 	}
 	
 	private double CapValue(double value, double min, double max){
