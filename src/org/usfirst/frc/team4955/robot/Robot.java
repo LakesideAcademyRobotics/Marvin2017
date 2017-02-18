@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
+import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
@@ -113,6 +114,8 @@ public class Robot extends IterativeRobot {
 		
 		//if (autonomousCommand != null)
 		//	autonomousCommand.cancel();
+		Command WallSensor = new WallSensor();
+		WallSensor.start();
 		if(driveSubsystem.isPresent()){
 			Command drive = new JoystickDrive();
 	        Scheduler.getInstance().add(drive);
@@ -136,6 +139,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
 		
 		SmartDashboard.putNumber("Distance From Wall", RobotMap.frontRightSensor.getValue());
+
 	}
 
 	/**
