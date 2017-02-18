@@ -138,7 +138,9 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
 		
-		SmartDashboard.putNumber("Distance From Wall", RobotMap.frontRightSensor.getValue());
+		SmartDashboard.putNumber("Distance From Back", RobotMap.backSensor.getValue());
+		
+		SmartDashboard.putNumber("Distance From Front", RobotMap.frontSensor.getValue());
 
 	}
 

@@ -10,7 +10,7 @@ public class WallSensor extends Command{
 	public double AnalogToInchesMultiplier = 0.125;
 	@Override
 	protected void execute() {
-		boolean isClose = (RobotMap.frontRightSensor.getValue()-240)*AnalogToInchesMultiplier<=0;
+		boolean isClose = (RobotMap.frontSensor.getValue()-240)*AnalogToInchesMultiplier<=0;
 		SmartDashboard.putBoolean("Is too close", isClose);
 	}
 	
