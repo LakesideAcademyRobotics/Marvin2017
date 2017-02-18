@@ -16,15 +16,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-<<<<<<< HEAD
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
 import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
 
-=======
->>>>>>> 40644c8e59f08f26dbd3efdffae8af2b7d3fc012
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -110,22 +107,22 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-<<<<<<< HEAD
 		
 		//if (autonomousCommand != null)
 		//	autonomousCommand.cancel();
 		Command WallSensor = new WallSensor();
 		WallSensor.start();
 		if(driveSubsystem.isPresent()){
-=======
+
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 
 		if (driveSubsystem.isPresent()) {
->>>>>>> 40644c8e59f08f26dbd3efdffae8af2b7d3fc012
+
 			Command drive = new JoystickDrive();
 			Scheduler.getInstance().add(drive);
 			drive.start();
+		}
 		}
 	}
 
@@ -138,14 +135,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-<<<<<<< HEAD
 		
 		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
 		
 		SmartDashboard.putNumber("Distance From Wall", RobotMap.frontRightSensor.getValue());
 
-=======
->>>>>>> 40644c8e59f08f26dbd3efdffae8af2b7d3fc012
 	}
 
 	///

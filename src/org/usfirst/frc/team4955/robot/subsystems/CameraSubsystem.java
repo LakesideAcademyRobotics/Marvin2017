@@ -38,7 +38,7 @@ public class CameraSubsystem extends Subsystem {
 	public void SetCameraSide(CameraSide side){
 		//Si on n'est pas en vision, alors on change la vision
 		if(!visionLocked){
-			//On s'assure que l'autre est fermé
+			//On s'assure que l'autre est ferme
 			
 			if(CameraSide.FRONT.equals(LookingSide)){
 				

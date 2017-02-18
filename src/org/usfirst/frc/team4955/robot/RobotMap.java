@@ -37,13 +37,13 @@ public class RobotMap {
 	public static Talon throwingFeedTalon;
 	public static CANTalon throwingWheelTalon;
 	public static AnalogInput feederBallSensor;
-<<<<<<< HEAD
+
 	
-	public static void init(){
+	public static void init1(){
 		//driveTrain = new RobotDrive(2,3);
 		
-=======
 
+	}
 	public static UsbCamera frontCamera;
 	public static UsbCamera backCamera;
 
@@ -51,12 +51,13 @@ public class RobotMap {
 		driveTrain = new RobotDrive(0, 1, 2, 3);
 		InverseDriveTrain(driveTrain);
 
->>>>>>> 40644c8e59f08f26dbd3efdffae8af2b7d3fc012
+		driveTrain.setSafetyEnabled(false);
+		
 		gyro = tryInitGyro();
 
 		// frontLeftSensor = new AnalogInput(0);
 		frontRightSensor = new AnalogInput(0);
-<<<<<<< HEAD
+
 		
 		//brushTalon = tryInitTalon(3);
 		//winchTalon = tryInitTalon(3);
@@ -65,7 +66,7 @@ public class RobotMap {
 		//feedWheelTalon = tryInitTalon(3);
 		//shootWheelTalon = tryInitTalon(3);
 		//feederBallSensor = tryInitTalon(3);
-=======
+
 
 		// brushTalon = tryInitTalon(3);
 		// winchTalon = tryInitTalon(3);
@@ -106,7 +107,7 @@ public class RobotMap {
 		for (RobotDrive.MotorType type : RobotDrive.MotorType.values()) {
 			driveTrain.setInvertedMotor(type, true);
 		}
->>>>>>> 40644c8e59f08f26dbd3efdffae8af2b7d3fc012
+
 	}
 
 	public static Talon tryInitTalon(int channel) {
