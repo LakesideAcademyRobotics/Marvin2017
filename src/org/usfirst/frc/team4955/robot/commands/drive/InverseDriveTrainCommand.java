@@ -1,22 +1,22 @@
-package org.usfirst.frc.team4955.robot.utils.driveTrain;
+package org.usfirst.frc.team4955.robot.commands.drive;
+
+import org.usfirst.frc.team4955.robot.Robot;
+import org.usfirst.frc.team4955.robot.RobotMap;
+import org.usfirst.frc.team4955.robot.utils.driveTrain.DriveTrainControler;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class InverseDriveTrainCommand extends Command {
 
-	private DriveTrainControler driveTrainControler;
 	
-	public InverseDriveTrainCommand(DriveTrainControler driveTrainControler) {
+	public InverseDriveTrainCommand() {
 		super();
-		this.driveTrainControler = driveTrainControler;
 	}
 
 	@Override
 	protected void initialize() {
-		driveTrainControler.inverse();
-		SmartDashboard.putNumber("test", 123);
-		SmartDashboard.putString("test123", "Kwame");
+		Robot.driveSubsystem.reverseInput();
 	}
 
 	@Override

@@ -1,5 +1,12 @@
 <xml version="1.0">
 <dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="572" y="503"/>
+		<property name="Text" value="Systems"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="586" y="533"/>
+	</static-widget>
 	<widget field="Gyro" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="656" y="540"/>
 	</widget>
@@ -15,14 +22,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="gyroCorr"/>
-	<hidden field="Gyro Value"/>
-	<hidden field="Drive forward"/>
-	<hidden field="Use Trigger to move forward"/>
-	<hidden field="teststr"/>
-	<hidden field="X"/>
-	<hidden field="Distance From Wall"/>
-	<hidden field="Y"/>
-	<hidden field="GyroPause"/>
-	<hidden field="Correction"/>
 </xml>
