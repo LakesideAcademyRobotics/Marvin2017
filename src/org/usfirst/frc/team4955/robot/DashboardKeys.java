@@ -16,6 +16,8 @@ public class DashboardKeys {
 	public static String THROWER = "Thrower";
 	public static String WINCH = "Winch";
 
+	public static String AUTONOMOUS_THROWER_STATUS = "Thrower status";
+
 	public static void init() {
 		SmartDashboard.putBoolean(INIT_OI, false);
 
@@ -30,5 +32,7 @@ public class DashboardKeys {
 		SmartDashboard.putBoolean(BALL_TROWING, false);
 		SmartDashboard.putBoolean(BALL_PICKUP, false);
 		SmartDashboard.putBoolean(WINCH_ACTIVE, false);
+
+		SmartDashboard.putString(AUTONOMOUS_THROWER_STATUS, "Aliging with boiler");
 	}
 }

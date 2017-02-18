@@ -24,11 +24,13 @@ public class ThrowerStop extends Command {
 
 	protected void end() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_TROWING, false);
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_THROWER_STATUS, "");
 		RobotMap.throwingFeedTalon.set(0);
 	}
 
 	protected void interrupted() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_TROWING, false);
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_THROWER_STATUS, "");
 		RobotMap.throwingFeedTalon.set(0);
 	}
 }
