@@ -14,7 +14,7 @@ public class ThrowerStop extends Command {
 	}
 
 	public void initialize() {
-		RobotMap.throwingWheelTalon.set(0);
+		RobotMap.genevaWheelTalon.set(0);
 		setTimeout(2);
 	}
 

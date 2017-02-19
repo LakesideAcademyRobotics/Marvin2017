@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
@@ -35,22 +36,23 @@ public class RobotMap {
 
 	// Ball shoot
 	public static CANTalon throwingFeedTalon;
-	public static CANTalon throwingWheelTalon;
+	public static CANTalon genevaWheelTalon;
 	public static AnalogInput feederBallSensor;
 
-	
-	public static void init1(){
-		//driveTrain = new RobotDrive(2,3);
-		
+	public static Servo cameraServo;
+
+	public static void init1() {
+		// driveTrain = new RobotDrive(2,3);
 
 	}
-	//public static UsbCamera frontCamera;
-	//public static UsbCamera backCamera;
+
+	public static UsbCamera frontCamera;
+	public static UsbCamera backCamera;
 
 	public static void init() {
-		driveTrain = new RobotDrive(2,3, 0, 1);
+		driveTrain = new RobotDrive(2, 3, 0, 1);
 		InverseDriveTrain(driveTrain);
-		
+
 		gyro = tryInitGyro();
 
 		frontSensor = new AnalogInput(0);
@@ -60,23 +62,16 @@ public class RobotMap {
 		winchTalon = tryInitTalon(4);
 		elavatorTalon = tryInitTalon(6);
 
-		//feedWheelTalon = tryInitTalon(3);
-		//shootWheelTalon = tryInitTalon(3);
-		//feederBallSensor = tryInitTalon(3);
+		genevaWheelTalon = tryInitCanTalon(5);
+		throwingFeedTalon = tryInitCanTalon(12);
 
-
-
-		// throwingFeedTalon = tryInitCanTalon(3);
-		// throwingWheelTalon = tryInitCanTalon(3);
-		// feederBallSensor = tryInitTalon(3);
+		cameraServo = tryInitServo(7);
 
 		// Cameras
 
-//		frontCamera = initLogitechHd1080p(0);
-//		backCamera = initLogitechHd720p(0);
-
-		//frontCamera = initLogitechHd1080p(0);
-		//backCamera = initLogitechHd720p(0);
+		// frontCamera = initLogitechHd1080p(0);
+		// backCamera = initLogitechHd720p(1);
+		CameraServer.getInstance().startAutomaticCapture();
 
 	}
 
@@ -112,10 +107,11 @@ public class RobotMap {
 	public static Talon tryInitTalon(int channel) {
 		try {
 			Talon talon = new Talon(channel);
+			talon.set(0);
 			return talon;
 		} catch (RuntimeException re) {
 			if (re.getMessage().contains("Code: -1029")) {
-				System.err.println("ERRROR! Talon " + channel + " is not pluged-in.");
+				System.err.println("ERRROR! Talon at channel " + channel + " is not pluged-in.");
 			} else {
 				System.err.println(re.getMessage());
 			}
@@ -126,10 +122,25 @@ public class RobotMap {
 	public static CANTalon tryInitCanTalon(int channel) {
 		try {
 			CANTalon talon = new CANTalon(channel);
+			talon.set(0);
 			return talon;
 		} catch (RuntimeException re) {
 			if (re.getMessage().contains("Code: -1029")) {
-				System.err.println("ERRROR! CanTalon " + channel + " is not pluged-in.");
+				System.err.println("ERRROR! CanTalon at channel " + channel + " is not pluged-in.");
+			} else {
+				System.err.println(re.getMessage());
+			}
+		}
+		return null;
+	}
+
+	public static Servo tryInitServo(int channel) {
+		try {
+			Servo servo = new Servo(channel);
+			return servo;
+		} catch (RuntimeException re) {
+			if (re.getMessage().contains("Code: -1029")) {
+				System.err.println("ERRROR! Servo at channel " + channel + " is not pluged-in.");
 			} else {
 				System.err.println(re.getMessage());
 			}

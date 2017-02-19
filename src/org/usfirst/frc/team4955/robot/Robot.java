@@ -1,9 +1,11 @@
 
 package org.usfirst.frc.team4955.robot;
 
+import org.usfirst.frc.team4955.robot.commands.TestCanTalonCommand;
 import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
 import org.usfirst.frc.team4955.robot.commands.autonomous.RightMoveGear;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
+import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.ThrowerSubsystem;
@@ -15,12 +17,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
-import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
-import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
-import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
-import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -45,8 +41,11 @@ public class Robot extends IterativeRobot {
 	///
 	@Override
 	public void robotInit() {
+		// Pre init
+		Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
 		DashboardKeys.init();
 
+		// Robot init
 		RobotMap.init();
 		subsystemInit();
 		OI.init();
@@ -107,40 +106,36 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		
-		//if (autonomousCommand != null)
-		//	autonomousCommand.cancel();
-		Command WallSensor = new WallSensor();
-		WallSensor.start();
-		if(driveSubsystem.isPresent()){
-
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 
+		Command WallSensor = new WallSensor();
+		WallSensor.start();
 		if (driveSubsystem.isPresent()) {
-
 			Command drive = new JoystickDrive();
 			Scheduler.getInstance().add(drive);
 			drive.start();
 		}
-		}
+
+		Command geneva = new TestCanTalonCommand(RobotMap.genevaWheelTalon, 6, 1);
+		Scheduler.getInstance().add(geneva);
+		geneva.start();
+
 	}
 
 	@Override
 	public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
+
+		SmartDashboard.putNumber("Distance From Back", RobotMap.backSensor.getValue());
+
+		SmartDashboard.putNumber("Distance From Front", RobotMap.frontSensor.getValue());
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-		
-		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
-		
-		SmartDashboard.putNumber("Distance From Back", RobotMap.backSensor.getValue());
-		
-		SmartDashboard.putNumber("Distance From Front", RobotMap.frontSensor.getValue());
 
 	}
 

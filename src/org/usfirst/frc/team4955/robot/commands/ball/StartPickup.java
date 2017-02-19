@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4955.robot.commands.ball;
 
+import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.DashboardKeys;
 import org.usfirst.frc.team4955.robot.Robot;
 import org.usfirst.frc.team4955.robot.RobotMap;
@@ -14,7 +15,7 @@ public class StartPickup extends Command {
 	}
 
 	protected void initialize() {
-		RobotMap.elavatorTalon.set(0.2);
+		RobotMap.elavatorTalon.set(Constants.CONVEYOR_BELT_SPEED);
 		setTimeout(0.5);
 	}
 
@@ -24,11 +25,13 @@ public class StartPickup extends Command {
 
 	protected void interrupted() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, true);
-		RobotMap.brushTalon.set(0.2);
+		RobotMap.brushTalon.set(Constants.BRUSH_SPEED);
+		
 	}
 
 	protected void end() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, true);
-		RobotMap.brushTalon.set(0.2);
+		RobotMap.brushTalon.set(Constants.BRUSH_SPEED);
+		
 	}
 }
