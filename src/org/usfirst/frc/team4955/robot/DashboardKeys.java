@@ -33,6 +33,6 @@ public class DashboardKeys {
 		SmartDashboard.putBoolean(BALL_PICKUP, false);
 		SmartDashboard.putBoolean(WINCH_ACTIVE, false);
 
-		SmartDashboard.putString(AUTONOMOUS_THROWER_STATUS, "Aliging with boiler");
+		SmartDashboard.putString(AUTONOMOUS_THROWER_STATUS, "");
 	}
 }
