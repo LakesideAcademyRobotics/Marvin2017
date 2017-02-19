@@ -26,41 +26,58 @@ public class RobotMap {
 	public static Talon winchTalon;
 
 	// Gear
-	public static AnalogInput frontLeftSensor;
-	public static AnalogInput frontRightSensor;
+	public static AnalogInput backSensor;
+	public static AnalogInput frontSensor;
 
 	// Ball pickup
 	public static Talon brushTalon;
 	public static Talon elavatorTalon;
 
 	// Ball shoot
-	public static Talon throwingFeedTalon;
+	public static CANTalon throwingFeedTalon;
 	public static CANTalon throwingWheelTalon;
 	public static AnalogInput feederBallSensor;
 
-	public static UsbCamera frontCamera;
-	public static UsbCamera backCamera;
+	
+	public static void init1(){
+		//driveTrain = new RobotDrive(2,3);
+		
+
+	}
+	//public static UsbCamera frontCamera;
+	//public static UsbCamera backCamera;
 
 	public static void init() {
-		driveTrain = new RobotDrive(0, 1, 2, 3);
+		driveTrain = new RobotDrive(2,3, 0, 1);
 		InverseDriveTrain(driveTrain);
-
+		
 		gyro = tryInitGyro();
 
-		// frontLeftSensor = new AnalogInput(0);
-		frontRightSensor = new AnalogInput(0);
+		frontSensor = new AnalogInput(0);
+		backSensor = new AnalogInput(1);
 
-		// brushTalon = tryInitTalon(3);
-		// winchTalon = tryInitTalon(3);
+		brushTalon = tryInitTalon(5);
+		winchTalon = tryInitTalon(4);
+		elavatorTalon = tryInitTalon(6);
 
-		// elavatorTalon = tryInitTalon(3);
-		// feedWheelTalon = tryInitTalon(3);
-		// shootWheelTalon = tryInitCanTalon(3);
+		//feedWheelTalon = tryInitTalon(3);
+		//shootWheelTalon = tryInitTalon(3);
+		//feederBallSensor = tryInitTalon(3);
+
+
+
+		// throwingFeedTalon = tryInitCanTalon(3);
+		// throwingWheelTalon = tryInitCanTalon(3);
 		// feederBallSensor = tryInitTalon(3);
 
 		// Cameras
-		frontCamera = initLogitechHd1080p(0);
-		backCamera = initLogitechHd720p(0);
+
+//		frontCamera = initLogitechHd1080p(0);
+//		backCamera = initLogitechHd720p(0);
+
+		//frontCamera = initLogitechHd1080p(0);
+		//backCamera = initLogitechHd720p(0);
+
 	}
 
 	public static UsbCamera initLogitechHd1080p(int channel) {
@@ -89,6 +106,7 @@ public class RobotMap {
 		for (RobotDrive.MotorType type : RobotDrive.MotorType.values()) {
 			driveTrain.setInvertedMotor(type, true);
 		}
+
 	}
 
 	public static Talon tryInitTalon(int channel) {

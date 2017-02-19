@@ -45,9 +45,9 @@ public class OI {
 		// Set up the joystick
 		mainJoystick = new Joystick(0);
 
-		controlerMovementInput = new JoystickInput(mainJoystick, GamepadAxis.LeftY.value(), 0.14);
-		controlerRotationInput = new DualAxisInput(mainJoystick, GamepadAxis.RightTrigger.value(), mainJoystick,
-				GamepadAxis.LeftTrigger.value(), 0, 0);
+		 controlerRotationInput= new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
+		 controlerMovementInput = new DualAxisInput(mainJoystick, GamepadAxis.LeftTrigger.value(), mainJoystick,
+				GamepadAxis.RightTrigger.value(), 0, 0);
 
 		if (mainJoystick == null || mainJoystick.getName().equals("")) {
 			// We dont have joystick!
@@ -57,13 +57,13 @@ public class OI {
 		JoystickButton command = null;
 
 		// Drive
-		if (Robot.driveSubsystem.isPresent()) {
+/*		if (Robot.driveSubsystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
 			command.whenPressed(new InverseDriveTrainCommand());
 			command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
 			command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(0.2));
 		}
-
+*/
 		// Ball pick-up
 		if (Robot.ballPickUpSystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
