@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousBallShooting extends CommandGroup {
 
 	public AutonomousBallShooting() {
+		addSequential(new RaiseCamera());
 		addSequential(new AlignWithBoiler());
 		addSequential(new ApprochingBoiler());
 		addSequential(new ThrowerStart());
 		addSequential(new ThrowerWhileActive());
+		addSequential(new LowerFrontCamera());
 	}
 }
