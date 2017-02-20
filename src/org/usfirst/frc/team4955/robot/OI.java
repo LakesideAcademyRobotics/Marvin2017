@@ -3,7 +3,7 @@ package org.usfirst.frc.team4955.robot;
 import org.usfirst.frc.team4955.robot.commands.ball.StartPickup;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
 import org.usfirst.frc.team4955.robot.commands.drive.InverseDriveTrainCommand;
-import org.usfirst.frc.team4955.robot.commands.drive.SetDriveTrainMaxOutputCommand;
+import org.usfirst.frc.team4955.robot.commands.drive.SetDriveInputFactor;
 import org.usfirst.frc.team4955.robot.commands.drive.Turn135;
 import org.usfirst.frc.team4955.robot.commands.thrower.ThowerStartSquence;
 import org.usfirst.frc.team4955.robot.commands.thrower.ThrowerStop;
@@ -40,57 +40,54 @@ public class OI {
 	public static GamepadButton THROWER_STOP = GamepadButton.LB;
 	public static GamepadButton TURN_BUTTON = GamepadButton.Start;
 
+	public static double LEFT_JOYSTICK_DEAD_ZONE = 0.14;
+
 	public static void init() {
 
 		// Set up the joystick
 		mainJoystick = new Joystick(0);
 
-		 controlerRotationInput= new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), 0.14);
-		 controlerMovementInput = new DualAxisInput(mainJoystick, GamepadAxis.LeftTrigger.value(), mainJoystick,
+		controlerRotationInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), LEFT_JOYSTICK_DEAD_ZONE);
+		controlerMovementInput = new DualAxisInput(mainJoystick, GamepadAxis.LeftTrigger.value(), mainJoystick,
 				GamepadAxis.RightTrigger.value(), 0, 0);
 
-		if (mainJoystick == null || mainJoystick.getName().equals("")) {
-			// We dont have joystick!
-			System.err.println("There is no joystick");
-			return;
-		}
 		JoystickButton command = null;
 
 		// Drive
-/*		if (Robot.driveSubsystem.isPresent()) {
+		if (Robot.driveSubsystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
 			command.whenPressed(new InverseDriveTrainCommand());
 			command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-			command.toggleWhenActive(new SetDriveTrainMaxOutputCommand(0.2));
+			command.toggleWhenActive(new SetDriveInputFactor(Constants.DRIVE_SLOWER_SPEED_FACTOR));
 		}
-*/
+
 		// Ball pick-up
 		if (Robot.ballPickUpSystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
-			command.toggleWhenActive(new StartPickup());
+			command.whenActive(new StartPickup());
 			command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
-			command.toggleWhenActive(new StopPickup());
+			command.whenActive(new StopPickup());
 		}
 
 		// Ball Thrower
 		if (Robot.throwerSubsystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, BALL_THROWER_START.value());
-			command.toggleWhenActive(new ThowerStartSquence());
+			command.whenActive(new ThowerStartSquence());
 			command = new JoystickButton(mainJoystick, BALL_THROWER_STOP.value());
-			command.toggleWhenActive(new ThrowerStop());
+			command.whenActive(new ThrowerStop());
 		}
 
 		// Turn
 		command = new JoystickButton(mainJoystick, TURN_BUTTON.value());
-		command.toggleWhenActive(new Turn135());
+		command.whenActive(new Turn135());
 
 		// Winch
 		if (Robot.winchSystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, WINCH_RAISE.value());
-			command.toggleWhenActive(new WinchRaise());
+			command.whenActive(new WinchRaise());
 
 			command = new JoystickButton(mainJoystick, WINCH_LOWER.value());
-			command.toggleWhenActive(new WinchLower());
+			command.whenActive(new WinchLower());
 		}
 
 		SmartDashboard.putBoolean(DashboardKeys.INIT_OI, true);

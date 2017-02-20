@@ -6,6 +6,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class BallPickUpSubsystem extends Subsystem{
 
+	public BallPickUpSubsystem() {
+		if (this.isPresent()) {
+			RobotMap.brushTalon.set(0);
+			RobotMap.elavatorTalon.set(0);
+		}
+	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub

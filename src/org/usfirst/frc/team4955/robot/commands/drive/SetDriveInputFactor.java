@@ -5,20 +5,20 @@ import org.usfirst.frc.team4955.robot.utils.driveTrain.DriveTrainControler;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetDriveTrainMaxOutputCommand extends Command{
+public class SetDriveInputFactor extends Command{
 
 	private double newOutput;
-	private double currentMaxOutput;
+	private double previousMovementInputFactor;
 	
-	public SetDriveTrainMaxOutputCommand(double newOutput) {
+	public SetDriveInputFactor(double newOutput) {
 		super();
 		this.newOutput = newOutput;
 	}
 
 	@Override
 	protected void initialize() {
-		currentMaxOutput = Robot.driveSubsystem.MaxMouvementInput;
-		Robot.driveSubsystem.MaxMouvementInput = newOutput;
+		previousMovementInputFactor = Robot.driveSubsystem.MouvementInputFactor;
+		Robot.driveSubsystem.MouvementInputFactor = newOutput;
 	}
 
 	@Override
@@ -32,12 +32,12 @@ public class SetDriveTrainMaxOutputCommand extends Command{
 
 	@Override
 	protected void end() {
-		Robot.driveSubsystem.MaxMouvementInput = currentMaxOutput;
+		Robot.driveSubsystem.MouvementInputFactor = previousMovementInputFactor;
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.driveSubsystem.MaxMouvementInput = currentMaxOutput;
+		Robot.driveSubsystem.MouvementInputFactor = previousMovementInputFactor;
 	}
 
 }

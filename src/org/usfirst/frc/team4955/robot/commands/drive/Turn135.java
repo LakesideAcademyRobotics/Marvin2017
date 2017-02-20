@@ -7,6 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Turn135 extends Command{
 
 
+	protected void initialize() {
+		//Drive forward
+		//RobotMap.brushTalon.set(0.5);
+	}
+	
 	protected boolean isFinished() {
 		
 		if(RobotMap.gyro.getAngle()>20){
@@ -15,14 +20,11 @@ public class Turn135 extends Command{
 		
 		return false;
 	}
-@Override
-protected void initialize() {
-	RobotMap.brushTalon.set(0.5);
-	super.initialize();
-}
-@Override
-protected void end() {
-	RobotMap.brushTalon.set(0);
-	super.end();
-}
+	
+	@Override
+	protected void end() {
+		//stopd driving
+		//RobotMap.brushTalon.set(0);
+		super.end();
+	}
 }

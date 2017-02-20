@@ -1,5 +1,42 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Winch Active" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="576" y="128"/>
+	</widget>
+	<widget field="Ball throwing" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="576" y="96"/>
+	</widget>
+	<widget field="Thrower" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="720" y="544"/>
+	</widget>
+	<widget field="Ball pickup" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="579" y="73"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="878" y="39"/>
+		<width>962</width>
+		<height>844</height>
+		<property name="Camera Choice" value=""/>
+		<property name="Selected Camera Path" value="cam1"/>
+	</static-widget>
+	<widget field="Distance From Front" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="30" y="293"/>
+	</widget>
+	<widget field="Distance From Back" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="28" y="331"/>
+	</widget>
+	<widget field="Gyro value test" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="21" y="207"/>
+	</widget>
+	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="0" y="207"/>
+	</widget>
+	<widget field="Thrower status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="184"/>
+	</widget>
+	<widget field="init OI" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="138"/>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
 		<location x="572" y="503"/>
 		<property name="Text" value="Systems"/>
@@ -8,10 +45,11 @@
 		<location x="586" y="533"/>
 	</static-widget>
 	<widget field="Gyro" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="656" y="540"/>
+		<location x="656" y="544"/>
+		<height>16</height>
 	</widget>
 	<widget field="Winch" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="795" y="512"/>
+		<location x="800" y="512"/>
 	</widget>
 	<widget field="Pickup" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="720" y="512"/>
@@ -19,7 +57,17 @@
 	<widget field="Drive" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="656" y="512"/>
 	</widget>
+	<widget field="Distance From Wall" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="46"/>
+	</widget>
+	<widget field="Gyro Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="23"/>
+	</widget>
+	<widget field="Is too close" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="0"/>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="KWAME"/>
 </xml>
