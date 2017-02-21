@@ -6,7 +6,6 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
@@ -58,10 +57,10 @@ public class RobotMap {
 		driveTrain.setMaxOutput(Constants.DRIVE_NORMAL_MAXOUTPUT);
 
 		InverseDriveTrain(driveTrain);
-		
-		leftEncoder = tryInitEncoder(0,1);
-		rightEncoder = tryInitEncoder(2,3);
-		
+
+		leftEncoder = tryInitEncoder(0, 1);
+		rightEncoder = tryInitEncoder(2, 3);
+
 		gyro = tryInitGyro();
 
 		frontSensor = new AnalogInput(0);
@@ -72,7 +71,7 @@ public class RobotMap {
 		elavatorTalon = tryInitTalon(6);
 
 		genevaWheelTalon = tryInitCanTalon(5);
-		throwingFeedTalon = tryInitCanTalon(12);
+		throwingFeedTalon = tryInitCanTalon(6);
 
 		cameraServo = tryInitServo(7);
 
@@ -133,7 +132,12 @@ public class RobotMap {
 		try {
 			Talon talon = new Talon(channel);
 			talon.set(0);
-			return talon;
+			if (talon.isAlive()) {
+				return talon;
+			} else {
+				return null;
+			}
+
 		} catch (RuntimeException re) {
 			if (re.getMessage().contains("Code: -1029")) {
 				System.err.println("ERRROR! Talon at channel " + channel + " is not pluged-in.");
