@@ -58,7 +58,10 @@ public class RobotMap {
 		driveTrain.setMaxOutput(Constants.DRIVE_NORMAL_MAXOUTPUT);
 
 		InverseDriveTrain(driveTrain);
-
+		
+		leftEncoder = tryInitEncoder(0,1);
+		rightEncoder = tryInitEncoder(2,3);
+		
 		gyro = tryInitGyro();
 
 		frontSensor = new AnalogInput(0);
@@ -110,7 +113,7 @@ public class RobotMap {
 
 	}
 
-	public static Encoder tryInitEncoder(DigitalSource sourceA, DigitalSource sourceB) {
+	public static Encoder tryInitEncoder(int sourceA, int sourceB) {
 		try {
 			Encoder encoder = new Encoder(sourceA, sourceB);
 			return encoder;
