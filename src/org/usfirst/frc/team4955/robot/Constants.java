@@ -30,8 +30,8 @@ public class Constants {
 	// BALL
 	public static double CONVEYOR_BELT_SPEED = 0.7;
 	public static double BRUSH_SPEED = -0.7;
-	public static double THROWER_SPEED = 1;
-	public static double BALL_FEEDER = 1;
+	public static double THROWER_SPEED = 0.5;
+	public static double BALL_FEEDER = 0.5;
 
 	// WINCH
 	public static double WINCH_MAX_SPEED = 1;

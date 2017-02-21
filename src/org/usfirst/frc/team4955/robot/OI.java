@@ -4,7 +4,6 @@ import org.usfirst.frc.team4955.robot.commands.ball.StartPickup;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
 import org.usfirst.frc.team4955.robot.commands.drive.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.commands.drive.SetDriveInputFactor;
-import org.usfirst.frc.team4955.robot.commands.drive.Turn135;
 import org.usfirst.frc.team4955.robot.commands.thrower.ThowerStartSquence;
 import org.usfirst.frc.team4955.robot.commands.thrower.ThrowerStop;
 import org.usfirst.frc.team4955.robot.commands.winch.WinchLower;
@@ -81,8 +80,8 @@ public class OI {
 		}
 
 		// Turn
-		command = new JoystickButton(mainJoystick, TURN_BUTTON.value());
-		command.whenActive(new Turn135());
+		// command = new JoystickButton(mainJoystick, TURN_BUTTON.value());
+		// command.whenActive(new Turn135());
 
 		// Winch
 		if (Robot.winchSystem.isPresent()) {
