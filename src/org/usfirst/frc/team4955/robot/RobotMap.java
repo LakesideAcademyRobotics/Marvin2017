@@ -133,6 +133,7 @@ public class RobotMap {
 		try {
 			Talon talon = new Talon(channel);
 			talon.set(0);
+			System.out.println(channel + " : " + talon.isAlive());
 			if (talon.isAlive()) {
 				return talon;
 			} else {
@@ -140,6 +141,7 @@ public class RobotMap {
 			}
 
 		} catch (RuntimeException re) {
+
 			if (re.getMessage().contains("Code: -1029")) {
 				System.err.println("ERRROR! Talon at channel " + channel + " is not pluged-in.");
 			} else {
@@ -181,13 +183,15 @@ public class RobotMap {
 	public static ADXRS450_Gyro tryInitGyro() {
 		try {
 			ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+			gyro.reset();
 			return gyro;
 		} catch (Exception re) {
-			if (re.getMessage().contains("ADXRS450")) {
-				System.err.println("ERRROR! Gyro is not pluged-in.");
-			} else {
-				System.err.println(re.getMessage());
-			}
+			System.out.println("ERRROR! Gyro is not pluged-in.");
+			/*
+			 * if (re.getMessage().contains("gyro")) {
+			 * System.err.println("ERRROR! Gyro is not pluged-in."); } else {
+			 * System.err.println("autre " + re.getMessage()); }
+			 */
 		}
 		return null;
 	}
