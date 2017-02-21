@@ -31,6 +31,7 @@ public class DriveGameSubsystem extends Subsystem {
 			rotation = -rotation;
 		}
 		movement *= MouvementInputFactor;
+		rotation *= MouvementInputFactor;
 
 		if (gyro == null) {
 			robotDrive.arcadeDrive(movement, rotation);

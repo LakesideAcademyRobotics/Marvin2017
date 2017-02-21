@@ -50,8 +50,7 @@ public class OI {
 		mainJoystick = new Joystick(0);
 
 		controlerRotationInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), LEFT_JOYSTICK_DEAD_ZONE);
-		winchInput = controlerRotationInput = new JoystickInput(mainJoystick, GamepadAxis.RightY.value(),
-				RIGHT_JOYSTICK_DEAD_ZONE);
+		winchInput = new JoystickInput(mainJoystick, GamepadAxis.RightY.value(), RIGHT_JOYSTICK_DEAD_ZONE);
 		controlerMovementInput = new DualAxisInput(mainJoystick, GamepadAxis.LeftTrigger.value(), mainJoystick,
 				GamepadAxis.RightTrigger.value(), 0, 0);
 

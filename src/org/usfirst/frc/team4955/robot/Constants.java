@@ -40,6 +40,6 @@ public class Constants {
 		BRUSH_SPEED *= 1;
 		THROWER_SPEED *= 1;
 		BALL_FEEDER *= 1;
-
+		CORRECTION_FACTOR = 0.30;
 	}
 }
