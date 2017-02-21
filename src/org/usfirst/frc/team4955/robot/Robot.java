@@ -133,12 +133,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Gyro Value", RobotMap.gyro.getAngle());
-
-		SmartDashboard.putNumber("Distance From Back", RobotMap.backSensor.getValue());
-
-		SmartDashboard.putNumber("Distance From Front", RobotMap.frontSensor.getValue());
-
 	}
 
 	@Override
