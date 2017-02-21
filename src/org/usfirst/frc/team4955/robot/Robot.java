@@ -125,7 +125,6 @@ public class Robot extends IterativeRobot {
 		Command geneva = new TestCanTalonCommand(RobotMap.genevaWheelTalon, 6, 1);
 		Scheduler.getInstance().add(geneva);
 		geneva.start();
-
 	}
 
 	@Override
