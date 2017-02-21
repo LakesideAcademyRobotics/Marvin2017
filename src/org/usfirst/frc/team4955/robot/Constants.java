@@ -7,7 +7,10 @@ public class Constants {
 	// How much the slow speed button slows down ( % of normal speed)
 	public static double DRIVE_SLOWER_SPEED_FACTOR = 0.5;
 	public static int DRIVE_SLOW_DOWN_BY_WALL_DISTANCE = 240;
-	public static double ENCODER_ROTATIONS_PER_FOOT = 1315; //Rotations needed to make 1 foot in real life for drive train
+	public static double ENCODER_ROTATIONS_PER_FOOT = 1315; // Rotations needed
+															// to make 1 foot in
+															// real life for
+															// drive train
 	/**
 	 * CORRECTION_FACTOR - Factor applied on the angle offset when driving
 	 * staigth.
@@ -27,8 +30,8 @@ public class Constants {
 	// BALL
 	public static double CONVEYOR_BELT_SPEED = 0.7;
 	public static double BRUSH_SPEED = -0.7;
-	public static double THROWER_SPEED = 1;
-	public static double BALL_FEEDER = 1;
+	public static double THROWER_SPEED = 0.5;
+	public static double BALL_FEEDER = 0.5;
 
 	// WINCH
 	public static double WINCH_MAX_SPEED = 1;
