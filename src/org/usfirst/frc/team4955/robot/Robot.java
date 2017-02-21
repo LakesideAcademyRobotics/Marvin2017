@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.commands.TestCanTalonCommand;
 import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
 import org.usfirst.frc.team4955.robot.commands.autonomous.RightMoveGear;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
@@ -43,7 +42,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Pre init
-		Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
+		// Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
 		DashboardKeys.init();
 
 		// Robot init
@@ -67,12 +66,12 @@ public class Robot extends IterativeRobot {
 	}
 
 	private void initAutonomousCommands() {
-		
+
 		chooser.addDefault("Left move and gear", new LeftMoveGear());
 		chooser.addObject("Right move and gear", new RightMoveGear());
 		chooser.addObject("Move 20 feet", new MoveDistance(20));
 		SmartDashboard.putData("Auto mode", chooser);
-		
+
 	}
 
 	/**
@@ -112,22 +111,22 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
-		
-		Command WallSensor = new WallSensor();
-		WallSensor.start();
-		
 
-		
+		if (RobotMap.backSensor != null && RobotMap.frontSensor != null) {
+			Command WallSensor = new WallSensor();
+			WallSensor.start();
+		}
+
 		if (driveSubsystem.isPresent()) {
 			Command drive = new JoystickDrive();
 			Scheduler.getInstance().add(drive);
 			drive.start();
 		}
 
-		Command geneva = new TestCanTalonCommand(RobotMap.genevaWheelTalon, 6, 1);
-		Scheduler.getInstance().add(geneva);
-		geneva.start();
+		// Command geneva = new TestCanTalonCommand(RobotMap.genevaWheelTalon,
+		// 6, 1);
+		// Scheduler.getInstance().add(geneva);
+		// geneva.start();
 	}
 
 	@Override
@@ -139,7 +138,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Distance From Back", RobotMap.backSensor.getValue());
 
 		SmartDashboard.putNumber("Distance From Front", RobotMap.frontSensor.getValue());
-		
+
 	}
 
 	@Override
