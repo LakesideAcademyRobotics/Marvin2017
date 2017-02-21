@@ -21,9 +21,8 @@ public class Constants {
 	public static double MAX_CORRECTION = 0.3;
 
 	// Too close, new full speed
-	public static double DRIVE_SLOWN_DOWN_BY_WALL_NEW_MAX_SPEED = 0.4;
-
-	public static double DRIVE_MAX_SPEED = 1; // Normal full speed
+	public static double DRIVE_SLOWN_DOWN_MAXOUTPUT = 0.4;
+	public static double DRIVE_NORMAL_MAXOUTPUT = 1; // Normal full speed
 
 	// BALL
 	public static double CONVEYOR_BELT_SPEED = 0.7;

@@ -6,18 +6,18 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SetDriveInputFactor extends Command {
 
-	private double newOutput;
-	private double previousMovementInputFactor;
+	private double factor;
+	private double previousValue;
 
-	public SetDriveInputFactor(double newOutput) {
+	public SetDriveInputFactor(double factor) {
 		super();
-		this.newOutput = newOutput;
+		this.factor = factor;
 	}
 
 	@Override
 	protected void initialize() {
-		previousMovementInputFactor = Robot.driveSubsystem.MouvementInputFactor;
-		Robot.driveSubsystem.MouvementInputFactor = newOutput;
+		previousValue = Robot.driveSubsystem.MouvementInputFactor;
+		Robot.driveSubsystem.MouvementInputFactor = previousValue * factor;
 	}
 
 	@Override
@@ -31,12 +31,12 @@ public class SetDriveInputFactor extends Command {
 
 	@Override
 	protected void end() {
-		Robot.driveSubsystem.MouvementInputFactor = previousMovementInputFactor;
+		Robot.driveSubsystem.MouvementInputFactor = previousValue;
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.driveSubsystem.MouvementInputFactor = previousMovementInputFactor;
+		Robot.driveSubsystem.MouvementInputFactor = previousValue;
 	}
 
 }

@@ -24,9 +24,9 @@ public class WallSensor extends Command {
 		boolean close = isClose();
 		if (hasClose != close) { // closeness limit hit
 			if (close)
-				Robot.driveSubsystem.SetMaxOutput(Constants.DRIVE_SLOWN_DOWN_BY_WALL_NEW_MAX_SPEED);
+				Robot.driveSubsystem.SetMaxOutput(Constants.DRIVE_SLOWN_DOWN_MAXOUTPUT);
 			else
-				Robot.driveSubsystem.SetMaxOutput(Constants.DRIVE_MAX_SPEED);
+				Robot.driveSubsystem.SetMaxOutput(Constants.DRIVE_NORMAL_MAXOUTPUT);
 			hasClose = close;
 		}
 		SmartDashboard.putBoolean("Is too close", close);

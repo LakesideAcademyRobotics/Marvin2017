@@ -55,6 +55,7 @@ public class RobotMap {
 	public static void init() {
 		driveTrain = new RobotDrive(2, 3, 0, 1);
 		driveTrain.setSensitivity(0.5);
+		driveTrain.setMaxOutput(Constants.DRIVE_NORMAL_MAXOUTPUT);
 
 		InverseDriveTrain(driveTrain);
 
