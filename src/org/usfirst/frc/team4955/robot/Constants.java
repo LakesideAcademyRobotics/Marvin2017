@@ -33,6 +33,11 @@ public class Constants {
 	// WINCH
 	public static double WINCH_MAX_SPEED = 1;
 
+	// SENSOR
+	public static double SENSOR_ZERO = 50;
+	public static double SENSOR_TOTAL_DISTANCE_FEET = 5;
+	public static double SENSOR_MAX_VALUE = 350;
+
 	// Change for Robot R1. (all the values in constans are set for R2)
 	public static void initForRobotR1() {
 		CONVEYOR_BELT_SPEED *= -1;

@@ -60,6 +60,7 @@ public class RobotMap {
 
 		leftEncoder = tryInitEncoder(0, 1);
 		rightEncoder = tryInitEncoder(2, 3);
+		rightEncoder.setReverseDirection(true);
 
 		gyro = tryInitGyro();
 
@@ -78,8 +79,8 @@ public class RobotMap {
 		// Cameras
 
 		// frontCamera = initLogitechHd1080p(0);
-		// backCamera = initLogitechHd720p(1);
-		CameraServer.getInstance().startAutomaticCapture();
+		backCamera = initLogitechHd720p(0);
+		// CameraServer.getInstance().startAutomaticCapture();
 
 	}
 
@@ -90,7 +91,7 @@ public class RobotMap {
 		cam.setFPS(30);
 		cam.setResolution(1920, 1080);
 		CameraServer.getInstance().addCamera(cam);
-
+		CameraServer.getInstance().startAutomaticCapture(cam);
 		return cam;
 	}
 

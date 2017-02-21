@@ -61,7 +61,7 @@ public class OI {
 			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
 			command.whenPressed(new InverseDriveTrainCommand());
 			command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-			command.whenPressed(new SetDriveInputFactor(Constants.DRIVE_SLOWER_SPEED_FACTOR));
+			command.toggleWhenPressed(new SetDriveInputFactor(Constants.DRIVE_SLOWER_SPEED_FACTOR));
 		}
 
 		// Ball pick-up
