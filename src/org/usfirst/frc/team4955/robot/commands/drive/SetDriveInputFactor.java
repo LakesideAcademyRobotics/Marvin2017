@@ -10,7 +10,6 @@ public class SetDriveInputFactor extends Command {
 	private double previousValue;
 
 	public SetDriveInputFactor(double factor) {
-		super();
 		this.factor = factor;
 	}
 
