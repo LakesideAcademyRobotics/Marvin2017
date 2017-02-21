@@ -5,6 +5,7 @@ import org.usfirst.frc.team4955.robot.commands.TestCanTalonCommand;
 import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
 import org.usfirst.frc.team4955.robot.commands.autonomous.RightMoveGear;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
+import org.usfirst.frc.team4955.robot.commands.drive.MoveDistance;
 import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
@@ -108,9 +109,13 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-
+		
+		
 		Command WallSensor = new WallSensor();
 		WallSensor.start();
+		
+		Command MoveDistance = new MoveDistance();
+		MoveDistance.start();
 		if (driveSubsystem.isPresent()) {
 			Command drive = new JoystickDrive();
 			Scheduler.getInstance().add(drive);
@@ -132,6 +137,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Distance From Back", RobotMap.backSensor.getValue());
 
 		SmartDashboard.putNumber("Distance From Front", RobotMap.frontSensor.getValue());
+		
 	}
 
 	@Override
