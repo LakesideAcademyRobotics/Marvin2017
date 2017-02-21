@@ -50,6 +50,11 @@ public class Robot extends IterativeRobot {
 		subsystemInit();
 		OI.init();
 		initAutonomousCommands();
+
+		if (RobotMap.backSensor != null && RobotMap.frontSensor != null) {
+			Command WallSensor = new WallSensor();
+			WallSensor.start();
+		}
 	}
 
 	private void subsystemInit() {
@@ -111,11 +116,6 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-
-		if (RobotMap.backSensor != null && RobotMap.frontSensor != null) {
-			Command WallSensor = new WallSensor();
-			WallSensor.start();
-		}
 
 		if (driveSubsystem.isPresent()) {
 			Command drive = new JoystickDrive();

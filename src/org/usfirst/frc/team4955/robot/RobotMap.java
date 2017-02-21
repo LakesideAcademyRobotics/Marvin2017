@@ -130,25 +130,10 @@ public class RobotMap {
 	}
 
 	public static Talon tryInitTalon(int channel) {
-		try {
-			Talon talon = new Talon(channel);
-			talon.set(0);
-			System.out.println(channel + " : " + talon.isAlive());
-			if (talon.isAlive()) {
-				return talon;
-			} else {
-				return null;
-			}
-
-		} catch (RuntimeException re) {
-
-			if (re.getMessage().contains("Code: -1029")) {
-				System.err.println("ERRROR! Talon at channel " + channel + " is not pluged-in.");
-			} else {
-				System.err.println(re.getMessage());
-			}
-		}
-		return null;
+		Talon talon = new Talon(channel);
+		talon.set(0);
+		talon.stopMotor();
+		return talon;
 	}
 
 	public static CANTalon tryInitCanTalon(int channel) {
@@ -158,7 +143,7 @@ public class RobotMap {
 			return talon;
 		} catch (RuntimeException re) {
 			if (re.getMessage().contains("Code: -1029")) {
-				System.err.println("ERRROR! CanTalon at channel " + channel + " is not pluged-in.");
+				System.err.println("Handled Error! CanTalon at channel " + channel + " is not pluged-in.");
 			} else {
 				System.err.println(re.getMessage());
 			}

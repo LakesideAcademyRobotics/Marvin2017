@@ -1,5 +1,23 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="WallSensorDistance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="438" y="29"/>
+	</widget>
+	<widget field="Is too close" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="585" y="190"/>
+	</widget>
+	<widget field="Encoder value for right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="412"/>
+	</widget>
+	<widget field="Enconder value for left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="385"/>
+	</widget>
+	<widget field="Encoder .get distance value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="358"/>
+	</widget>
+	<widget field="Enconder .get value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="100"/>
+	</widget>
 	<widget field="Winch Active" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="576" y="128"/>
 	</widget>
@@ -16,7 +34,7 @@
 		<location x="878" y="39"/>
 		<width>962</width>
 		<height>844</height>
-		<property name="Camera Choice" value=""/>
+		<property name="Camera Choice" value="USB Camera 0"/>
 		<property name="Selected Camera Path" value="cam1"/>
 	</static-widget>
 	<widget field="Distance From Front" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
@@ -24,9 +42,6 @@
 	</widget>
 	<widget field="Distance From Back" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="28" y="331"/>
-	</widget>
-	<widget field="Gyro value test" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="21" y="207"/>
 	</widget>
 	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
 		<location x="0" y="207"/>
@@ -57,17 +72,11 @@
 	<widget field="Drive" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="656" y="512"/>
 	</widget>
-	<widget field="Distance From Wall" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="46"/>
-	</widget>
 	<widget field="Gyro Value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="23"/>
-	</widget>
-	<widget field="Is too close" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
 	</widget>
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="KWAME"/>
+	<hidden field="tESTSSS"/>
 </xml>

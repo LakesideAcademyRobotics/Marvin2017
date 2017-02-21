@@ -7,7 +7,10 @@ public class Constants {
 	// How much the slow speed button slows down ( % of normal speed)
 	public static double DRIVE_SLOWER_SPEED_FACTOR = 0.5;
 	public static int DRIVE_SLOW_DOWN_BY_WALL_DISTANCE = 240;
-	public static double ENCODER_ROTATIONS_PER_FOOT = 1315; //Rotations needed to make 1 foot in real life for drive train
+	public static double ENCODER_ROTATIONS_PER_FOOT = 1315; // Rotations needed
+															// to make 1 foot in
+															// real life for
+															// drive train
 	/**
 	 * CORRECTION_FACTOR - Factor applied on the angle offset when driving
 	 * staigth.
@@ -35,8 +38,8 @@ public class Constants {
 
 	// SENSOR
 	public static double SENSOR_ZERO = 50;
-	public static double SENSOR_TOTAL_DISTANCE_FEET = 5;
-	public static double SENSOR_MAX_VALUE = 350;
+	public static double SENSOR_MAX_DISTANCE_FEET = 5;
+	public static double SENSOR_MAX_DISTANCE_VALUE = 360;
 
 	// Change for Robot R1. (all the values in constans are set for R2)
 	public static void initForRobotR1() {

@@ -32,8 +32,9 @@ public class WallSensor extends Command {
 		SmartDashboard.putBoolean("Is too close", close);
 		// SmartDashboard.putNumber("WallSensorDistance",
 		// (RobotMap.backSensor.getValue() - 240) * AnalogToInchesMultiplier);
-		double distance = RobotMap.backSensor.getValue() - Constants.SENSOR_ZERO;
-		SmartDashboard.putNumber("WallSensorDistance", distance);
+		double distanceInFeet = (RobotMap.backSensor.getValue() - Constants.SENSOR_ZERO)
+				/ Constants.SENSOR_MAX_DISTANCE_VALUE * Constants.SENSOR_MAX_DISTANCE_FEET;
+		SmartDashboard.putNumber("WallSensorDistance", distanceInFeet);
 	}
 
 	private boolean isClose() {
