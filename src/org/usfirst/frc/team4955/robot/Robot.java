@@ -67,9 +67,12 @@ public class Robot extends IterativeRobot {
 	}
 
 	private void initAutonomousCommands() {
+		
 		chooser.addDefault("Left move and gear", new LeftMoveGear());
 		chooser.addObject("Right move and gear", new RightMoveGear());
+		chooser.addObject("Move 20 feet", new MoveDistance(20));
 		SmartDashboard.putData("Auto mode", chooser);
+		
 	}
 
 	/**
@@ -114,8 +117,8 @@ public class Robot extends IterativeRobot {
 		Command WallSensor = new WallSensor();
 		WallSensor.start();
 		
-		Command MoveDistance = new MoveDistance();
-		MoveDistance.start();
+
+		
 		if (driveSubsystem.isPresent()) {
 			Command drive = new JoystickDrive();
 			Scheduler.getInstance().add(drive);
