@@ -6,8 +6,19 @@ public class Constants {
 
 	// How much the slow speed button slows down ( % of normal speed)
 	public static double DRIVE_SLOWER_SPEED_FACTOR = 0.5;
-
 	public static int DRIVE_SLOW_DOWN_BY_WALL_DISTANCE = 240;
+
+	/**
+	 * CORRECTION_FACTOR - Factor applied on the angle offset when driving
+	 * staigth.
+	 */
+	public static double CORRECTION_FACTOR = 0.35;
+	/**
+	 * MAX_CORRECTION - Maximum of gyro correction done on the rotation when the
+	 * driver tries to go in a straight line. Over about 0.4 allows for over
+	 * correction and makes the robot wiggle.
+	 */
+	public static double MAX_CORRECTION = 0.3;
 
 	// Too close, new full speed
 	public static double DRIVE_SLOWN_DOWN_BY_WALL_NEW_MAX_SPEED = 0.4;
@@ -21,9 +32,7 @@ public class Constants {
 	public static double BALL_FEEDER = 1;
 
 	// WINCH
-	public static double WINCH_SPEED = 1;
-
-	public static float PEG_HEIGHT_FROM_GROUND = 13;
+	public static double WINCH_MAX_SPEED = 1;
 
 	// Change for Robot R1. (all the values in constans are set for R2)
 	public static void initForRobotR1() {

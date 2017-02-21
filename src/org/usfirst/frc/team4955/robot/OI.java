@@ -28,6 +28,7 @@ public class OI {
 	public static Joystick mainJoystick;
 	public static TeleopInput controlerRotationInput;
 	public static TeleopInput controlerMovementInput;
+	public static TeleopInput winchInput;
 
 	public static GamepadButton REVERSE_DRIVE_BUTTOM_NUMBER = GamepadButton.A;
 	public static GamepadButton SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER = GamepadButton.B;
@@ -41,6 +42,7 @@ public class OI {
 	public static GamepadButton TURN_BUTTON = GamepadButton.Start;
 
 	public static double LEFT_JOYSTICK_DEAD_ZONE = 0.14;
+	public static double RIGHT_JOYSTICK_DEAD_ZONE = 0.14;
 
 	public static void init() {
 
@@ -48,6 +50,8 @@ public class OI {
 		mainJoystick = new Joystick(0);
 
 		controlerRotationInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), LEFT_JOYSTICK_DEAD_ZONE);
+		winchInput = controlerRotationInput = new JoystickInput(mainJoystick, GamepadAxis.RightY.value(),
+				RIGHT_JOYSTICK_DEAD_ZONE);
 		controlerMovementInput = new DualAxisInput(mainJoystick, GamepadAxis.LeftTrigger.value(), mainJoystick,
 				GamepadAxis.RightTrigger.value(), 0, 0);
 
@@ -58,7 +62,7 @@ public class OI {
 			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
 			command.whenPressed(new InverseDriveTrainCommand());
 			command = new JoystickButton(mainJoystick, SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER.value());
-			command.toggleWhenActive(new SetDriveInputFactor(Constants.DRIVE_SLOWER_SPEED_FACTOR));
+			command.whenPressed(new SetDriveInputFactor(Constants.DRIVE_SLOWER_SPEED_FACTOR));
 		}
 
 		// Ball pick-up

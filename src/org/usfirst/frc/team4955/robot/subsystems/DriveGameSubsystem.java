@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4955.robot.subsystems;
 
+import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -9,15 +10,10 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 public class DriveGameSubsystem extends Subsystem {
 
 	public RobotDrive robotDrive;
-	private double MaxOutputCap = 1; // The maximum value for MaxOutput of
-										// robotDrive;
 	public boolean reverseInput = false;
 	public double MouvementInputFactor = 1;
 
-	// Gyro
 	public Gyro gyro;
-	public double correctionFactor = 0.35;
-	public double MAX_CORRECTION = 0.3;
 
 	public DriveGameSubsystem(RobotDrive robotDrive, Gyro gyro) {
 		super();
@@ -35,9 +31,6 @@ public class DriveGameSubsystem extends Subsystem {
 			rotation = -rotation;
 		}
 		movement *= MouvementInputFactor;
-
-		// correctionFactor = SmartDashboard.getNumber("gyroCorr", 0.2);
-		// SmartDashboard.putNumber("Correction", 0);
 
 		if (gyro == null) {
 			robotDrive.arcadeDrive(movement, rotation);
@@ -60,11 +53,9 @@ public class DriveGameSubsystem extends Subsystem {
 				gyro.reset();
 
 			} else {
-				double correction = (gyro.getAngle() * correctionFactor);
-				correction = CapValue(correction, -MAX_CORRECTION, MAX_CORRECTION);
+				double correction = (gyro.getAngle() * Constants.CORRECTION_FACTOR);
+				correction = CapValue(correction, -Constants.MAX_CORRECTION, Constants.MAX_CORRECTION);
 
-				// SmartDashboard.putBoolean("GyroPause", false);
-				// SmartDashboard.putNumber("Correction", correction);
 				// We will apply the correction the correction
 				rotation -= correction;
 			}

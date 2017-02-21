@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4955.robot.commands.winch;
 
+import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.DashboardKeys;
+import org.usfirst.frc.team4955.robot.OI;
 import org.usfirst.frc.team4955.robot.Robot;
 import org.usfirst.frc.team4955.robot.RobotMap;
 
@@ -13,13 +15,18 @@ public class WinchRaise extends Command {
 		requires(Robot.winchSystem);
 	}
 
+	protected void initialize() {
+		SmartDashboard.putBoolean(DashboardKeys.WINCH_ACTIVE, true);
+	}
+
 	protected boolean isFinished() {
 		return false;
 	}
 
-	protected void initialize() {
-		RobotMap.winchTalon.set(0.5);
-		SmartDashboard.putBoolean(DashboardKeys.WINCH_ACTIVE, true);
+	@Override
+	protected void execute() {
+		double speed = OI.winchInput.getInput() * Constants.WINCH_MAX_SPEED;
+		RobotMap.winchTalon.set(speed);
 	}
 
 	@Override

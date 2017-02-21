@@ -6,6 +6,8 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
@@ -18,17 +20,18 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class RobotMap {
 
+	// Drive
+	public static AnalogInput backSensor;
+	public static AnalogInput frontSensor;
 	public static RobotDrive driveTrain;
+	public static Encoder leftEncoder;
+	public static Encoder rightEncoder;
 
 	// Gyro
 	public static ADXRS450_Gyro gyro;
 
 	// Winch
 	public static Talon winchTalon;
-
-	// Gear
-	public static AnalogInput backSensor;
-	public static AnalogInput frontSensor;
 
 	// Ball pickup
 	public static Talon brushTalon;
@@ -102,6 +105,22 @@ public class RobotMap {
 			driveTrain.setInvertedMotor(type, true);
 		}
 
+	}
+
+	public static Encoder tryInitEncoder(DigitalSource sourceA, DigitalSource sourceB) {
+		try {
+			Encoder encoder = new Encoder(sourceA, sourceB);
+			return encoder;
+
+		} catch (RuntimeException re) {
+			if (re.getMessage().contains("Code: -1029")) {
+				System.err.println(
+						"ERRROR! Encoder at source A:" + sourceA + " and source B:" + sourceB + " is not pluged-in.");
+			} else {
+				System.err.println(re.getMessage());
+			}
+		}
+		return null;
 	}
 
 	public static Talon tryInitTalon(int channel) {

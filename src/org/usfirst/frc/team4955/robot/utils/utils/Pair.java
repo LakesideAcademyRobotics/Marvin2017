@@ -25,6 +25,7 @@ public class Pair<X, Y> {
 			return false;
 		}
 
+		@SuppressWarnings("unchecked")
 		Pair<X, Y> other_ = (Pair<X, Y>) other;
 
 		// this may cause NPE if nulls are valid values for x or y. The logic

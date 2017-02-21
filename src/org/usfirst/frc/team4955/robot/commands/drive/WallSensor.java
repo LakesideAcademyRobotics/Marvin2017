@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class WallSensor extends Command {
 
-	public double AnalogToInchesMultiplier = 0.125;
-
 	private boolean hasClose = false; // last frame was close
+
+	private static double AnalogToInchesMultiplier = 0.125;
+	private static double SensorZeroDistance = 240 * AnalogToInchesMultiplier;
 
 	@Override
 	protected void initialize() {
@@ -32,8 +33,8 @@ public class WallSensor extends Command {
 	}
 
 	private boolean isClose() {
-		return (RobotMap.frontSensor.getValue() - Constants.DRIVE_SLOW_DOWN_BY_WALL_DISTANCE)
-				* AnalogToInchesMultiplier <= 0;
+		double distanceInInch = RobotMap.frontSensor.getValue() * AnalogToInchesMultiplier - SensorZeroDistance;
+		return distanceInInch <= 0;
 	}
 
 	protected boolean isFinished() {
