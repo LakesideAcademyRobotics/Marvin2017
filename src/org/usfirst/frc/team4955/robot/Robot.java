@@ -50,11 +50,6 @@ public class Robot extends IterativeRobot {
 		subsystemInit();
 		OI.init();
 		initAutonomousCommands();
-
-		if (RobotMap.backSensor != null && RobotMap.frontSensor != null) {
-			Command WallSensor = new WallSensor();
-			WallSensor.start();
-		}
 	}
 
 	private void subsystemInit() {
@@ -122,17 +117,26 @@ public class Robot extends IterativeRobot {
 			Scheduler.getInstance().add(drive);
 			drive.start();
 		}
-
-		// Command geneva = new TestCanTalonCommand(RobotMap.genevaWheelTalon,
-		// 6, 1);
-		// Scheduler.getInstance().add(geneva);
-		// geneva.start();
+		if (RobotMap.backSensor != null && RobotMap.frontSensor != null) {
+			Command WallSensor = new WallSensor();
+			WallSensor.start();
+		}
 	}
 
 	@Override
 	public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
+
+		SmartDashboard.putNumber("Left distance", RobotMap.leftEncoder.get() / Constants.ENCODER_ROTATIONS_PER_FOOT);
+		SmartDashboard.putNumber("Right distance", RobotMap.rightEncoder.get() / Constants.ENCODER_ROTATIONS_PER_FOOT);
+
+		try {
+			SmartDashboard.putBoolean(DashboardKeys.GYRO, true);
+			RobotMap.gyro.reset();
+		} catch (Exception re) {
+			SmartDashboard.putBoolean(DashboardKeys.GYRO, false);
+		}
 	}
 
 	@Override

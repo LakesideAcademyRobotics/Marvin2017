@@ -4,6 +4,7 @@ import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.Robot;
 import org.usfirst.frc.team4955.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,9 +33,14 @@ public class WallSensor extends Command {
 		SmartDashboard.putBoolean("Is too close", close);
 		// SmartDashboard.putNumber("WallSensorDistance",
 		// (RobotMap.backSensor.getValue() - 240) * AnalogToInchesMultiplier);
-		double distanceInFeet = (RobotMap.backSensor.getValue() - Constants.SENSOR_ZERO)
-				/ Constants.SENSOR_MAX_DISTANCE_VALUE * Constants.SENSOR_MAX_DISTANCE_FEET;
-		SmartDashboard.putNumber("WallSensorDistance", distanceInFeet);
+		SmartDashboard.putNumber("Front sensor", calculateDistance(RobotMap.frontSensor));
+		SmartDashboard.putNumber("Back sensor", calculateDistance(RobotMap.backSensor));
+	}
+
+	private double calculateDistance(AnalogInput sensor) {
+		double distanceInFeet = (sensor.getValue() - Constants.SENSOR_ZERO) / Constants.SENSOR_MAX_DISTANCE_VALUE
+				* Constants.SENSOR_MAX_DISTANCE_FEET;
+		return distanceInFeet;
 	}
 
 	private boolean isClose() {

@@ -30,8 +30,8 @@ public class Constants {
 	// BALL
 	public static double CONVEYOR_BELT_SPEED = 0.7;
 	public static double BRUSH_SPEED = -0.7;
-	public static double THROWER_SPEED = 0.5;
-	public static double BALL_FEEDER = 0.5;
+	public static double THROWER_SPEED = 0.75;
+	public static double GENOVA_SPEED = 1;
 
 	// WINCH
 	public static double WINCH_MAX_SPEED = 1;
@@ -46,7 +46,9 @@ public class Constants {
 		CONVEYOR_BELT_SPEED *= -1;
 		BRUSH_SPEED *= 1;
 		THROWER_SPEED *= 1;
-		BALL_FEEDER *= 1;
+		GENOVA_SPEED *= 1;
 		CORRECTION_FACTOR = 0.30;
+		RobotMap.rightEncoder.setReverseDirection(true);
+
 	}
 }

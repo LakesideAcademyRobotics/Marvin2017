@@ -60,7 +60,6 @@ public class RobotMap {
 
 		leftEncoder = tryInitEncoder(0, 1);
 		rightEncoder = tryInitEncoder(2, 3);
-		rightEncoder.setReverseDirection(true);
 
 		gyro = tryInitGyro();
 
@@ -86,24 +85,30 @@ public class RobotMap {
 
 	public static UsbCamera initLogitechHd1080p(int channel) {
 
-		UsbCamera cam = new UsbCamera("Front", 0);
+		// UsbCamera cam = new UsbCamera("Front", 0);
 
-		cam.setFPS(30);
-		cam.setResolution(1920, 1080);
-		CameraServer.getInstance().addCamera(cam);
-		CameraServer.getInstance().startAutomaticCapture(cam);
-		return cam;
+		/*
+		 * cam.setFPS(30); cam.setResolution(1920, 1080);
+		 * CameraServer.getInstance().addCamera(cam);
+		 * CameraServer.getInstance().startAutomaticCapture(cam);
+		 */
+		CameraServer.getInstance().startAutomaticCapture(channel);
+		// return cam;
+		return null;
 	}
 
 	public static UsbCamera initLogitechHd720p(int channel) {
-
-		UsbCamera cam = new UsbCamera("Back", 0);
-
-		cam.setFPS(30);
-		cam.setResolution(1280, 720);
-		CameraServer.getInstance().addCamera(cam);
-
-		return cam;
+		/*
+		 * UsbCamera cam = new UsbCamera("Back", 0);
+		 * 
+		 * cam.setFPS(30); cam.setResolution(1280, 720);
+		 * CameraServer.getInstance().addCamera(cam);
+		 * 
+		 * 
+		 * return cam;
+		 */
+		CameraServer.getInstance().startAutomaticCapture(channel);
+		return null;
 	}
 
 	private static void InverseDriveTrain(RobotDrive driveTrain) {
@@ -168,6 +173,7 @@ public class RobotMap {
 	public static ADXRS450_Gyro tryInitGyro() {
 		try {
 			ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+			gyro.calibrate();
 			gyro.reset();
 			return gyro;
 		} catch (Exception re) {

@@ -1,16 +1,26 @@
 <xml version="1.0">
 <dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="951" y="47"/>
+		<property name="Camera Choice" value="USB Camera 1"/>
+	</static-widget>
+	<widget field="Right distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="505" y="433"/>
+	</widget>
+	<widget field="Left distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="509" y="397"/>
+	</widget>
 	<widget field="WallSensorDistance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="438" y="29"/>
+		<location x="0" y="50"/>
+	</widget>
+	<widget field="Back sensor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="513" y="360"/>
+	</widget>
+	<widget field="Front sensor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="504" y="309"/>
 	</widget>
 	<widget field="Is too close" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="585" y="190"/>
-	</widget>
-	<widget field="Encoder value for right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="412"/>
-	</widget>
-	<widget field="Enconder value for left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="385"/>
 	</widget>
 	<widget field="Encoder .get distance value" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="358"/>
@@ -30,13 +40,6 @@
 	<widget field="Ball pickup" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="579" y="73"/>
 	</widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="878" y="39"/>
-		<width>962</width>
-		<height>844</height>
-		<property name="Camera Choice" value="USB Camera 0"/>
-		<property name="Selected Camera Path" value="cam1"/>
-	</static-widget>
 	<widget field="Distance From Front" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="30" y="293"/>
 	</widget>
@@ -78,5 +81,6 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="tESTSSS"/>
+	<hidden field="Encoder value for right"/>
+	<hidden field="Enconder value for left"/>
 </xml>
