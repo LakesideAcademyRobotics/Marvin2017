@@ -48,7 +48,7 @@ public class Constants {
 		THROWER_SPEED *= 1;
 		GENOVA_SPEED *= 1;
 		CORRECTION_FACTOR = 0.30;
-		RobotMap.rightEncoder.setReverseDirection(true);
+		// RobotMap.rightEncoder.setReverseDirection(true);
 
 	}
 }

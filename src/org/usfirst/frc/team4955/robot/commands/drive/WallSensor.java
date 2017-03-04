@@ -3,6 +3,7 @@ package org.usfirst.frc.team4955.robot.commands.drive;
 import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.Robot;
 import org.usfirst.frc.team4955.robot.RobotMap;
+import org.usfirst.frc.team4955.robot.utils.SensorEncoderUtils;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,17 +13,22 @@ public class WallSensor extends Command {
 
 	private boolean hasClose = false; // last frame was close
 
-	private static double AnalogToInchesMultiplier = 0.125;
-	private static double SensorZeroDistance = 240 * AnalogToInchesMultiplier;
-
 	@Override
 	protected void initialize() {
-		hasClose = isClose();
+		hasClose = false;
 	}
 
 	@Override
 	protected void execute() {
-		boolean close = isClose();
+		boolean close = false;
+		SmartDashboard.putNumber("Front sensor", SensorEncoderUtils.calculateDistance(RobotMap.frontSensor));
+		SmartDashboard.putNumber("Back sensor", SensorEncoderUtils.calculateDistance(RobotMap.backSensor));
+		if (Robot.driveSubsystem.reverseInput) {
+			close = isClose(RobotMap.backSensor);
+		} else {
+			close = isClose(RobotMap.frontSensor);
+		}
+
 		if (hasClose != close) { // closeness limit hit
 			if (close)
 				Robot.driveSubsystem.SetMaxOutput(Constants.DRIVE_SLOWN_DOWN_MAXOUTPUT);
@@ -33,19 +39,10 @@ public class WallSensor extends Command {
 		SmartDashboard.putBoolean("Is too close", close);
 		// SmartDashboard.putNumber("WallSensorDistance",
 		// (RobotMap.backSensor.getValue() - 240) * AnalogToInchesMultiplier);
-		SmartDashboard.putNumber("Front sensor", calculateDistance(RobotMap.frontSensor));
-		SmartDashboard.putNumber("Back sensor", calculateDistance(RobotMap.backSensor));
 	}
 
-	private double calculateDistance(AnalogInput sensor) {
-		double distanceInFeet = (sensor.getValue() - Constants.SENSOR_ZERO) / Constants.SENSOR_MAX_DISTANCE_VALUE
-				* Constants.SENSOR_MAX_DISTANCE_FEET;
-		return distanceInFeet;
-	}
-
-	private boolean isClose() {
-		double distanceInInch = RobotMap.frontSensor.getValue() * AnalogToInchesMultiplier - SensorZeroDistance;
-		return distanceInInch <= 0;
+	private boolean isClose(AnalogInput sensor) {
+		return SensorEncoderUtils.calculateDistance(sensor) < 4;
 	}
 
 	protected boolean isFinished() {

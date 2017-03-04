@@ -15,7 +15,7 @@ public class StartPickup extends Command {
 	}
 
 	protected void initialize() {
-		RobotMap.elavatorTalon.set(Constants.CONVEYOR_BELT_SPEED);
+		RobotMap.elevator.set(Constants.CONVEYOR_BELT_SPEED);
 		setTimeout(0.5);
 	}
 

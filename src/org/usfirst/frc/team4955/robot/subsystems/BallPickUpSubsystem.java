@@ -9,7 +9,7 @@ public class BallPickUpSubsystem extends Subsystem{
 	public BallPickUpSubsystem() {
 		if (this.isPresent()) {
 			RobotMap.brushTalon.set(0);
-			RobotMap.elavatorTalon.set(0);
+			RobotMap.elevator.set(0);
 		}
 	}
 	@Override
@@ -19,7 +19,7 @@ public class BallPickUpSubsystem extends Subsystem{
 	}
 	
 	public boolean isPresent(){
-		return RobotMap.brushTalon != null && RobotMap.elavatorTalon != null;
+		return RobotMap.brushTalon != null && RobotMap.elevator != null;
 	}
 
 }

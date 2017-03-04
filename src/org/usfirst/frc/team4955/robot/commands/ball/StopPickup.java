@@ -24,11 +24,11 @@ public class StopPickup extends Command {
 
 	protected void interrupted() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, false);
-		RobotMap.elavatorTalon.setSpeed(0);
+		RobotMap.elevator.setSpeed(0);
 	}
 
 	protected void end() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, false);
-		RobotMap.elavatorTalon.setSpeed(0);
+		RobotMap.elevator.setSpeed(0);
 	}
 }

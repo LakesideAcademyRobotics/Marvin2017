@@ -34,10 +34,10 @@ public class RobotMap {
 
 	// Ball pickup
 	public static Talon brushTalon;
-	public static Talon elavatorTalon;
+	public static Talon elevator;
 
 	// Ball shoot
-	public static CANTalon throwingFeedTalon;
+	public static CANTalon throwingWheelTalon;
 	public static CANTalon genevaWheelTalon;
 	public static AnalogInput feederBallSensor;
 
@@ -66,12 +66,12 @@ public class RobotMap {
 		frontSensor = new AnalogInput(0);
 		backSensor = new AnalogInput(1);
 
-		brushTalon = tryInitTalon(5);
 		winchTalon = tryInitTalon(4);
-		elavatorTalon = tryInitTalon(6);
+		brushTalon = tryInitTalon(5);
+		elevator = tryInitTalon(6);
 
 		genevaWheelTalon = tryInitCanTalon(5);
-		throwingFeedTalon = tryInitCanTalon(6);
+		throwingWheelTalon = tryInitCanTalon(6);
 
 		cameraServo = tryInitServo(7);
 

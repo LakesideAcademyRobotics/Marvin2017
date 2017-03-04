@@ -8,7 +8,7 @@ public class ThrowerSubsystem extends Subsystem {
 
 	public ThrowerSubsystem() {
 		if (isPresent()) {
-			RobotMap.throwingFeedTalon.set(0);
+			RobotMap.throwingWheelTalon.set(0);
 			RobotMap.genevaWheelTalon.set(0);
 		}
 	}
@@ -20,7 +20,7 @@ public class ThrowerSubsystem extends Subsystem {
 	}
 
 	public boolean isPresent() {
-		return RobotMap.throwingFeedTalon != null && RobotMap.genevaWheelTalon != null;
+		return RobotMap.throwingWheelTalon != null && RobotMap.genevaWheelTalon != null;
 	}
 
 }

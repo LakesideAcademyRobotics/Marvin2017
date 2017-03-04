@@ -14,7 +14,6 @@ import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -42,7 +41,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Pre init
-		// Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
+		Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
 		DashboardKeys.init();
 
 		// Robot init
@@ -152,8 +151,13 @@ public class Robot extends IterativeRobot {
 
 	}
 
-	@Override
+	TestProcedure testProcedure;
+
+	public void testInit() {
+		testProcedure = new TestProcedure();
+	}
+
 	public void testPeriodic() {
-		LiveWindow.run();
+		testProcedure.periodic();
 	}
 }

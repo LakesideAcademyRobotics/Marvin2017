@@ -56,6 +56,6 @@ public class CameraSubsystem extends Subsystem {
 	}
 
 	public boolean isPresent() {
-		return RobotMap.brushTalon != null && RobotMap.elavatorTalon != null;
+		return RobotMap.brushTalon != null && RobotMap.elevator != null;
 	}
 }
