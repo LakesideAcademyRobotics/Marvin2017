@@ -7,10 +7,12 @@ public class Constants {
 	// How much the slow speed button slows down ( % of normal speed)
 	public static double DRIVE_SLOWER_SPEED_FACTOR = 0.5;
 	public static int DRIVE_SLOW_DOWN_BY_WALL_DISTANCE = 240;
-	public static double ENCODER_ROTATIONS_PER_FOOT = 1315; // Rotations needed
-															// to make 1 foot in
-															// real life for
-															// drive train
+
+	// Rotations needed to make 1 foot in real life for drive train
+	public static double ENCODER_ROTATIONS_PER_FOOT = 1315;
+	// Rotations needed to make 1 full rotation in real life for drive train
+	public static double ENCODER_ROTATIONS_PER_360 = 8.2 * ENCODER_ROTATIONS_PER_FOOT;
+
 	/**
 	 * CORRECTION_FACTOR - Factor applied on the angle offset when driving
 	 * staigth.
@@ -30,7 +32,7 @@ public class Constants {
 	// BALL
 	public static double CONVEYOR_BELT_SPEED = 0.7;
 	public static double BRUSH_SPEED = -0.7;
-	public static double THROWER_SPEED = 0.75;
+	public static double THROWER_RPM = 4500;
 	public static double GENOVA_SPEED = 1;
 
 	// WINCH
@@ -41,14 +43,20 @@ public class Constants {
 	public static double SENSOR_MAX_DISTANCE_FEET = 5;
 	public static double SENSOR_MAX_DISTANCE_VALUE = 360;
 
+	public static boolean IS_R2 = true;
+
+	public static boolean CAMERA_LIGHT_ON = true;
+
 	// Change for Robot R1. (all the values in constans are set for R2)
 	public static void initForRobotR1() {
+		IS_R2 = false;
 		CONVEYOR_BELT_SPEED *= -1;
 		BRUSH_SPEED *= 1;
-		THROWER_SPEED *= 1;
+		THROWER_RPM *= 1;
 		GENOVA_SPEED *= 1;
 		CORRECTION_FACTOR = 0.30;
 		// RobotMap.rightEncoder.setReverseDirection(true);
-
+		DRIVE_SLOWN_DOWN_MAXOUTPUT = 0.4;
+		DRIVE_NORMAL_MAXOUTPUT = 0.8;
 	}
 }

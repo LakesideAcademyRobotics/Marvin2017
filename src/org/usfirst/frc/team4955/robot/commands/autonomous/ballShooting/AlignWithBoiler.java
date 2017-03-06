@@ -14,7 +14,7 @@ public class AlignWithBoiler extends Command {
 
 	@Override
 	protected void initialize() {
-		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_THROWER_STATUS, "Aliging with boiler");
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "Aliging with boiler");
 	}
 
 	@Override

@@ -21,8 +21,8 @@ public class WallSensor extends Command {
 	@Override
 	protected void execute() {
 		boolean close = false;
-		SmartDashboard.putNumber("Front sensor", SensorEncoderUtils.calculateDistance(RobotMap.frontSensor));
-		SmartDashboard.putNumber("Back sensor", SensorEncoderUtils.calculateDistance(RobotMap.backSensor));
+		SmartDashboard.putNumber("Front sensor", 5 - SensorEncoderUtils.calculateDistance(RobotMap.frontSensor));
+		SmartDashboard.putNumber("Back sensor", 5 - SensorEncoderUtils.calculateDistance(RobotMap.backSensor));
 		if (Robot.driveSubsystem.reverseInput) {
 			close = isClose(RobotMap.backSensor);
 		} else {

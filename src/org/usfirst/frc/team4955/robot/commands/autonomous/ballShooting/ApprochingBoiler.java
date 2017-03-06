@@ -13,7 +13,7 @@ public class ApprochingBoiler extends Command {
 	}
 
 	protected void initialize() {
-		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_THROWER_STATUS, "Approching the boiler");
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "Approching the boiler");
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class ApprochingBoiler extends Command {
 
 	@Override
 	protected void end() {
-		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_THROWER_STATUS, "Ready to shoot");
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "Ready to shoot");
 	}
 
 }

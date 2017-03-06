@@ -15,7 +15,7 @@ public class ThrowerStop extends Command {
 
 	public void initialize() {
 		RobotMap.genevaWheelTalon.set(0);
-		setTimeout(0.75);
+		setTimeout(0);
 	}
 
 	protected boolean isFinished() {
@@ -24,13 +24,15 @@ public class ThrowerStop extends Command {
 
 	protected void end() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_TROWING, false);
-		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_THROWER_STATUS, "");
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "");
+		RobotMap.throwingWheelTalon.setP(0);
 		RobotMap.throwingWheelTalon.set(0);
 	}
 
 	protected void interrupted() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_TROWING, false);
-		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_THROWER_STATUS, "");
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "");
+		RobotMap.throwingWheelTalon.setP(0);
 		RobotMap.throwingWheelTalon.set(0);
 	}
 }

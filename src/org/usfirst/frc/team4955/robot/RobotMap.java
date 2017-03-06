@@ -6,10 +6,12 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -39,42 +41,50 @@ public class RobotMap {
 	// Ball shoot
 	public static CANTalon throwingWheelTalon;
 	public static CANTalon genevaWheelTalon;
-	public static AnalogInput feederBallSensor;
 
 	public static Servo cameraServo;
 
-	public static void init1() {
-		// driveTrain = new RobotDrive(2,3);
-
-	}
-
 	public static UsbCamera frontCamera;
 	public static UsbCamera backCamera;
+	public static DigitalOutput frontCameraLight;
+	public static DigitalOutput backCameraLight;
 
 	public static void init() {
 		driveTrain = new RobotDrive(2, 3, 0, 1);
-		driveTrain.setSensitivity(0.5);
 		driveTrain.setMaxOutput(Constants.DRIVE_NORMAL_MAXOUTPUT);
 
 		InverseDriveTrain(driveTrain);
 
 		leftEncoder = tryInitEncoder(0, 1);
 		rightEncoder = tryInitEncoder(2, 3);
+		if (rightEncoder != null && !Constants.IS_R2)
+			rightEncoder.setReverseDirection(true);
 
 		gyro = tryInitGyro();
 
 		frontSensor = new AnalogInput(0);
 		backSensor = new AnalogInput(1);
 
+		LiveWindow.addSensor("Sensor", "frontSensor", frontSensor);
+		LiveWindow.addActuator("Sensor", "backSensor", backSensor);
+
 		winchTalon = tryInitTalon(4);
+
 		brushTalon = tryInitTalon(5);
 		elevator = tryInitTalon(6);
+		LiveWindow.addActuator("Ballpick", "Brush", brushTalon);
+		LiveWindow.addActuator("Ballpick", "Elevator", elevator);
 
 		genevaWheelTalon = tryInitCanTalon(5);
 		throwingWheelTalon = tryInitCanTalon(6);
 
+		LiveWindow.addActuator("Ballshoot", "Geneva", genevaWheelTalon);
+		LiveWindow.addActuator("Ballshoot", "Wheel", throwingWheelTalon);
+
 		cameraServo = tryInitServo(7);
 
+		frontCameraLight = new DigitalOutput(7);
+		backCameraLight = new DigitalOutput(8);
 		// Cameras
 
 		// frontCamera = initLogitechHd1080p(0);

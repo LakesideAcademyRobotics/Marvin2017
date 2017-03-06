@@ -4,6 +4,7 @@ import org.usfirst.frc.team4955.robot.commands.ball.StartPickup;
 import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
 import org.usfirst.frc.team4955.robot.commands.drive.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.commands.drive.SetDriveInputFactor;
+import org.usfirst.frc.team4955.robot.commands.drive.Show_Move_Distance;
 import org.usfirst.frc.team4955.robot.commands.thrower.ThowerStartSquence;
 import org.usfirst.frc.team4955.robot.commands.thrower.ThrowerStop;
 import org.usfirst.frc.team4955.robot.commands.winch.WinchLower;
@@ -16,7 +17,6 @@ import org.usfirst.frc.team4955.robot.utils.utils.Gamepad.GamepadButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,17 +28,20 @@ public class OI {
 	public static TeleopInput controlerRotationInput;
 	public static TeleopInput controlerMovementInput;
 	public static TeleopInput winchInput;
+	public static TeleopInput testLeftRight;
 
 	public static GamepadButton REVERSE_DRIVE_BUTTOM_NUMBER = GamepadButton.A;
 	public static GamepadButton SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER = GamepadButton.B;
-	public static GamepadButton BALL_THROWER_START = GamepadButton.LB;
-	public static GamepadButton BALL_THROWER_STOP = GamepadButton.RB;
+	public static GamepadButton BALL_THROWER_START = GamepadButton.RB;
+	public static GamepadButton BALL_THROWER_STOP = GamepadButton.LB;
 	public static GamepadButton BALL_PICKUP = GamepadButton.X;
 	public static GamepadButton STOP_BALL_PICKUP = GamepadButton.Y;
 	public static GamepadButton WINCH_RAISE = GamepadButton.Start;
 	public static GamepadButton WINCH_LOWER = GamepadButton.Back;
 	public static GamepadButton THROWER_STOP = GamepadButton.LB;
 	public static GamepadButton TURN_BUTTON = GamepadButton.Start;
+
+	public static GamepadButton SHOW_MOVE_DISTANCE = GamepadButton.RStick;
 
 	public static double LEFT_JOYSTICK_DEAD_ZONE = 0.14;
 	public static double RIGHT_JOYSTICK_DEAD_ZONE = 0.14;
@@ -49,12 +52,16 @@ public class OI {
 		mainJoystick = new Joystick(0);
 
 		controlerRotationInput = new JoystickInput(mainJoystick, GamepadAxis.LeftX.value(), LEFT_JOYSTICK_DEAD_ZONE);
+		testLeftRight = new JoystickInput(mainJoystick, GamepadAxis.RightX.value(), RIGHT_JOYSTICK_DEAD_ZONE);
+
 		winchInput = new JoystickInput(mainJoystick, GamepadAxis.RightY.value(), RIGHT_JOYSTICK_DEAD_ZONE);
 		controlerMovementInput = new DualAxisInput(mainJoystick, GamepadAxis.LeftTrigger.value(), mainJoystick,
 				GamepadAxis.RightTrigger.value(), 0, 0);
 
-		JoystickButton command = null;
+	}
 
+	public static void initCommands() {
+		JoystickButton command = null;
 		// Drive
 		if (Robot.driveSubsystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, REVERSE_DRIVE_BUTTOM_NUMBER.value());
@@ -92,6 +99,7 @@ public class OI {
 			command.whenActive(new WinchLower());
 		}
 
-		SmartDashboard.putBoolean(DashboardKeys.INIT_OI, true);
+		command = new JoystickButton(mainJoystick, SHOW_MOVE_DISTANCE.value());
+		command.toggleWhenActive(new Show_Move_Distance());
 	}
 }

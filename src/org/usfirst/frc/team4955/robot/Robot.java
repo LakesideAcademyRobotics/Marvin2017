@@ -14,6 +14,7 @@ import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -33,13 +34,14 @@ public class Robot extends IterativeRobot {
 	public static ThrowerSubsystem throwerSubsystem;
 
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Command> chooser;
 
 	///
 	/// INIT
 	///
 	@Override
 	public void robotInit() {
+		SmartDashboard.putBoolean("TestMod", true);
 		// Pre init
 		Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
 		DashboardKeys.init();
@@ -57,18 +59,25 @@ public class Robot extends IterativeRobot {
 		winchSystem = new WinchSubsystem();
 		throwerSubsystem = new ThrowerSubsystem();
 
-		SmartDashboard.putBoolean(DashboardKeys.DRIVE, driveSubsystem.isPresent());
+		// SmartDashboard.putBoolean(DashboardKeys.DRIVE,
+		// driveSubsystem.isPresent());
 		SmartDashboard.putBoolean(DashboardKeys.GYRO, RobotMap.gyro != null);
-		SmartDashboard.putBoolean(DashboardKeys.PICKUP, ballPickUpSystem.isPresent());
-		SmartDashboard.putBoolean(DashboardKeys.THROWER, throwerSubsystem.isPresent());
-		SmartDashboard.putBoolean(DashboardKeys.WINCH, winchSystem.isPresent());
+		// SmartDashboard.putBoolean(DashboardKeys.PICKUP,
+		// ballPickUpSystem.isPresent());
+		// SmartDashboard.putBoolean(DashboardKeys.THROWER,
+		// throwerSubsystem.isPresent());
+		// SmartDashboard.putBoolean(DashboardKeys.WINCH,
+		// winchSystem.isPresent());
 	}
 
 	private void initAutonomousCommands() {
+		chooser = new SendableChooser<>();
+		chooser.addDefault("Red Left", new LeftMoveGear());
+		chooser.addObject("Red Right ", new RightMoveGear());
+		chooser.addObject("Center", new MoveDistance(4, 0.5));
+		chooser.addDefault("Blue Left", new LeftMoveGear());
+		chooser.addObject("Blue Right ", new RightMoveGear());
 
-		chooser.addDefault("Left move and gear", new LeftMoveGear());
-		chooser.addObject("Right move and gear", new RightMoveGear());
-		chooser.addObject("Move 20 feet", new MoveDistance(20));
 		SmartDashboard.putData("Auto mode", chooser);
 
 	}
@@ -106,36 +115,41 @@ public class Robot extends IterativeRobot {
 	/// TELEOP
 	///
 
+	TestProcedure testProcedure;
+
 	@Override
 	public void teleopInit() {
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
 
-		if (driveSubsystem.isPresent()) {
-			Command drive = new JoystickDrive();
-			Scheduler.getInstance().add(drive);
-			drive.start();
+		if (SmartDashboard.getBoolean("TestMod", false)) {
+			testProcedure = new TestProcedure();
+		} else {
+			OI.initCommands();
+			if (autonomousCommand != null)
+				autonomousCommand.cancel();
+
+			if (driveSubsystem.isPresent()) {
+				Command drive = new JoystickDrive();
+				Scheduler.getInstance().add(drive);
+				drive.start();
+			}
+			if (RobotMap.backSensor != null && RobotMap.frontSensor != null) {
+				Command WallSensor = new WallSensor();
+				WallSensor.start();
+			}
 		}
-		if (RobotMap.backSensor != null && RobotMap.frontSensor != null) {
-			Command WallSensor = new WallSensor();
-			WallSensor.start();
-		}
+
 	}
 
 	@Override
 	public void teleopPeriodic() {
+		if (SmartDashboard.getBoolean("TestMod", false)) {
+			testProcedure.periodic();
+		}
 
 		Scheduler.getInstance().run();
 
-		SmartDashboard.putNumber("Left distance", RobotMap.leftEncoder.get() / Constants.ENCODER_ROTATIONS_PER_FOOT);
-		SmartDashboard.putNumber("Right distance", RobotMap.rightEncoder.get() / Constants.ENCODER_ROTATIONS_PER_FOOT);
-
-		try {
-			SmartDashboard.putBoolean(DashboardKeys.GYRO, true);
-			RobotMap.gyro.reset();
-		} catch (Exception re) {
-			SmartDashboard.putBoolean(DashboardKeys.GYRO, false);
-		}
+		if (RobotMap.gyro != null)
+			SmartDashboard.putNumber(DashboardKeys.GYRO_VALUE, RobotMap.gyro.getAngle());
 	}
 
 	@Override
@@ -151,13 +165,7 @@ public class Robot extends IterativeRobot {
 
 	}
 
-	TestProcedure testProcedure;
-
-	public void testInit() {
-		testProcedure = new TestProcedure();
-	}
-
 	public void testPeriodic() {
-		testProcedure.periodic();
+		LiveWindow.run();
 	}
 }
