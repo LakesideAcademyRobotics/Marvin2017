@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4955.robot.commands.drive;
 
-import java.text.NumberFormat;
-
 import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.DashboardKeys;
 import org.usfirst.frc.team4955.robot.RobotMap;
@@ -17,8 +15,8 @@ public class TurnRobot extends Command {
 
 	double angle;
 
-	double encoderValueNeed;
-	double speed;
+	double	encoderValueNeed;
+	double	speed;
 
 	public TurnRobot(double angle, double speed) {
 		this.angle = angle;
@@ -29,13 +27,20 @@ public class TurnRobot extends Command {
 
 	protected void initialize() {
 
-		if (RobotMap.gyro != null) {
+		if (RobotMap.gyro != null && true == false) {
 			SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "Turning " + angle + " with gyro");
 			RobotMap.gyro.reset();
 			usingSystem = SystemUsed.Gyro;
-		} else if (RobotMap.leftEncoder != null) {
+		} else if (RobotMap.leftEncoder != null && RobotMap.rightEncoder != null) {
+			encoderValueNeed = Math.abs(angle) / 360.0;
+			if (angle < 0) {
+				RobotMap.rightEncoder.reset();
+				encoderValueNeed *= Constants.RIGHT_ENCODER_ROTATIONS_PER_360;
+			} else {
+				RobotMap.leftEncoder.reset();
+				encoderValueNeed *= Constants.LEFT_ENCODER_ROTATIONS_PER_360;
+			}
 			usingSystem = SystemUsed.Encoder;
-			encoderValueNeed = RobotMap.leftEncoder.get() + angle / 360 * Constants.ENCODER_ROTATIONS_PER_360;
 			SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "Turning " + angle + " with encoder");
 		} else {
 			usingSystem = SystemUsed.Time;
@@ -46,19 +51,35 @@ public class TurnRobot extends Command {
 	@Override
 	protected void execute() {
 		double s = speed * Math.signum(angle);
-		double f = 1 - Math.abs(RobotMap.gyro.getAngle()) / Math.abs(angle);
-		f = f * f * 0.3 + 0.7;
+		double f = 1;
+
+		if (usingSystem.equals(SystemUsed.Gyro)) {
+			f = 1 - Math.abs(RobotMap.gyro.getAngle()) / Math.abs(angle);
+			String str = String.format("Turning %f / %f with encoder", RobotMap.gyro.getAngle(), angle);
+			SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, str);
+
+		} else if (usingSystem.equals(SystemUsed.Encoder)) {
+			f = (angle < 0) ? RobotMap.rightEncoder.get() : RobotMap.leftEncoder.get();
+			f /= encoderValueNeed;
+			String str = String.format("Turning %.2f / %.2f with encoder", f, angle);
+			SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, str);
+			f = 1 - f;
+		}
+
+		f = Constants.EaseTurn(f);
+		// SmartDashboard.putString("Current Item", "F: " + f);
 		RobotMap.driveTrain.arcadeDrive(0, s * f);
 	}
 
 	protected boolean isFinished() {
-		String v = NumberFormat.getInstance().format(Math.abs(RobotMap.gyro.getAngle()));
-		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, v + " >= " + Math.abs(angle));
 
 		if (SystemUsed.Gyro.equals(usingSystem) && Math.abs(RobotMap.gyro.getAngle()) > Math.abs(angle)) {
 			return true;
-		} else if (SystemUsed.Encoder.equals(usingSystem) && RobotMap.leftEncoder.get() >= encoderValueNeed) {
-			return true;
+		} else if (SystemUsed.Encoder.equals(usingSystem)) {
+			if (angle < 0)
+				return RobotMap.rightEncoder.get() >= encoderValueNeed;
+			else
+				return RobotMap.leftEncoder.get() >= encoderValueNeed;
 		}
 
 		return false;
@@ -66,8 +87,13 @@ public class TurnRobot extends Command {
 
 	@Override
 	protected void end() {
-		// stopd driving
-		// RobotMap.brushTalon.set(0);
-		super.end();
+		RobotMap.driveTrain.arcadeDrive(0, 0);
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "Turned " + angle + " degre!");
+	}
+
+	@Override
+	protected void interrupted() {
+		RobotMap.driveTrain.arcadeDrive(0, 0);
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "Turning " + angle + " degre interrupted");
 	}
 }

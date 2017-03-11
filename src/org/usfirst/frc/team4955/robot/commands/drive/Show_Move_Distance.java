@@ -20,8 +20,8 @@ public class Show_Move_Distance extends Command {
 
 	@Override
 	protected void execute() {
-		double left = (RobotMap.leftEncoder.get() - leftValue) / Constants.ENCODER_ROTATIONS_PER_FOOT;
-		double right = (RobotMap.rightEncoder.get() - rightValue) / Constants.ENCODER_ROTATIONS_PER_FOOT;
+		double left = (RobotMap.leftEncoder.get() - leftValue) / Constants.ENCODER_ROTATIONS_PER_INCH;
+		double right = (RobotMap.rightEncoder.get() - rightValue) / Constants.ENCODER_ROTATIONS_PER_INCH;
 		SmartDashboard.putNumber(DashboardKeys.MOVE_DISTANCE_LEFT, left);
 		SmartDashboard.putNumber(DashboardKeys.MOVE_DISTANCE_RIGHT, right);
 	}

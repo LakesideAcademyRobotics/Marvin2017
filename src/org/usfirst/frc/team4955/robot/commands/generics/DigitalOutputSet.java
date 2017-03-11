@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4955.robot.commands;
+package org.usfirst.frc.team4955.robot.commands.generics;
 
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.command.Command;

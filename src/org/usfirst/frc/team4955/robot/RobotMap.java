@@ -22,32 +22,34 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class RobotMap {
 
 	// Drive
-	public static AnalogInput backSensor;
-	public static AnalogInput frontSensor;
-	public static RobotDrive driveTrain;
-	public static Encoder leftEncoder;
-	public static Encoder rightEncoder;
+	public static AnalogInput	backSensor;
+	public static AnalogInput	frontSensor;
+	public static RobotDrive	driveTrain;
+	public static Encoder		leftEncoder;
+	public static Encoder		rightEncoder;
 
 	// Gyro
 	public static ADXRS450_Gyro gyro;
+
+	public static Servo gearPusher;
 
 	// Winch
 	public static Talon winchTalon;
 
 	// Ball pickup
-	public static Talon brushTalon;
-	public static Talon elevator;
+	public static Talon	brushTalon;
+	public static Talon	elevator;
 
 	// Ball shoot
-	public static CANTalon throwingWheelTalon;
-	public static CANTalon genevaWheelTalon;
+	public static CANTalon	throwingWheelTalon;
+	public static CANTalon	genevaWheelTalon;
 
 	public static Servo cameraServo;
 
-	public static UsbCamera frontCamera;
-	public static UsbCamera backCamera;
-	public static DigitalOutput frontCameraLight;
-	public static DigitalOutput backCameraLight;
+	public static UsbCamera		frontCamera;
+	public static UsbCamera		backCamera;
+	public static DigitalOutput	frontCameraLight;
+	public static DigitalOutput	backCameraLight;
 
 	public static void init() {
 		driveTrain = new RobotDrive(2, 3, 0, 1);
@@ -61,6 +63,8 @@ public class RobotMap {
 			rightEncoder.setReverseDirection(true);
 
 		gyro = tryInitGyro();
+
+		gearPusher = new Servo(9);
 
 		frontSensor = new AnalogInput(0);
 		backSensor = new AnalogInput(1);
@@ -81,44 +85,30 @@ public class RobotMap {
 		LiveWindow.addActuator("Ballshoot", "Geneva", genevaWheelTalon);
 		LiveWindow.addActuator("Ballshoot", "Wheel", throwingWheelTalon);
 
-		cameraServo = tryInitServo(7);
+		cameraServo = tryInitServo(8);
 
-		frontCameraLight = new DigitalOutput(7);
-		backCameraLight = new DigitalOutput(8);
+		frontCameraLight = new DigitalOutput(5);
+		backCameraLight = new DigitalOutput(6);
+		frontCameraLight.set(false);
+		backCameraLight.set(false);
 		// Cameras
 
-		// frontCamera = initLogitechHd1080p(0);
 		backCamera = initLogitechHd720p(0);
-		// CameraServer.getInstance().startAutomaticCapture();
-
+		frontCamera = initLogitechHd1080p(1);
 	}
 
 	public static UsbCamera initLogitechHd1080p(int channel) {
-
-		// UsbCamera cam = new UsbCamera("Front", 0);
-
-		/*
-		 * cam.setFPS(30); cam.setResolution(1920, 1080);
-		 * CameraServer.getInstance().addCamera(cam);
-		 * CameraServer.getInstance().startAutomaticCapture(cam);
-		 */
-		CameraServer.getInstance().startAutomaticCapture(channel);
-		// return cam;
-		return null;
+		UsbCamera cam = new UsbCamera("Front", channel);
+		cam.setResolution(640, 480);
+		CameraServer.getInstance().startAutomaticCapture(cam);
+		return cam;
 	}
 
 	public static UsbCamera initLogitechHd720p(int channel) {
-		/*
-		 * UsbCamera cam = new UsbCamera("Back", 0);
-		 * 
-		 * cam.setFPS(30); cam.setResolution(1280, 720);
-		 * CameraServer.getInstance().addCamera(cam);
-		 * 
-		 * 
-		 * return cam;
-		 */
-		CameraServer.getInstance().startAutomaticCapture(channel);
-		return null;
+		UsbCamera cam = new UsbCamera("Back", channel);
+		cam.setResolution(640, 480);
+		CameraServer.getInstance().startAutomaticCapture(cam);
+		return cam;
 	}
 
 	private static void InverseDriveTrain(RobotDrive driveTrain) {

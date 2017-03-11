@@ -28,4 +28,8 @@ public class SmarterDashboard {
 
 		return v;
 	}
+
+	public static void putNumber(String key, double number, String format) {
+		SmartDashboard.putString(key, String.format(format, number));
+	}
 }

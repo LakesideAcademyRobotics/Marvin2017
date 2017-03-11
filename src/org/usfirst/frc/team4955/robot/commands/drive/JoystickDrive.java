@@ -12,6 +12,12 @@ public class JoystickDrive extends Command {
 	}
 
 	@Override
+	protected void initialize() {
+		// To avoid the first : Robot Drive... Output not updated often enough.
+		Robot.driveSubsystem.Periodic(0, 0);
+	}
+
+	@Override
 	protected void execute() {
 		double r = OI.controlerRotationInput.getInput();
 		r = r * 0.8;

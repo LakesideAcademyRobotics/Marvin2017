@@ -2,11 +2,13 @@
 package org.usfirst.frc.team4955.robot;
 
 import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
+import org.usfirst.frc.team4955.robot.commands.autonomous.AutonomousGear;
 import org.usfirst.frc.team4955.robot.commands.autonomous.RightMoveGear;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
 import org.usfirst.frc.team4955.robot.commands.drive.MoveDistance;
 import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
+import org.usfirst.frc.team4955.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.ThrowerSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
@@ -28,13 +30,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	// Subsystems
-	public static DriveGameSubsystem driveSubsystem;
-	public static BallPickUpSubsystem ballPickUpSystem;
-	public static WinchSubsystem winchSystem;
-	public static ThrowerSubsystem throwerSubsystem;
+	public static DriveGameSubsystem	driveSubsystem;
+	public static BallPickUpSubsystem	ballPickUpSystem;
+	public static WinchSubsystem		winchSystem;
+	public static ThrowerSubsystem		throwerSubsystem;
+	public static CameraSubsystem		cameraSubsystem;
 
-	Command autonomousCommand;
-	SendableChooser<Command> chooser;
+	Command						autonomousCommand;
+	SendableChooser<Command>	chooser;
 
 	///
 	/// INIT
@@ -58,21 +61,15 @@ public class Robot extends IterativeRobot {
 		ballPickUpSystem = new BallPickUpSubsystem();
 		winchSystem = new WinchSubsystem();
 		throwerSubsystem = new ThrowerSubsystem();
+		cameraSubsystem = new CameraSubsystem();
 
-		// SmartDashboard.putBoolean(DashboardKeys.DRIVE,
-		// driveSubsystem.isPresent());
 		SmartDashboard.putBoolean(DashboardKeys.GYRO, RobotMap.gyro != null);
-		// SmartDashboard.putBoolean(DashboardKeys.PICKUP,
-		// ballPickUpSystem.isPresent());
-		// SmartDashboard.putBoolean(DashboardKeys.THROWER,
-		// throwerSubsystem.isPresent());
-		// SmartDashboard.putBoolean(DashboardKeys.WINCH,
-		// winchSystem.isPresent());
 	}
 
 	private void initAutonomousCommands() {
 		chooser = new SendableChooser<>();
-		chooser.addDefault("Red Left", new LeftMoveGear());
+		chooser.addDefault("Gear pick", new AutonomousGear());
+		chooser.addObject("Red Left", new LeftMoveGear());
 		chooser.addObject("Red Right ", new RightMoveGear());
 		chooser.addObject("Center", new MoveDistance(4, 0.5));
 		chooser.addDefault("Blue Left", new LeftMoveGear());
@@ -90,6 +87,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
 	}
 
 	///
@@ -98,6 +97,8 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
+
+		RobotMap.cameraServo.set(Constants.CAMERA_TALON_OUT_VALUE);
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -124,6 +125,8 @@ public class Robot extends IterativeRobot {
 			testProcedure = new TestProcedure();
 		} else {
 			OI.initCommands();
+
+			RobotMap.cameraServo.set(Constants.CAMERA_TALON_OUT_VALUE);
 			if (autonomousCommand != null)
 				autonomousCommand.cancel();
 
@@ -155,6 +158,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 
+	}
+
+	@Override
+	public void free() {
+		super.free();
+		if (RobotMap.backCamera != null)
+			RobotMap.backCamera.free();
+		if (RobotMap.frontCamera != null)
+			RobotMap.frontCamera.free();
 	}
 
 	///

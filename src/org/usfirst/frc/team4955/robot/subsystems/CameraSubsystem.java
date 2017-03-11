@@ -1,12 +1,17 @@
 package org.usfirst.frc.team4955.robot.subsystems;
 
+import org.usfirst.frc.team4955.robot.DashboardKeys;
 import org.usfirst.frc.team4955.robot.RobotMap;
+import org.usfirst.frc.team4955.robot.vision.VisionThread;
 
 import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CameraSubsystem extends Subsystem {
+
+	public VisionThread visionThread;
 
 	public enum CameraSide {
 		FRONT, BACK
@@ -15,47 +20,41 @@ public class CameraSubsystem extends Subsystem {
 	public static CvSource VisionSource;
 
 	private CameraSide LookingSide;
-	private boolean visionLocked = false;
 
 	private static CameraServer CS = CameraServer.getInstance();
 
 	public CameraSubsystem() {
-		LookingSide = LookingSide.FRONT;
-		// CameraServer.getInstance().startAutomaticCapture(cam);
-		// VisionSource = CameraServer.getInstance().putVideo("VisionSource",
-		// 1920, 1080);
+		visionThread = new VisionThread();
+		visionThread.setDaemon(true);
+		visionThread.start();
+		LookingSide = CameraSide.FRONT;
 	}
 
-	public void StartVision(CameraSide side) {
-		visionLocked = true;
-	}
-
-	public void StopVision() {
-		visionLocked = false;
-	}
-
-	public void SetCameraSide(CameraSide side) {
-		// Si on n'est pas en vision, alors on change la vision
-		if (!visionLocked) {
-			// On s'assure que l'autre est ferme
-
-			if (CameraSide.FRONT.equals(LookingSide)) {
-
-			} else {
-
-			}
-			LookingSide = side;
-
+	public void reverseCams() {
+		if (CameraSide.FRONT.equals(LookingSide)) {
+			setCameraSide(CameraSide.BACK);
+		} else {
+			setCameraSide(CameraSide.FRONT);
 		}
+	}
+
+	public void setCameraSide(CameraSide side) {
+		LookingSide = side;
+		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, side.name());
+
+		if (CameraSide.FRONT.equals(LookingSide)) {
+			CameraServer.getInstance().getVideo("Front").setSource(RobotMap.frontCamera);
+			CameraServer.getInstance().getVideo("Back").setSource(RobotMap.backCamera);
+		} else {
+			CameraServer.getInstance().getVideo("Front").setSource(RobotMap.backCamera);
+			CameraServer.getInstance().getVideo("Back").setSource(RobotMap.frontCamera);
+		}
+
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 
-	}
-
-	public boolean isPresent() {
-		return RobotMap.brushTalon != null && RobotMap.elevator != null;
 	}
 }

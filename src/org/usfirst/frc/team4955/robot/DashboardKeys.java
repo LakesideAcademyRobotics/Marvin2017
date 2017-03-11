@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DashboardKeys {
 
+	public static String VISION_DISTANCE = "Target distance";
+
 	public static String INIT_OI = "init OI";
 
 	public static String BALL_TROWING = "Ball throwing";

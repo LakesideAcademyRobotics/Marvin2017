@@ -8,4 +8,14 @@ public class ThowerStartSquence extends CommandGroup {
 		addSequential(new ThrowerStart());
 		addSequential(new ThrowerWhileActive());
 	}
+
+	@Override
+	protected void interrupted() {
+		new ThrowerStop().start();
+	}
+
+	@Override
+	protected void end() {
+		new ThrowerStop().start();
+	}
 }
