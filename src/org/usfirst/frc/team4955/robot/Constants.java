@@ -38,11 +38,11 @@ public class Constants {
 	// BALL
 	public static double	CONVEYOR_BELT_SPEED	= 0.7;
 	public static double	BRUSH_SPEED			= -0.7;
-	public static double	THROWER_RPM			= 4500;
+	public static double	THROWER_RPM			= 4000;
 	public static double	GENOVA_SPEED		= 1;
 
 	// WINCH
-	public static double WINCH_MAX_SPEED = 1;
+	public static double WINCH_MAX_SPEED = -1;
 
 	// SENSOR
 	public static double	SENSOR_ZERO					= 50;
@@ -56,9 +56,9 @@ public class Constants {
 	/*
 	 * VISION
 	 */
-	public static double[]	hsvThresholdHue			= { 69, 126 };
+	public static double[]	hsvThresholdHue			= { 25, 90 };
 	public static double[]	hsvThresholdSaturation	= { 0, 255.0 };
-	public static double[]	hsvThresholdValue		= { 205, 255.0 };
+	public static double[]	hsvThresholdValue		= { 223, 255.0 };
 
 	public static double	VISION_DISTANCE_PIXEL_TARGET_HEIGHT	= 29.0;
 	public static double	VISION_DISTANCE_REAL_INCH_DISTANCE	= 58.0;
@@ -66,10 +66,12 @@ public class Constants {
 			* VISION_DISTANCE_REAL_INCH_DISTANCE;
 
 	// (normalised cameraValue)
-	public static double VISION_GEAR_CENTER_OFFSET = 0.1;
+	public static double VISION_GEAR_CENTER_OFFSET = 0.05;
 
 	public static double	CAMERA_TALON_OUT_VALUE	= 0.24;
-	public static double	CAMERA_TALON_IN_VALUE	= 0.9;
+	public static double	CAMERA_TALON_IN_VALUE	= 0.86;
+
+	public static double VISION_IGNORE_TOP_FOR_GEAR = 0.2;
 
 	public static double EaseTurn(double t) {
 		return t * t * 0.25 + 0.75;
@@ -86,12 +88,11 @@ public class Constants {
 	// Change for Robot R1. (all the values in constants are set for R2)
 	public static void initForRobotR1() {
 		IS_R2 = false;
-		CONVEYOR_BELT_SPEED *= -1;
+		CONVEYOR_BELT_SPEED *= 1;
 		BRUSH_SPEED *= 1;
 		THROWER_RPM *= 1;
 		GENOVA_SPEED *= 1;
-		CORRECTION_FACTOR = -0.72;
-		MAX_CORRECTION = 0.5;
+		CORRECTION_FACTOR = 0.30;
 		// RobotMap.rightEncoder.setReverseDirection(true);
 		DRIVE_SLOWN_DOWN_MAXOUTPUT = 0.4;
 		DRIVE_NORMAL_MAXOUTPUT = 0.8;

@@ -31,16 +31,17 @@ public class AlignWithTarget extends Command {
 	@Override
 	protected void execute() {
 		double cx = GetCenter();
+		double turnSpeed = 0.55;
 
 		double rotation = 0;
 		if (vt.targetCenterNormalised == null) {
 
 		} else if (cx < 0.5) {
 			double t = 2 * (0.5 - cx);
-			rotation = -Constants.EaseTurn(t, 0.5);
+			rotation = -Constants.EaseTurn(t, turnSpeed);
 		} else {
 			double t = 1 - 2 * (1 - cx);
-			rotation = Constants.EaseTurn(t, 0.5);
+			rotation = Constants.EaseTurn(t, turnSpeed);
 		}
 
 		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "rot : " + rotation);
@@ -57,7 +58,7 @@ public class AlignWithTarget extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return MathUtils.equalEpsilon(0.5, GetCenter(), 0.03);
+		return MathUtils.equalEpsilon(0.5 + centerOffset, GetCenter(), 0.03);
 	}
 
 }

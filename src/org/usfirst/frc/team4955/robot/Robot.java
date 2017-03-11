@@ -1,8 +1,8 @@
 
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
 import org.usfirst.frc.team4955.robot.commands.autonomous.AutonomousGear;
+import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
 import org.usfirst.frc.team4955.robot.commands.autonomous.RightMoveGear;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
 import org.usfirst.frc.team4955.robot.commands.drive.MoveDistance;
@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 	///
 	@Override
 	public void robotInit() {
-		SmartDashboard.putBoolean("TestMod", true);
+		SmartDashboard.putBoolean("TestMod", false);
 		// Pre init
 		Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
 		DashboardKeys.init();

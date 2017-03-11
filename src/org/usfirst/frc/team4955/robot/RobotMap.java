@@ -93,8 +93,8 @@ public class RobotMap {
 		backCameraLight.set(false);
 		// Cameras
 
-		backCamera = initLogitechHd720p(0);
-		frontCamera = initLogitechHd1080p(1);
+		backCamera = initLogitechHd720p(1);
+		frontCamera = initLogitechHd1080p(0);
 	}
 
 	public static UsbCamera initLogitechHd1080p(int channel) {

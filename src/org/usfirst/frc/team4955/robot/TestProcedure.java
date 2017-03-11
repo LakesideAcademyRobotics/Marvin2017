@@ -114,6 +114,10 @@ public class TestProcedure {
 	}
 
 	private void init(int item) {
+		if (runningCommand != null) {
+			runningCommand.cancel();
+			runningCommand = null;
+		}
 		itemRunning = true;
 		valueChangerFactor = 0.02;
 		value1MinMax = new double[] { -1, 1 };
@@ -340,8 +344,10 @@ public class TestProcedure {
 		RobotMap.backCameraLight.set(!Constants.CAMERA_LIGHT_ON);
 		RobotMap.frontCameraLight.set(!Constants.CAMERA_LIGHT_ON);
 		Robot.cameraSubsystem.visionThread.setVisionState(VisionState.None);
-		if (runningCommand != null)
+		if (runningCommand != null) {
 			runningCommand.cancel();
+			runningCommand = null;
+		}
 
 		if (currentTestItem == null) {
 

@@ -168,6 +168,10 @@ public class VisionThread extends Thread {
 			for (int j = i + 1; j < mops.size(); j++) {
 				Rect recti = Imgproc.boundingRect(mops.get(i));
 				Rect rectj = Imgproc.boundingRect(mops.get(j));
+				// Igniore top %
+				if (recti.y < 480 / 2 * Constants.VISION_IGNORE_TOP_FOR_GEAR)
+					continue;
+
 				if (MathUtils.equalEpsilon(recti.y, rectj.y, 15)
 						&& MathUtils.equalEpsilon(recti.width, rectj.width, 15)) {
 					Rect merged = mergeRect(recti, rectj);

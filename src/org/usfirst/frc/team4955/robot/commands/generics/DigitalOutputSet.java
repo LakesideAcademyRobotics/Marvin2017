@@ -5,20 +5,20 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DigitalOutputSet extends Command {
 
-	private double time;
-	private DigitalOutput digitalOutput;
-	private boolean value;
+	private double			timeout;
+	private DigitalOutput	digitalOutput;
+	private boolean			value;
 
-	public DigitalOutputSet(double time, DigitalOutput digitalOutput, boolean value) {
-		this.time = time;
+	public DigitalOutputSet(double timeout, DigitalOutput digitalOutput, boolean value) {
+		this.timeout = timeout;
 		this.digitalOutput = digitalOutput;
 		this.value = value;
 	}
 
 	@Override
 	protected void initialize() {
-		setTimeout(time);
 		digitalOutput.set(value);
+		setTimeout(timeout);
 
 	}
 

@@ -1,14 +1,12 @@
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.commands.ball.StartPickup;
-import org.usfirst.frc.team4955.robot.commands.ball.StopPickup;
+import org.usfirst.frc.team4955.robot.commands.ball.BallPickupCommands;
 import org.usfirst.frc.team4955.robot.commands.drive.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.commands.drive.SetDriveInputFactor;
 import org.usfirst.frc.team4955.robot.commands.drive.Show_Move_Distance;
 import org.usfirst.frc.team4955.robot.commands.gear.GearPusherCommand;
-import org.usfirst.frc.team4955.robot.commands.thrower.ThowerStartSquence;
-import org.usfirst.frc.team4955.robot.commands.winch.WinchLower;
-import org.usfirst.frc.team4955.robot.commands.winch.WinchRaise;
+import org.usfirst.frc.team4955.robot.commands.thrower.ThowerStartCommands;
+import org.usfirst.frc.team4955.robot.commands.winch.WinchStart;
 import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
 import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
 import org.usfirst.frc.team4955.robot.utils.input.TeleopInput;
@@ -35,14 +33,13 @@ public class OI {
 	public static GamepadButton	SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER	= GamepadButton.A;
 	public static GamepadButton	BALL_THROWER_START				= GamepadButton.RB;
 	// public static GamepadButton BALL_THROWER_STOP = GamepadButton.LB;
-	public static GamepadButton	PUSH_GEAR	= GamepadButton.LStick;
+	public static GamepadButton	PUSH_GEAR	= GamepadButton.LB;
 	public static GamepadButton	BALL_PICKUP	= GamepadButton.X;
 
-	public static GamepadButton	STOP_BALL_PICKUP	= GamepadButton.Y;
-	public static GamepadButton	WINCH_RAISE			= GamepadButton.Start;
-	public static GamepadButton	WINCH_LOWER			= GamepadButton.Back;
-	public static GamepadButton	THROWER_STOP		= GamepadButton.LB;
-	public static GamepadButton	TURN_BUTTON			= GamepadButton.Start;
+	// public static GamepadButton STOP_BALL_PICKUP = GamepadButton.Y;
+	public static GamepadButton	WINCH_RAISE	= GamepadButton.Start;
+	public static GamepadButton	WINCH_LOWER	= GamepadButton.Back;
+	// public static GamepadButton THROWER_STOP = GamepadButton.LB;
 
 	public static GamepadButton SHOW_MOVE_DISTANCE = GamepadButton.RStick;
 
@@ -77,36 +74,22 @@ public class OI {
 		// Ball pick-up
 		if (Robot.ballPickUpSystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, BALL_PICKUP.value());
-			command.whenActive(new StartPickup());
-			command = new JoystickButton(mainJoystick, STOP_BALL_PICKUP.value());
-			command.whenActive(new StopPickup());
+			command.toggleWhenPressed(new BallPickupCommands());
 		}
 
 		// Ball Thrower
 		if (Robot.throwerSubsystem.isPresent()) {
-			/*
-			 * command = new JoystickButton(mainJoystick,
-			 * BALL_THROWER_START.value());
-			 * command.whenActive(new ThowerStartSquence());
-			 * command = new JoystickButton(mainJoystick,
-			 * BALL_THROWER_STOP.value());
-			 * command.whenActive(new ThrowerStop());
-			 */
 			command = new JoystickButton(mainJoystick, BALL_THROWER_START.value());
-			command.whenActive(new ThowerStartSquence());
+			command.toggleWhenPressed(new ThowerStartCommands());
 		}
-
-		// Turn
-		// command = new JoystickButton(mainJoystick, TURN_BUTTON.value());
-		// command.whenActive(new Turn135());
 
 		// Winch
 		if (Robot.winchSystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, WINCH_RAISE.value());
-			command.whenActive(new WinchRaise());
+			command.whenActive(new WinchStart());
 
-			command = new JoystickButton(mainJoystick, WINCH_LOWER.value());
-			command.whenActive(new WinchLower());
+			// command = new JoystickButton(mainJoystick, WINCH_LOWER.value());
+			// command.whenActive(new WinchLower());
 		}
 
 		command = new JoystickButton(mainJoystick, PUSH_GEAR.value());
