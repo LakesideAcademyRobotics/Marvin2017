@@ -43,11 +43,11 @@ public class CameraSubsystem extends Subsystem {
 		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, side.name());
 
 		if (CameraSide.FRONT.equals(LookingSide)) {
-			CameraServer.getInstance().getVideo("Front").setSource(RobotMap.frontCamera);
-			CameraServer.getInstance().getVideo("Back").setSource(RobotMap.backCamera);
+			CameraServer.getInstance().removeCamera(RobotMap.backCamera.getName());
+			CameraServer.getInstance().getVideo(RobotMap.backCamera.getName()).setSource(RobotMap.frontCamera);
 		} else {
-			CameraServer.getInstance().getVideo("Front").setSource(RobotMap.backCamera);
-			CameraServer.getInstance().getVideo("Back").setSource(RobotMap.frontCamera);
+			CameraServer.getInstance().removeCamera(RobotMap.frontCamera.getName());
+			CameraServer.getInstance().getVideo(RobotMap.backCamera.getName()).setSource(RobotMap.backCamera);
 		}
 
 	}

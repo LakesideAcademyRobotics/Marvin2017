@@ -20,7 +20,7 @@ public class JoystickDrive extends Command {
 	@Override
 	protected void execute() {
 		double r = OI.controlerRotationInput.getInput();
-		r = r * 0.8;
+		r = Math.signum(r) * r * r * 0.8;
 		Robot.driveSubsystem.Periodic(OI.controlerMovementInput.getInput(), r);
 	}
 

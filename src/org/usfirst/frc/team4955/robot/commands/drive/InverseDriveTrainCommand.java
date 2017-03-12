@@ -13,7 +13,7 @@ public class InverseDriveTrainCommand extends Command {
 	@Override
 	protected void initialize() {
 		Robot.driveSubsystem.reverseInput();
-		Robot.cameraSubsystem.reverseCams();
+		// Robot.cameraSubsystem.reverseCams();
 	}
 
 	@Override

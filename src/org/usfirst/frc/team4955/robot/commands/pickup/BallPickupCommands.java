@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4955.robot.commands.ball;
+package org.usfirst.frc.team4955.robot.commands.pickup;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

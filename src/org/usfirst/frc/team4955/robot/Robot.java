@@ -1,11 +1,10 @@
 
 package org.usfirst.frc.team4955.robot;
 
+import org.usfirst.frc.team4955.robot.commands.RobotInit;
 import org.usfirst.frc.team4955.robot.commands.autonomous.AutonomousGear;
-import org.usfirst.frc.team4955.robot.commands.autonomous.LeftMoveGear;
-import org.usfirst.frc.team4955.robot.commands.autonomous.RightMoveGear;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.R1;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
-import org.usfirst.frc.team4955.robot.commands.drive.MoveDistance;
 import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.CameraSubsystem;
@@ -69,11 +68,7 @@ public class Robot extends IterativeRobot {
 	private void initAutonomousCommands() {
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Gear pick", new AutonomousGear());
-		chooser.addObject("Red Left", new LeftMoveGear());
-		chooser.addObject("Red Right ", new RightMoveGear());
-		chooser.addObject("Center", new MoveDistance(4, 0.5));
-		chooser.addDefault("Blue Left", new LeftMoveGear());
-		chooser.addObject("Blue Right ", new RightMoveGear());
+		chooser.addObject("R1", new R1());
 
 		SmartDashboard.putData("Auto mode", chooser);
 
@@ -120,15 +115,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-
 		if (SmartDashboard.getBoolean("TestMod", false)) {
 			testProcedure = new TestProcedure();
 		} else {
 			OI.initCommands();
 
-			RobotMap.cameraServo.set(Constants.CAMERA_TALON_OUT_VALUE);
 			if (autonomousCommand != null)
 				autonomousCommand.cancel();
+
+			new RobotInit().start();
 
 			if (driveSubsystem.isPresent()) {
 				Command drive = new JoystickDrive();
@@ -163,10 +158,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void free() {
 		super.free();
-		if (RobotMap.backCamera != null)
-			RobotMap.backCamera.free();
-		if (RobotMap.frontCamera != null)
-			RobotMap.frontCamera.free();
+		/*
+		 * if (RobotMap.backCamera != null)
+		 * RobotMap.backCamera.free();
+		 * if (RobotMap.frontCamera != null)
+		 * RobotMap.frontCamera.free();
+		 */
 	}
 
 	///

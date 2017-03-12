@@ -1,12 +1,12 @@
 package org.usfirst.frc.team4955.robot;
 
-import org.usfirst.frc.team4955.robot.commands.ball.BallPickupCommands;
 import org.usfirst.frc.team4955.robot.commands.drive.InverseDriveTrainCommand;
 import org.usfirst.frc.team4955.robot.commands.drive.SetDriveInputFactor;
 import org.usfirst.frc.team4955.robot.commands.drive.Show_Move_Distance;
 import org.usfirst.frc.team4955.robot.commands.gear.GearPusherCommand;
+import org.usfirst.frc.team4955.robot.commands.pickup.BallPickupCommands;
 import org.usfirst.frc.team4955.robot.commands.thrower.ThowerStartCommands;
-import org.usfirst.frc.team4955.robot.commands.winch.WinchStart;
+import org.usfirst.frc.team4955.robot.commands.winch.WinchJoyCommand;
 import org.usfirst.frc.team4955.robot.utils.input.DualAxisInput;
 import org.usfirst.frc.team4955.robot.utils.input.JoystickInput;
 import org.usfirst.frc.team4955.robot.utils.input.TeleopInput;
@@ -31,15 +31,12 @@ public class OI {
 
 	public static GamepadButton	REVERSE_DRIVE_BUTTOM_NUMBER		= GamepadButton.B;
 	public static GamepadButton	SLOW_DRIVE_OUTPUT_BUTTOM_NUMBER	= GamepadButton.A;
-	public static GamepadButton	BALL_THROWER_START				= GamepadButton.RB;
-	// public static GamepadButton BALL_THROWER_STOP = GamepadButton.LB;
-	public static GamepadButton	PUSH_GEAR	= GamepadButton.LB;
-	public static GamepadButton	BALL_PICKUP	= GamepadButton.X;
+	public static GamepadButton	BALL_THROWER					= GamepadButton.RB;
+	public static GamepadButton	PUSH_GEAR						= GamepadButton.LB;
+	public static GamepadButton	BALL_PICKUP						= GamepadButton.X;
 
-	// public static GamepadButton STOP_BALL_PICKUP = GamepadButton.Y;
 	public static GamepadButton	WINCH_RAISE	= GamepadButton.Start;
 	public static GamepadButton	WINCH_LOWER	= GamepadButton.Back;
-	// public static GamepadButton THROWER_STOP = GamepadButton.LB;
 
 	public static GamepadButton SHOW_MOVE_DISTANCE = GamepadButton.RStick;
 
@@ -79,17 +76,14 @@ public class OI {
 
 		// Ball Thrower
 		if (Robot.throwerSubsystem.isPresent()) {
-			command = new JoystickButton(mainJoystick, BALL_THROWER_START.value());
+			command = new JoystickButton(mainJoystick, BALL_THROWER.value());
 			command.toggleWhenPressed(new ThowerStartCommands());
 		}
 
 		// Winch
 		if (Robot.winchSystem.isPresent()) {
 			command = new JoystickButton(mainJoystick, WINCH_RAISE.value());
-			command.whenActive(new WinchStart());
-
-			// command = new JoystickButton(mainJoystick, WINCH_LOWER.value());
-			// command.whenActive(new WinchLower());
+			command.whenActive(new WinchJoyCommand());
 		}
 
 		command = new JoystickButton(mainJoystick, PUSH_GEAR.value());

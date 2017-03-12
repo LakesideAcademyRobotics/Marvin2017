@@ -93,21 +93,25 @@ public class RobotMap {
 		backCameraLight.set(false);
 		// Cameras
 
-		backCamera = initLogitechHd720p(1);
-		frontCamera = initLogitechHd1080p(0);
+		frontCamera = initFront(0);
+		backCamera = initBack(1);
 	}
 
-	public static UsbCamera initLogitechHd1080p(int channel) {
-		UsbCamera cam = new UsbCamera("Front", channel);
+	public static UsbCamera initFront(int channel) {
+		// LogitechHd1080p
+		UsbCamera cam = new UsbCamera("USB Camera 0", channel);
 		cam.setResolution(640, 480);
+		CameraServer.getInstance().addCamera(cam);
 		CameraServer.getInstance().startAutomaticCapture(cam);
 		return cam;
 	}
 
-	public static UsbCamera initLogitechHd720p(int channel) {
+	public static UsbCamera initBack(int channel) {
+		// LogitechHd720p
 		UsbCamera cam = new UsbCamera("Back", channel);
-		cam.setResolution(640, 480);
+		CameraServer.getInstance().addCamera(cam);
 		CameraServer.getInstance().startAutomaticCapture(cam);
+		cam.setResolution(640, 480);
 		return cam;
 	}
 

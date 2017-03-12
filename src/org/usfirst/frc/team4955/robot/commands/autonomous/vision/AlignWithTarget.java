@@ -3,7 +3,6 @@ package org.usfirst.frc.team4955.robot.commands.autonomous.vision;
 import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.DashboardKeys;
 import org.usfirst.frc.team4955.robot.Robot;
-import org.usfirst.frc.team4955.robot.RobotMap;
 import org.usfirst.frc.team4955.robot.utils.MathUtils;
 import org.usfirst.frc.team4955.robot.vision.VisionThread;
 import org.usfirst.frc.team4955.robot.vision.VisionThread.VisionState;
@@ -34,18 +33,19 @@ public class AlignWithTarget extends Command {
 		double turnSpeed = 0.55;
 
 		double rotation = 0;
+		double centerCam = 0.5 + centerOffset;
 		if (vt.targetCenterNormalised == null) {
 
-		} else if (cx < 0.5) {
-			double t = 2 * (0.5 - cx);
-			rotation = -Constants.EaseTurn(t, turnSpeed);
+		} else if (cx < centerCam) {
+			double t = 2 * (centerCam - cx);
+			rotation = Constants.EaseTurn(t, turnSpeed);
 		} else {
 			double t = 1 - 2 * (1 - cx);
-			rotation = Constants.EaseTurn(t, turnSpeed);
+			rotation = -Constants.EaseTurn(t, turnSpeed);
 		}
 
 		SmartDashboard.putString(DashboardKeys.AUTONOMOUS_STATUS, "rot : " + rotation);
-		RobotMap.driveTrain.arcadeDrive(0, rotation);
+		// RobotMap.driveTrain.arcadeDrive(0, rotation);
 	}
 
 	private double GetCenter() {

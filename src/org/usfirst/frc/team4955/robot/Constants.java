@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4955.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Constants {
 
 	// Drive base
@@ -56,9 +58,9 @@ public class Constants {
 	/*
 	 * VISION
 	 */
-	public static double[]	hsvThresholdHue			= { 25, 90 };
-	public static double[]	hsvThresholdSaturation	= { 0, 255.0 };
-	public static double[]	hsvThresholdValue		= { 223, 255.0 };
+	public static double[]	hsvThresholdHue			= { 36, 85 };
+	public static double[]	hsvThresholdSaturation	= { 0, 233.0 };
+	public static double[]	hsvThresholdValue		= { 240, 255.0 };
 
 	public static double	VISION_DISTANCE_PIXEL_TARGET_HEIGHT	= 29.0;
 	public static double	VISION_DISTANCE_REAL_INCH_DISTANCE	= 58.0;
@@ -96,5 +98,9 @@ public class Constants {
 		// RobotMap.rightEncoder.setReverseDirection(true);
 		DRIVE_SLOWN_DOWN_MAXOUTPUT = 0.4;
 		DRIVE_NORMAL_MAXOUTPUT = 0.8;
+	}
+
+	public static boolean IsInTestMod() {
+		return SmartDashboard.getBoolean("TestMod", false);
 	}
 }

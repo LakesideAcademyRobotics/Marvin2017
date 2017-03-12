@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4955.robot.commands.ball;
+package org.usfirst.frc.team4955.robot.commands.pickup;
 
 import org.usfirst.frc.team4955.robot.DashboardKeys;
 import org.usfirst.frc.team4955.robot.Robot;

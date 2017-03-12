@@ -41,6 +41,8 @@ public class TestProcedure {
 		command = new JoystickButton(OI.mainJoystick, Gamepad.GamepadButton.RB.value());
 		command.whenActive(new OneShotCommand() {
 			protected void initialize() {
+				if (!Constants.IsInTestMod())
+					return;
 				stop(currentItem);
 				currentItem++;
 				CurrentItemChanged();
@@ -50,6 +52,8 @@ public class TestProcedure {
 		command = new JoystickButton(OI.mainJoystick, Gamepad.GamepadButton.LB.value());
 		command.whenActive(new OneShotCommand() {
 			protected void initialize() {
+				if (!Constants.IsInTestMod())
+					return;
 				stop(currentItem);
 				currentItem--;
 				CurrentItemChanged();
@@ -59,6 +63,8 @@ public class TestProcedure {
 		command = new JoystickButton(OI.mainJoystick, Gamepad.GamepadButton.Start.value());
 		command.whenActive(new OneShotCommand() {
 			protected void initialize() {
+				if (!Constants.IsInTestMod())
+					return;
 				init(currentItem);
 			}
 		});
@@ -66,6 +72,8 @@ public class TestProcedure {
 		command = new JoystickButton(OI.mainJoystick, Gamepad.GamepadButton.Back.value());
 		command.whenActive(new OneShotCommand() {
 			protected void initialize() {
+				if (!Constants.IsInTestMod())
+					return;
 				stop(currentItem);
 			}
 		});
