@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class DriveGameSubsystem extends Subsystem {
 
-	public RobotDrive robotDrive;
-	public boolean reverseInput = false;
-	public double MouvementInputFactor = 1;
+	public RobotDrive	robotDrive;
+	public boolean		reverseInput			= false;
+	public double		MouvementInputFactor	= 1;
 
 	public Gyro gyro;
 
@@ -28,7 +28,6 @@ public class DriveGameSubsystem extends Subsystem {
 	public void Periodic(double movement, double rotation) {
 		if (reverseInput) {
 			movement = -movement;
-			rotation = -rotation;
 		}
 		movement *= MouvementInputFactor;
 		rotation *= MouvementInputFactor;

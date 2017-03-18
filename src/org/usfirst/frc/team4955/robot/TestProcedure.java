@@ -191,6 +191,13 @@ public class TestProcedure {
 			SmartDashboard.putNumber("Value", Constants.CAMERA_TALON_OUT_VALUE);
 			changeValuesStuff(0.02, new double[] { 0, 1 }, 0.02, new double[] { -1, 2 });
 
+		} else if (currentTestItem.equals(TestItem.CamBackDown)) {
+			SmartDashboard.putNumber("Value", Constants.CAMERA_BACK_DOWN);
+			changeValuesStuff(0.02, new double[] { -1, 1 }, 0.02, new double[] { -1, 2 });
+		} else if (currentTestItem.equals(TestItem.CamBackUp)) {
+			SmartDashboard.putNumber("Value", Constants.CAMERA_BACK_UP);
+			changeValuesStuff(0.02, new double[] { -1, 1 }, 0.02, new double[] { -1, 2 });
+
 		} else if (currentTestItem.equals(TestItem.VisionHue)) {
 			changeValuesStuff(1, new double[] { 0, 255 }, 1, new double[] { 0, 255 });
 			Robot.cameraSubsystem.visionThread.setVisionState(VisionState.Gear);
@@ -296,10 +303,17 @@ public class TestProcedure {
 
 		} else if (currentTestItem.equals(TestItem.CamTalonIn)) {
 			Constants.CAMERA_TALON_IN_VALUE = value;
-			RobotMap.cameraServo.set(value);
+			RobotMap.cameraFrontServo.set(value);
 		} else if (currentTestItem.equals(TestItem.CamTalonOut)) {
 			Constants.CAMERA_TALON_OUT_VALUE = value;
-			RobotMap.cameraServo.set(value);
+			RobotMap.cameraFrontServo.set(value);
+
+		} else if (currentTestItem.equals(TestItem.CamBackDown)) {
+			Constants.CAMERA_BACK_DOWN = value;
+			RobotMap.cameraBackServo.set(value);
+		} else if (currentTestItem.equals(TestItem.CamBackUp)) {
+			Constants.CAMERA_BACK_UP = value;
+			RobotMap.cameraBackServo.set(value);
 
 		} else if (currentTestItem.equals(TestItem.LeftEncoder)) {
 			Constants.ENCODER_ROTATIONS_PER_INCH = value;
@@ -379,7 +393,7 @@ public class TestProcedure {
 			RobotMap.throwingWheelTalon.set(0);
 
 		} else if (currentTestItem.equals(TestItem.CamTalonIn) || currentTestItem.equals(TestItem.CamTalonOut)) {
-			RobotMap.cameraServo.set(0);
+			RobotMap.cameraFrontServo.set(0);
 		}
 	}
 
@@ -393,7 +407,8 @@ public class TestProcedure {
 		Winch("Winch"), FrontSensor("Front Sensor", true), BackSensor("Back Sensor", true), Gyro("Gyro", true),
 		GyroDrive("Gyro Drive"), LeftEncoder("Left Encoder", true), Move2Feets("Move 2 Feets"),
 		RightEncoder("Right Encoder", true), Turn360("+360 Turn"), TurnNeg360("-360 Turn"),
-		CamTalonOut("Camera Talon Out"), CamTalonIn("Camera Talon In"), CamLightFront("Camera Light Front", false),
+		CamTalonOut("Camera Talon Out"), CamTalonIn("Camera Talon In"), CamBackDown("Back Camera Down"),
+		CamBackUp("Back Camera Up"), CamLightFront("Camera Light Front", false),
 		CamLightBack("Camera Light Back", false), VisionHue("Vision Hue", true),
 		VisionSaturation("Vision Saturation", true), VisionValue("Vision Value", true),
 		VisionDistance("Vision distance", true), VisionGear("Vision Gear", true), VisionBoiler("Vision Boiler", true);

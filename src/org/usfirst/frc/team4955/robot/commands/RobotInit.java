@@ -11,7 +11,7 @@ public class RobotInit extends Command {
 	protected void initialize() {
 		RobotMap.frontCameraLight.set(false);
 		RobotMap.backCameraLight.set(false);
-		RobotMap.cameraServo.set(Constants.CAMERA_TALON_OUT_VALUE);
+		RobotMap.cameraFrontServo.set(Constants.CAMERA_TALON_OUT_VALUE);
 	}
 
 	@Override

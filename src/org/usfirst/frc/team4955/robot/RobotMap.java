@@ -44,7 +44,8 @@ public class RobotMap {
 	public static CANTalon	throwingWheelTalon;
 	public static CANTalon	genevaWheelTalon;
 
-	public static Servo cameraServo;
+	public static Servo	cameraFrontServo;
+	public static Servo	cameraBackServo;
 
 	public static UsbCamera		frontCamera;
 	public static UsbCamera		backCamera;
@@ -85,7 +86,8 @@ public class RobotMap {
 		LiveWindow.addActuator("Ballshoot", "Geneva", genevaWheelTalon);
 		LiveWindow.addActuator("Ballshoot", "Wheel", throwingWheelTalon);
 
-		cameraServo = tryInitServo(8);
+		cameraFrontServo = tryInitServo(8);
+		cameraBackServo = tryInitServo(7);
 
 		frontCameraLight = new DigitalOutput(5);
 		backCameraLight = new DigitalOutput(6);

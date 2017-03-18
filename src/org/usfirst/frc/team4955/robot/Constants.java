@@ -73,6 +73,9 @@ public class Constants {
 	public static double	CAMERA_TALON_OUT_VALUE	= 0.24;
 	public static double	CAMERA_TALON_IN_VALUE	= 0.86;
 
+	public static double	CAMERA_BACK_UP		= 0.24;
+	public static double	CAMERA_BACK_DOWN	= 0.86;
+
 	public static double VISION_IGNORE_TOP_FOR_GEAR = 0.2;
 
 	public static double EaseTurn(double t) {

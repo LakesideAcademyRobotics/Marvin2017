@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class WinchJoyCommand extends CommandGroup {
 
 	public WinchJoyCommand() {
-		addSequential(new SetServoTo(RobotMap.cameraServo, Constants.CAMERA_TALON_IN_VALUE, 1.0));
+		addSequential(new SetServoTo(RobotMap.cameraFrontServo, Constants.CAMERA_TALON_IN_VALUE, 1.0));
 		addSequential(new WinchRaise());
 	}
 

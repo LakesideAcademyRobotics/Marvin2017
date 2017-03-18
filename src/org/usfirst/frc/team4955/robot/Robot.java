@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
-		RobotMap.cameraServo.set(Constants.CAMERA_TALON_OUT_VALUE);
+		RobotMap.cameraFrontServo.set(Constants.CAMERA_TALON_OUT_VALUE);
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
