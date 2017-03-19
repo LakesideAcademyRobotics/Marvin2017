@@ -1,11 +1,14 @@
 package org.usfirst.frc.team4955.robot;
 
+import org.usfirst.frc.team4955.robot.utils.Dimension;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Constants {
 
 	// Drive base
 
+	public static double AUTO_KICKER_TIME = 0.25;
 	// How much the slow speed button slows down ( % of normal speed)
 	public static double	DRIVE_SLOWER_SPEED_FACTOR			= 0.5;
 	public static int		DRIVE_SLOW_DOWN_BY_WALL_DISTANCE	= 240;
@@ -34,14 +37,17 @@ public class Constants {
 																// speed
 
 	// Gear pusher
-	public static double	GEAR_PUSHER_PUSH_POSITION	= 1;
-	public static double	GEAR_PUSHER_BACK_POSITION	= 0;
+	public static double	GEAR_KICKER_PUSH_POSITION	= 0;
+	public static double	GEAR_KICKER_BACK_POSITION	= 0.25;
 
 	// BALL
 	public static double	CONVEYOR_BELT_SPEED	= 0.7;
 	public static double	BRUSH_SPEED			= -0.7;
-	public static double	THROWER_RPM			= 4000;
-	public static double	GENOVA_SPEED		= 1;
+
+	public static double	THROWER_RPM		= 4000;
+	public static double	THROWER_SPEED	= 0.8;
+
+	public static double GENOVA_SPEED = 1;
 
 	// WINCH
 	public static double WINCH_MAX_SPEED = -1;
@@ -58,25 +64,27 @@ public class Constants {
 	/*
 	 * VISION
 	 */
-	public static double[]	hsvThresholdHue			= { 36, 85 };
-	public static double[]	hsvThresholdSaturation	= { 0, 233.0 };
-	public static double[]	hsvThresholdValue		= { 240, 255.0 };
+	public static double[]	hsvThresholdHue			= { 58, 155 };
+	public static double[]	hsvThresholdSaturation	= { 0, 118.0 };
+	public static double[]	hsvThresholdValue		= { 222, 255.0 };
 
-	public static double	VISION_DISTANCE_PIXEL_TARGET_HEIGHT	= 29.0;
-	public static double	VISION_DISTANCE_REAL_INCH_DISTANCE	= 58.0;
+	public static double	VISION_DISTANCE_PIXEL_TARGET_HEIGHT	= 28.0 / 2;
+	public static double	VISION_DISTANCE_REAL_INCH_DISTANCE	= 66.0;
 	public static double	VISION_DISTANCE_RATIO				= VISION_DISTANCE_PIXEL_TARGET_HEIGHT
 			* VISION_DISTANCE_REAL_INCH_DISTANCE;
 
 	// (normalised cameraValue)
-	public static double VISION_GEAR_CENTER_OFFSET = 0.05;
+	public static double VISION_GEAR_CENTER_OFFSET = 0.00;
 
 	public static double	CAMERA_TALON_OUT_VALUE	= 0.24;
 	public static double	CAMERA_TALON_IN_VALUE	= 0.86;
 
-	public static double	CAMERA_BACK_UP		= 0.24;
-	public static double	CAMERA_BACK_DOWN	= 0.86;
+	public static double	CAMERA_BACK_UP		= 0.5;
+	public static double	CAMERA_BACK_DOWN	= 0.55;
 
 	public static double VISION_IGNORE_TOP_FOR_GEAR = 0.2;
+
+	public static Dimension CAMERA_FRONT_RESOLUTION = new Dimension(640 / 2, 480 / 2);
 
 	public static double EaseTurn(double t) {
 		return t * t * 0.25 + 0.75;

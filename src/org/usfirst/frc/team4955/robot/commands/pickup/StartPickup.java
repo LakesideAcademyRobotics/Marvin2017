@@ -16,7 +16,7 @@ public class StartPickup extends Command {
 
 	protected void initialize() {
 		RobotMap.elevator.set(Constants.CONVEYOR_BELT_SPEED);
-		setTimeout(0.5);
+		setTimeout(0.25);
 	}
 
 	protected boolean isFinished() {
@@ -26,12 +26,12 @@ public class StartPickup extends Command {
 	protected void interrupted() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, true);
 		RobotMap.brushTalon.set(Constants.BRUSH_SPEED);
-		
+
 	}
 
 	protected void end() {
 		SmartDashboard.putBoolean(DashboardKeys.BALL_PICKUP, true);
 		RobotMap.brushTalon.set(Constants.BRUSH_SPEED);
-		
+
 	}
 }

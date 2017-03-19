@@ -17,7 +17,7 @@ public class ThrowerStart extends Command {
 	public void initialize() {
 		RobotMap.throwingWheelTalon.set(Constants.THROWER_RPM);
 		// setTimeout(0.25);
-		setTimeout(0);
+		setTimeout(2);
 	}
 
 	protected boolean isFinished() {

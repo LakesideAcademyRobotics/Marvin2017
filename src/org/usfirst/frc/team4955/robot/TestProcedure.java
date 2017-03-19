@@ -20,11 +20,12 @@ public class TestProcedure {
 	private double[]	value1MinMax		= new double[2];
 	private double[]	value2MinMax		= new double[2];
 
-	private Command		runningCommand;
-	private TestItem	currentTestItem;
+	private Command			runningCommand;
+	private TestItem		currentTestItem;
+	public static boolean	madeCommands;
 
 	public TestProcedure() {
-		currentItem = TestItem.GyroDrive.ordinal();
+		currentItem = TestItem.CamLightFront.ordinal();
 		SmartDashboard.putString("Current Item", "");
 		SmartDashboard.putNumber("Value", 0);
 		SmartDashboard.putNumber("Value2", 0);
@@ -32,7 +33,11 @@ public class TestProcedure {
 		value2MinMax = new double[] { -1, 1 };
 		itemRunning = false;
 
-		makeCommands();
+		if (!madeCommands) {
+			makeCommands();
+			madeCommands = true;
+		}
+
 		CurrentItemChanged();
 	}
 
@@ -143,10 +148,10 @@ public class TestProcedure {
 			SmartDashboard.putNumber("Value", Constants.THROWER_RPM);
 
 		} else if (currentTestItem.equals(TestItem.GearBack)) {
-			SmartDashboard.putNumber("Value", Constants.GEAR_PUSHER_BACK_POSITION);
+			SmartDashboard.putNumber("Value", Constants.GEAR_KICKER_BACK_POSITION);
 			changeValuesStuff(0.05, new double[] { 0, 1 }, 0.1, new double[] { -1, 1 });
 		} else if (currentTestItem.equals(TestItem.GearPush)) {
-			SmartDashboard.putNumber("Value", Constants.GEAR_PUSHER_PUSH_POSITION);
+			SmartDashboard.putNumber("Value", Constants.GEAR_KICKER_PUSH_POSITION);
 			changeValuesStuff(0.05, new double[] { 0, 1 }, 0.1, new double[] { -1, 1 });
 
 		} else if (currentTestItem.equals(TestItem.Winch)) {
@@ -181,9 +186,10 @@ public class TestProcedure {
 
 		} else if (currentTestItem.equals(TestItem.CamLightFront)) {
 			RobotMap.frontCameraLight.set(Constants.CAMERA_LIGHT_ON);
-		} else if (currentTestItem.equals(TestItem.CamLightBack)) {
-			RobotMap.backCameraLight.set(Constants.CAMERA_LIGHT_ON);
-
+			/*
+			 * } else if (currentTestItem.equals(TestItem.CamLightBack)) {
+			 * RobotMap.backCameraLight.set(Constants.CAMERA_LIGHT_ON);
+			 */
 		} else if (currentTestItem.equals(TestItem.CamTalonIn)) {
 			SmartDashboard.putNumber("Value", Constants.CAMERA_TALON_IN_VALUE);
 			changeValuesStuff(0.02, new double[] { 0, 1 }, 0.02, new double[] { -1, 2 });
@@ -191,13 +197,16 @@ public class TestProcedure {
 			SmartDashboard.putNumber("Value", Constants.CAMERA_TALON_OUT_VALUE);
 			changeValuesStuff(0.02, new double[] { 0, 1 }, 0.02, new double[] { -1, 2 });
 
-		} else if (currentTestItem.equals(TestItem.CamBackDown)) {
-			SmartDashboard.putNumber("Value", Constants.CAMERA_BACK_DOWN);
-			changeValuesStuff(0.02, new double[] { -1, 1 }, 0.02, new double[] { -1, 2 });
-		} else if (currentTestItem.equals(TestItem.CamBackUp)) {
-			SmartDashboard.putNumber("Value", Constants.CAMERA_BACK_UP);
-			changeValuesStuff(0.02, new double[] { -1, 1 }, 0.02, new double[] { -1, 2 });
-
+			/*
+			 * } else if (currentTestItem.equals(TestItem.CamBackDown)) {
+			 * SmartDashboard.putNumber("Value", Constants.CAMERA_BACK_DOWN);
+			 * changeValuesStuff(0.02, new double[] { -1, 1 }, 0.02, new
+			 * double[] { -1, 2 });
+			 * } else if (currentTestItem.equals(TestItem.CamBackUp)) {
+			 * SmartDashboard.putNumber("Value", Constants.CAMERA_BACK_UP);
+			 * changeValuesStuff(0.02, new double[] { -1, 1 }, 0.02, new
+			 * double[] { -1, 2 });
+			 */
 		} else if (currentTestItem.equals(TestItem.VisionHue)) {
 			changeValuesStuff(1, new double[] { 0, 255 }, 1, new double[] { 0, 255 });
 			Robot.cameraSubsystem.visionThread.setVisionState(VisionState.Gear);
@@ -223,12 +232,16 @@ public class TestProcedure {
 			RobotMap.frontCameraLight.set(Constants.CAMERA_LIGHT_ON);
 			SmartDashboard.putNumber("Value", Constants.VISION_DISTANCE_PIXEL_TARGET_HEIGHT);
 			SmartDashboard.putNumber("Value2", Constants.VISION_DISTANCE_REAL_INCH_DISTANCE);
-		} else if (currentTestItem.equals(TestItem.VisionGear)) {
-			Robot.cameraSubsystem.visionThread.setVisionState(VisionState.Gear);
-			RobotMap.frontCameraLight.set(Constants.CAMERA_LIGHT_ON);
-		} else if (currentTestItem.equals(TestItem.VisionBoiler)) {
-			Robot.cameraSubsystem.visionThread.setVisionState(VisionState.Boiler);
-			RobotMap.backCameraLight.set(Constants.CAMERA_LIGHT_ON);
+			/*
+			 * }else if (currentTestItem.equals(TestItem.VisionGear)) {
+			 * Robot.cameraSubsystem.visionThread.setVisionState(VisionState.
+			 * Gear);
+			 * RobotMap.frontCameraLight.set(Constants.CAMERA_LIGHT_ON);
+			 * } else if (currentTestItem.equals(TestItem.VisionBoiler)) {
+			 * Robot.cameraSubsystem.visionThread.setVisionState(VisionState.
+			 * Boiler);
+			 * RobotMap.backCameraLight.set(Constants.CAMERA_LIGHT_ON);
+			 */
 		}
 
 		// Movement
@@ -239,10 +252,6 @@ public class TestProcedure {
 		valueChangerFactor = value1ChangeFactor;
 		this.value1MinMax = value1MinMax;
 		this.value2MinMax = value2MinMax;
-	}
-
-	private void printValue(double value) {
-		SmartDashboard.putNumber("Value", value);
 	}
 
 	private void run(int item) {
@@ -295,11 +304,11 @@ public class TestProcedure {
 			print("Gyro Angle : " + NumberFormat.getInstance().format(val));
 
 		} else if (currentTestItem.equals(TestItem.GearBack)) {
-			Constants.GEAR_PUSHER_BACK_POSITION = value;
-			RobotMap.gearPusher.set(value);
+			Constants.GEAR_KICKER_BACK_POSITION = value;
+			RobotMap.gearKicker.set(value);
 		} else if (currentTestItem.equals(TestItem.GearPush)) {
-			Constants.GEAR_PUSHER_PUSH_POSITION = value;
-			RobotMap.gearPusher.set(value);
+			Constants.GEAR_KICKER_PUSH_POSITION = value;
+			RobotMap.gearKicker.set(value);
 
 		} else if (currentTestItem.equals(TestItem.CamTalonIn)) {
 			Constants.CAMERA_TALON_IN_VALUE = value;
@@ -308,13 +317,14 @@ public class TestProcedure {
 			Constants.CAMERA_TALON_OUT_VALUE = value;
 			RobotMap.cameraFrontServo.set(value);
 
-		} else if (currentTestItem.equals(TestItem.CamBackDown)) {
-			Constants.CAMERA_BACK_DOWN = value;
-			RobotMap.cameraBackServo.set(value);
-		} else if (currentTestItem.equals(TestItem.CamBackUp)) {
-			Constants.CAMERA_BACK_UP = value;
-			RobotMap.cameraBackServo.set(value);
-
+			/*
+			 * } else if (currentTestItem.equals(TestItem.CamBackDown)) {
+			 * Constants.CAMERA_BACK_DOWN = value;
+			 * RobotMap.cameraBackServo.set(value);
+			 * } else if (currentTestItem.equals(TestItem.CamBackUp)) {
+			 * Constants.CAMERA_BACK_UP = value;
+			 * RobotMap.cameraBackServo.set(value);
+			 */
 		} else if (currentTestItem.equals(TestItem.LeftEncoder)) {
 			Constants.ENCODER_ROTATIONS_PER_INCH = value;
 			double val = RobotMap.leftEncoder.get();
@@ -407,11 +417,12 @@ public class TestProcedure {
 		Winch("Winch"), FrontSensor("Front Sensor", true), BackSensor("Back Sensor", true), Gyro("Gyro", true),
 		GyroDrive("Gyro Drive"), LeftEncoder("Left Encoder", true), Move2Feets("Move 2 Feets"),
 		RightEncoder("Right Encoder", true), Turn360("+360 Turn"), TurnNeg360("-360 Turn"),
-		CamTalonOut("Camera Talon Out"), CamTalonIn("Camera Talon In"), CamBackDown("Back Camera Down"),
-		CamBackUp("Back Camera Up"), CamLightFront("Camera Light Front", false),
-		CamLightBack("Camera Light Back", false), VisionHue("Vision Hue", true),
-		VisionSaturation("Vision Saturation", true), VisionValue("Vision Value", true),
-		VisionDistance("Vision distance", true), VisionGear("Vision Gear", true), VisionBoiler("Vision Boiler", true);
+		CamTalonOut("Camera Talon Out"), CamTalonIn("Camera Talon In"), CamLightFront("Camera Light Front", false),
+		VisionHue("Vision Hue", true), VisionSaturation("Vision Saturation", true), VisionValue("Vision Value", true),
+		VisionDistance("Vision distance", true);
+		// CamBackDown("Back Camera Down"), CamBackUp("Back Camera
+		// Up"),CamLightBack("Camera Light Back", false), VisionGear("Vision
+		// Gear", true), VisionBoiler("Vision Boiler", true)
 
 		String	name;
 		boolean	autoInit;

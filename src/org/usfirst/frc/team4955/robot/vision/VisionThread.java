@@ -10,7 +10,6 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team4955.robot.Constants;
 import org.usfirst.frc.team4955.robot.DashboardKeys;
-import org.usfirst.frc.team4955.robot.RobotMap;
 import org.usfirst.frc.team4955.robot.utils.MathUtils;
 import org.usfirst.frc.team4955.robot.utils.utils.SmarterDashboard;
 
@@ -26,6 +25,8 @@ public class VisionThread extends Thread {
 	CvSource		outputStream;
 	long			nextProcess;
 	CvSink			cvSink;
+
+	int screenWidth, screenHeight;
 
 	Scalar	GearColor	= new Scalar(0, 255, 0);
 	Scalar	BoilerColor	= new Scalar(0, 255, 255);
@@ -45,11 +46,13 @@ public class VisionThread extends Thread {
 	private VisionState state;
 
 	public void setVisionState(VisionState newState) {
-		if (newState.equals(VisionState.Boiler)) {
-			cvSink = CameraServer.getInstance().getVideo(RobotMap.backCamera);
-		} else if (newState.equals(VisionState.Gear)) {
-			cvSink = CameraServer.getInstance().getVideo(RobotMap.frontCamera);
-		}
+		/*
+		 * if (newState.equals(VisionState.Boiler)) {
+		 * cvSink = CameraServer.getInstance().getVideo("USB Camera 1");
+		 * } else if (newState.equals(VisionState.Gear)) {
+		 * cvSink = CameraServer.getInstance().getVideo("USB Camera 0");
+		 * }
+		 */
 	}
 
 	public VisionThread() {
@@ -62,7 +65,7 @@ public class VisionThread extends Thread {
 	@Override
 	public void run() {
 		// Get a CvSink. This will capture Mats from the camera
-		cvSink = CameraServer.getInstance().getVideo(RobotMap.frontCamera);
+		cvSink = CameraServer.getInstance().getVideo("USB Camera 0");
 
 		// Setup a CvSource. This will send images back to the Dashboard
 		outputStream = CameraServer.getInstance().putVideo("Vision", 640, 480);
@@ -81,6 +84,8 @@ public class VisionThread extends Thread {
 					outputStream.notifyError(cvSink.getError());
 					continue;
 				}
+				screenWidth = mat.cols();
+				screenHeight = mat.rows();
 
 				processImage();
 
@@ -99,8 +104,8 @@ public class VisionThread extends Thread {
 					SmarterDashboard.putNumber(DashboardKeys.VISION_DISTANCE, 0, "%.2f%n");
 				}
 				if (target != null) {
-					targetCenterNormalised = new Point((target.x + target.width / 2.0) / 640.0 * 2,
-							(target.y + target.height / 2.0) / 480.0 * 2);
+					targetCenterNormalised = new Point((target.x + target.width / 2.0) / screenWidth * 2,
+							(target.y + target.height / 2.0) / screenHeight * 2);
 					targetDistance = Constants.VISION_DISTANCE_RATIO / target.height;
 					SmartDashboard.putString(DashboardKeys.VISION_DISTANCE, MathUtils.formatInch(targetDistance));
 				} else
@@ -169,7 +174,7 @@ public class VisionThread extends Thread {
 				Rect recti = Imgproc.boundingRect(mops.get(i));
 				Rect rectj = Imgproc.boundingRect(mops.get(j));
 				// Igniore top %
-				if (recti.y < 480 / 2 * Constants.VISION_IGNORE_TOP_FOR_GEAR)
+				if (recti.y < screenHeight / 2 * Constants.VISION_IGNORE_TOP_FOR_GEAR)
 					continue;
 
 				if (MathUtils.equalEpsilon(recti.y, rectj.y, 15)

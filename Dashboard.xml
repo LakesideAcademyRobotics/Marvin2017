@@ -1,14 +1,18 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Richard" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="154" y="569"/>
+		<width>447</width>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
 		<location x="16" y="384"/>
 		<width>192</width>
 		<height>144</height>
 		<property name="Degrees Rotation" value="180"/>
-		<property name="Camera Choice" value="Back"/>
+		<property name="Camera Choice" value="USB Camera 1"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
-		<location x="722" y="19"/>
+		<location x="747" y="38"/>
 		<width>670</width>
 		<height>509</height>
 		<property name="Image File" value="C:\Users\Richard\Desktop\reticle.png"/>
@@ -88,7 +92,7 @@
 		<width>672</width>
 		<height>512</height>
 		<property name="Degrees Rotation" value="180"/>
-		<property name="Camera Choice" value="USB Camera 0"/>
+		<property name="Camera Choice" value="USB Camera 1"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
 		<location x="0" y="0"/>

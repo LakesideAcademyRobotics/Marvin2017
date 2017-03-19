@@ -5,26 +5,35 @@ import org.usfirst.frc.team4955.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class GearPusherCommand extends Command {
+public class GearKickerCommand extends Command {
+
+	double timeout;
+
+	public GearKickerCommand(double timeout) {
+		this.timeout = timeout;
+	}
 
 	@Override
 	protected void initialize() {
-		RobotMap.gearPusher.set(Constants.GEAR_PUSHER_PUSH_POSITION);
+
+		setTimeout(timeout);
+
+		RobotMap.gearKicker.set(Constants.GEAR_KICKER_PUSH_POSITION);
 	}
 
 	@Override
 	protected void interrupted() {
-		RobotMap.gearPusher.set(Constants.GEAR_PUSHER_BACK_POSITION);
+		RobotMap.gearKicker.set(Constants.GEAR_KICKER_BACK_POSITION);
 	}
 
 	@Override
 	protected void end() {
-		RobotMap.gearPusher.set(Constants.GEAR_PUSHER_BACK_POSITION);
+		RobotMap.gearKicker.set(Constants.GEAR_KICKER_BACK_POSITION);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return (isTimedOut());
 	}
 
 }

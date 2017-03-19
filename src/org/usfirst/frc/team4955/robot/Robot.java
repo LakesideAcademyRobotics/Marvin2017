@@ -2,8 +2,9 @@
 package org.usfirst.frc.team4955.robot;
 
 import org.usfirst.frc.team4955.robot.commands.RobotInit;
-import org.usfirst.frc.team4955.robot.commands.autonomous.AutonomousGear;
-import org.usfirst.frc.team4955.robot.commands.autonomous.cg.R1;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.B1;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.B2;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.B3;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
 import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
@@ -15,7 +16,6 @@ import org.usfirst.frc.team4955.robot.subsystems.WinchSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -67,8 +67,9 @@ public class Robot extends IterativeRobot {
 
 	private void initAutonomousCommands() {
 		chooser = new SendableChooser<>();
-		chooser.addDefault("Gear pick", new AutonomousGear());
-		chooser.addObject("R1", new R1());
+		chooser.addDefault("B2", new B2());
+		chooser.addObject("B1", new B1());
+		chooser.addObject("B3", new B3());
 
 		SmartDashboard.putData("Auto mode", chooser);
 
@@ -150,31 +151,4 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber(DashboardKeys.GYRO_VALUE, RobotMap.gyro.getAngle());
 	}
 
-	@Override
-	public void disabledPeriodic() {
-
-	}
-
-	@Override
-	public void free() {
-		super.free();
-		/*
-		 * if (RobotMap.backCamera != null)
-		 * RobotMap.backCamera.free();
-		 * if (RobotMap.frontCamera != null)
-		 * RobotMap.frontCamera.free();
-		 */
-	}
-
-	///
-	/// Other
-	///
-	@Override
-	public void robotPeriodic() {
-
-	}
-
-	public void testPeriodic() {
-		LiveWindow.run();
-	}
 }

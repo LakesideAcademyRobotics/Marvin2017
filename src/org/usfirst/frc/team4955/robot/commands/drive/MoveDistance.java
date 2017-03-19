@@ -32,16 +32,18 @@ public class MoveDistance extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.driveSubsystem.Periodic(speed, 0);
+		Robot.driveSubsystem.Periodic(speed * Math.signum(distanceInRotation), 0);
 	}
 
 	protected boolean isFinished() {
-
-		if (RobotMap.leftEncoder.get() >= distanceToFinishLeft
-				|| RobotMap.rightEncoder.get() >= distanceToFinishRight) {
-			return true;
+		if (Math.signum(distanceInRotation) == 1) {
+			return (RobotMap.leftEncoder.get() >= distanceToFinishLeft
+					|| RobotMap.rightEncoder.get() >= distanceToFinishRight);
+		} else {
+			return (RobotMap.leftEncoder.get() <= distanceToFinishLeft
+					|| RobotMap.rightEncoder.get() <= distanceToFinishRight);
 		}
-		return false;
+
 	}
 
 	@Override

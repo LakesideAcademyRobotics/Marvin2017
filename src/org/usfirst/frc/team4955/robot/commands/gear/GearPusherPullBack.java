@@ -8,6 +8,6 @@ public class GearPusherPullBack extends OneShotCommand {
 
 	@Override
 	protected void initialize() {
-		RobotMap.gearPusher.set(Constants.GEAR_PUSHER_BACK_POSITION);
+		RobotMap.gearKicker.set(Constants.GEAR_KICKER_BACK_POSITION);
 	}
 }

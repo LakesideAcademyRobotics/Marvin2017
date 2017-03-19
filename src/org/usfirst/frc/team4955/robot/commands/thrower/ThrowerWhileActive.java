@@ -20,6 +20,10 @@ public class ThrowerWhileActive extends Command {
 	}
 
 	public void initialize() {
+		// initSpeedTalon();
+	}
+
+	void initSpeedTalon() {
 		_talon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		_talon.reverseSensor(false);
 
@@ -36,7 +40,11 @@ public class ThrowerWhileActive extends Command {
 
 	@Override
 	protected void execute() {
+		// executeSpeedMod();
+		_talon.set(Constants.THROWER_SPEED);
+	}
 
+	void executeSpeedMod() {
 		/* Speed mode */
 		_talon.changeControlMode(TalonControlMode.Speed);
 		_talon.set(Constants.THROWER_RPM);

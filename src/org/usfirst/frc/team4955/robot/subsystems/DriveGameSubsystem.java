@@ -13,7 +13,8 @@ public class DriveGameSubsystem extends Subsystem {
 	public boolean		reverseInput			= false;
 	public double		MouvementInputFactor	= 1;
 
-	public Gyro gyro;
+	public Gyro		gyro;
+	public boolean	ignoroGyro	= false;
 
 	public DriveGameSubsystem(RobotDrive robotDrive, Gyro gyro) {
 		super();
@@ -32,7 +33,7 @@ public class DriveGameSubsystem extends Subsystem {
 		movement *= MouvementInputFactor;
 		rotation *= MouvementInputFactor;
 
-		if (gyro == null) {
+		if (gyro == null || ignoroGyro) {
 			robotDrive.arcadeDrive(movement, rotation);
 		} else {
 			// We work with Gyro! We will use the correction and stuff

@@ -31,7 +31,7 @@ public class RobotMap {
 	// Gyro
 	public static ADXRS450_Gyro gyro;
 
-	public static Servo gearPusher;
+	public static Servo gearKicker;
 
 	// Winch
 	public static Talon winchTalon;
@@ -65,7 +65,7 @@ public class RobotMap {
 
 		gyro = tryInitGyro();
 
-		gearPusher = new Servo(9);
+		gearKicker = new Servo(7);
 
 		frontSensor = new AnalogInput(0);
 		backSensor = new AnalogInput(1);
@@ -94,26 +94,20 @@ public class RobotMap {
 		frontCameraLight.set(false);
 		backCameraLight.set(false);
 		// Cameras
-
 		frontCamera = initFront(0);
 		backCamera = initBack(1);
+
 	}
 
 	public static UsbCamera initFront(int channel) {
-		// LogitechHd1080p
-		UsbCamera cam = new UsbCamera("USB Camera 0", channel);
-		cam.setResolution(640, 480);
-		CameraServer.getInstance().addCamera(cam);
-		CameraServer.getInstance().startAutomaticCapture(cam);
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture(channel);
+		cam.setResolution(Constants.CAMERA_FRONT_RESOLUTION.width, Constants.CAMERA_FRONT_RESOLUTION.height);
 		return cam;
 	}
 
 	public static UsbCamera initBack(int channel) {
-		// LogitechHd720p
-		UsbCamera cam = new UsbCamera("Back", channel);
-		CameraServer.getInstance().addCamera(cam);
-		CameraServer.getInstance().startAutomaticCapture(cam);
-		cam.setResolution(640, 480);
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture(channel);
+		cam.setResolution(Constants.CAMERA_FRONT_RESOLUTION.width / 2, Constants.CAMERA_FRONT_RESOLUTION.height / 2);
 		return cam;
 	}
 

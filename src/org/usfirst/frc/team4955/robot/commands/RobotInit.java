@@ -12,6 +12,7 @@ public class RobotInit extends Command {
 		RobotMap.frontCameraLight.set(false);
 		RobotMap.backCameraLight.set(false);
 		RobotMap.cameraFrontServo.set(Constants.CAMERA_TALON_OUT_VALUE);
+		RobotMap.gearKicker.set(Constants.GEAR_KICKER_BACK_POSITION);
 	}
 
 	@Override
