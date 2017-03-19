@@ -146,9 +146,6 @@ public class Robot extends IterativeRobot {
 		}
 
 		Scheduler.getInstance().run();
-
-		if (RobotMap.gyro != null)
-			SmartDashboard.putNumber(DashboardKeys.GYRO_VALUE, RobotMap.gyro.getAngle());
 	}
 
 }

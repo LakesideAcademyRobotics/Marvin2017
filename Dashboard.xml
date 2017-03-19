@@ -1,49 +1,33 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Richard" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="154" y="569"/>
-		<width>447</width>
-	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="16" y="384"/>
-		<width>192</width>
-		<height>144</height>
+		<location x="16" y="80"/>
+		<width>368</width>
+		<height>304</height>
 		<property name="Degrees Rotation" value="180"/>
 		<property name="Camera Choice" value="USB Camera 1"/>
 	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
-		<location x="747" y="38"/>
-		<width>670</width>
-		<height>509</height>
-		<property name="Image File" value="C:\Users\Richard\Desktop\reticle.png"/>
-	</static-widget>
-	<widget field="Is too close" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="21" y="272"/>
-	</widget>
 	<widget field="Back sensor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
-		<location x="16" y="336"/>
-		<width>192</width>
+		<location x="704" y="494"/>
+		<width>160</width>
 		<property name="Maximum" value="5.0"/>
 	</widget>
 	<widget field="Front sensor" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.ProgressBar">
-		<location x="16" y="304"/>
-		<width>192</width>
+		<location x="704" y="446"/>
+		<width>160</width>
 		<property name="Maximum" value="5.0"/>
 	</widget>
 	<widget field="TestMod" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.CheckBox">
 		<location x="672" y="582"/>
 	</widget>
 	<widget field="Ball pickup" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="352" y="496"/>
+		<location x="544" y="448"/>
 	</widget>
 	<widget field="Winch Active" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="459" y="496"/>
+		<location x="544" y="508"/>
 	</widget>
 	<widget field="Ball throwing" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="233" y="492"/>
-	</widget>
-	<widget field="Gyro angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="238"/>
+		<location x="544" y="480"/>
 	</widget>
 	<widget field="Value2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="1154" y="580"/>
@@ -52,47 +36,37 @@
 		<location x="1150" y="548"/>
 	</widget>
 	<widget field="Current Item" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="818" y="574"/>
-		<width>289</width>
-	</widget>
-	<widget field="init OI" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="105" y="28"/>
+		<location x="793" y="576"/>
+		<width>330</width>
 	</widget>
 	<widget field="Gyro" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="32" y="28"/>
+		<location x="132" y="32"/>
 	</widget>
 	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="32" y="66"/>
+		<location x="16" y="18"/>
 		<property name="Use Radio Buttons" value="false"/>
 	</widget>
-	<widget field="MOVED LEFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="182"/>
-		<width>203</width>
-	</widget>
 	<widget field="Autonomous status" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="224" y="432"/>
-		<width>480</width>
-	</widget>
-	<widget field="MOVED RIGHT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="9" y="211"/>
-		<width>200</width>
+		<location x="16" y="406"/>
+		<width>864</width>
 	</widget>
 	<widget field="Target distance" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="226" y="400"/>
+		<location x="199" y="28"/>
+		<width>174</width>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="224" y="16"/>
+		<location x="400" y="16"/>
 		<width>480</width>
 		<height>368</height>
 		<property name="Degrees Rotation" value="180"/>
 		<property name="Camera Choice" value="Vision"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="720" y="16"/>
+		<location x="896" y="16"/>
 		<width>672</width>
 		<height>512</height>
 		<property name="Degrees Rotation" value="180"/>
-		<property name="Camera Choice" value="USB Camera 1"/>
+		<property name="Camera Choice" value="USB Camera 0"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
 		<location x="0" y="0"/>

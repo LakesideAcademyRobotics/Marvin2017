@@ -36,9 +36,6 @@ public class WallSensor extends Command {
 				Robot.driveSubsystem.SetMaxOutput(Constants.DRIVE_NORMAL_MAXOUTPUT);
 			hasClose = close;
 		}
-		SmartDashboard.putBoolean("Is too close", close);
-		// SmartDashboard.putNumber("WallSensorDistance",
-		// (RobotMap.backSensor.getValue() - 240) * AnalogToInchesMultiplier);
 	}
 
 	private boolean isClose(AnalogInput sensor) {
