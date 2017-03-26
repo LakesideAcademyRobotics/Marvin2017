@@ -8,7 +8,8 @@ public class Constants {
 
 	// Drive base
 
-	public static double AUTO_KICKER_TIME = 0.25;
+	public static double	DRIVE_TIME_PER_INCH	= 10 * 12;
+	public static double	AUTO_KICKER_TIME	= 0.25;
 	// How much the slow speed button slows down ( % of normal speed)
 	public static double	DRIVE_SLOWER_SPEED_FACTOR			= 0.5;
 	public static int		DRIVE_SLOW_DOWN_BY_WALL_DISTANCE	= 240;
@@ -64,9 +65,9 @@ public class Constants {
 	/*
 	 * VISION
 	 */
-	public static double[]	hsvThresholdHue			= { 58, 155 };
+	public static double[]	hsvThresholdHue			= { 55, 112 };
 	public static double[]	hsvThresholdSaturation	= { 0, 118.0 };
-	public static double[]	hsvThresholdValue		= { 222, 255.0 };
+	public static double[]	hsvThresholdValue		= { 232, 255.0 };
 
 	public static double	VISION_DISTANCE_PIXEL_TARGET_HEIGHT	= 28.0 / 2;
 	public static double	VISION_DISTANCE_REAL_INCH_DISTANCE	= 66.0;
@@ -76,15 +77,15 @@ public class Constants {
 	// (normalised cameraValue)
 	public static double VISION_GEAR_CENTER_OFFSET = 0.00;
 
-	public static double	CAMERA_TALON_OUT_VALUE	= 0.24;
-	public static double	CAMERA_TALON_IN_VALUE	= 0.86;
+	public static double	CAMERA_TALON_OUT_VALUE	= 0.26;
+	public static double	CAMERA_TALON_IN_VALUE	= 1;
 
 	public static double	CAMERA_BACK_UP		= 0.5;
 	public static double	CAMERA_BACK_DOWN	= 0.55;
 
 	public static double VISION_IGNORE_TOP_FOR_GEAR = 0.2;
 
-	public static Dimension CAMERA_FRONT_RESOLUTION = new Dimension(640 / 2, 480 / 2);
+	public static Dimension CAMERA_FRONT_RESOLUTION = new Dimension(640 / 4, 480 / 4);
 
 	public static double EaseTurn(double t) {
 		return t * t * 0.25 + 0.75;
@@ -106,7 +107,7 @@ public class Constants {
 		THROWER_RPM *= 1;
 		GENOVA_SPEED *= 1;
 		CORRECTION_FACTOR = 0.30;
-		// RobotMap.rightEncoder.setReverseDirection(true);
+		RobotMap.rightEncoder.setReverseDirection(true);
 		DRIVE_SLOWN_DOWN_MAXOUTPUT = 0.4;
 		DRIVE_NORMAL_MAXOUTPUT = 0.8;
 	}

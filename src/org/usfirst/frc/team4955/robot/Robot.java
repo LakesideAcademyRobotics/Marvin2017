@@ -5,8 +5,17 @@ import org.usfirst.frc.team4955.robot.commands.RobotInit;
 import org.usfirst.frc.team4955.robot.commands.autonomous.cg.B1;
 import org.usfirst.frc.team4955.robot.commands.autonomous.cg.B2;
 import org.usfirst.frc.team4955.robot.commands.autonomous.cg.B3;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.NothingAuto;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.R1;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.R2;
+import org.usfirst.frc.team4955.robot.commands.autonomous.cg.R3;
+import org.usfirst.frc.team4955.robot.commands.autonomous.kickInside.B1Kicker;
+import org.usfirst.frc.team4955.robot.commands.autonomous.kickInside.B3Kicker;
+import org.usfirst.frc.team4955.robot.commands.autonomous.kickInside.R1Kicker;
+import org.usfirst.frc.team4955.robot.commands.autonomous.kickInside.R3Kicker;
 import org.usfirst.frc.team4955.robot.commands.drive.JoystickDrive;
 import org.usfirst.frc.team4955.robot.commands.drive.WallSensor;
+import org.usfirst.frc.team4955.robot.commands.drive.turn.TurnCommandGroup;
 import org.usfirst.frc.team4955.robot.subsystems.BallPickUpSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team4955.robot.subsystems.DriveGameSubsystem;
@@ -45,7 +54,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		SmartDashboard.putBoolean("TestMod", false);
 		// Pre init
-		Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
+		// Constants.initForRobotR1();// REMOVE ME ON COMPETITION ROBOT R1
 		DashboardKeys.init();
 
 		// Robot init
@@ -67,11 +76,20 @@ public class Robot extends IterativeRobot {
 
 	private void initAutonomousCommands() {
 		chooser = new SendableChooser<>();
-		chooser.addDefault("B2", new B2());
-		chooser.addObject("B1", new B1());
-		chooser.addObject("B3", new B3());
+		chooser.addDefault("Do Nothing", new NothingAuto());
+		chooser.addObject("Blue 1", new B1());
+		chooser.addObject("Blue 2", new B2());
+		chooser.addObject("Blue 3", new B3());
+		chooser.addObject("Red  1", new R1());
+		chooser.addObject("Red  2", new R2());
+		chooser.addObject("Red  3", new R3());
+		chooser.addObject("Red  1 Kicker", new R1Kicker());
+		chooser.addObject("Red  3 Kicker", new R3Kicker());
+		chooser.addObject("Blue 1 Kicker", new B1Kicker());
+		chooser.addObject("Blue 3 Kicker", new B3Kicker());
+		chooser.addObject("test", new TurnCommandGroup(90, 0));
 
-		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("AutoNew", chooser);
 
 	}
 
@@ -98,6 +116,9 @@ public class Robot extends IterativeRobot {
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+
+		// autonomousCommand = new R1();
+		// autonomousCommand.start();
 	}
 
 	/**
@@ -117,6 +138,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		if (SmartDashboard.getBoolean("TestMod", false)) {
+
 			testProcedure = new TestProcedure();
 		} else {
 			OI.initCommands();
@@ -125,6 +147,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand.cancel();
 
 			new RobotInit().start();
+			RobotMap.cameraFrontServo.set(Constants.CAMERA_TALON_OUT_VALUE);
 
 			if (driveSubsystem.isPresent()) {
 				Command drive = new JoystickDrive();
@@ -137,6 +160,11 @@ public class Robot extends IterativeRobot {
 			}
 		}
 
+	}
+
+	@Override
+	public void disabledPeriodic() {
+		Scheduler.getInstance().removeAll();
 	}
 
 	@Override

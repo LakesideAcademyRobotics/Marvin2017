@@ -101,6 +101,7 @@ public class RobotMap {
 
 	public static UsbCamera initFront(int channel) {
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture(channel);
+		cam.setFPS(15);
 		cam.setResolution(Constants.CAMERA_FRONT_RESOLUTION.width, Constants.CAMERA_FRONT_RESOLUTION.height);
 		return cam;
 	}

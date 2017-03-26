@@ -22,8 +22,8 @@ public class CameraSubsystem extends Subsystem {
 
 	public CameraSubsystem() {
 		visionThread = new VisionThread();
-		visionThread.setDaemon(true);
-		visionThread.start();
+		// visionThread.setDaemon(true);
+		// visionThread.start();
 		LookingSide = CameraSide.FRONT;
 	}
 

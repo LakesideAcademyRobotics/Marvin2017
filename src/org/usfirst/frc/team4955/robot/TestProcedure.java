@@ -155,6 +155,7 @@ public class TestProcedure {
 			changeValuesStuff(0.05, new double[] { 0, 1 }, 0.1, new double[] { -1, 1 });
 
 		} else if (currentTestItem.equals(TestItem.Winch)) {
+			RobotMap.cameraFrontServo.set(Constants.CAMERA_TALON_IN_VALUE);
 			SmartDashboard.putNumber("Value", Constants.WINCH_MAX_SPEED);
 			changeValuesStuff(0.05, new double[] { 0, 1 }, 0.1, new double[] { -1, 1 });
 
@@ -373,8 +374,8 @@ public class TestProcedure {
 		itemRunning = false;
 		SmartDashboard.putNumber("Value", 0);
 		SmartDashboard.putNumber("Value2", 0);
-		RobotMap.backCameraLight.set(!Constants.CAMERA_LIGHT_ON);
 		RobotMap.frontCameraLight.set(!Constants.CAMERA_LIGHT_ON);
+
 		Robot.cameraSubsystem.visionThread.setVisionState(VisionState.None);
 		if (runningCommand != null) {
 			runningCommand.cancel();
@@ -403,7 +404,7 @@ public class TestProcedure {
 			RobotMap.throwingWheelTalon.set(0);
 
 		} else if (currentTestItem.equals(TestItem.CamTalonIn) || currentTestItem.equals(TestItem.CamTalonOut)) {
-			RobotMap.cameraFrontServo.set(0);
+			// RobotMap.cameraFrontServo.set(0);
 		}
 	}
 
@@ -413,10 +414,10 @@ public class TestProcedure {
 
 	public enum TestItem {
 		Brush("Brush talon"), Conveyor("Conveyor Talon"), Pickup("Ball Pick-up"), Genova("Genova Talon"),
-		GearPush("Gear push"), GearBack("Gear back"), Thrower("Thrower Talon"), BallShooting("Ball Shooting"),
-		Winch("Winch"), FrontSensor("Front Sensor", true), BackSensor("Back Sensor", true), Gyro("Gyro", true),
-		GyroDrive("Gyro Drive"), LeftEncoder("Left Encoder", true), Move2Feets("Move 2 Feets"),
-		RightEncoder("Right Encoder", true), Turn360("+360 Turn"), TurnNeg360("-360 Turn"),
+		Thrower("Thrower Talon"), BallShooting("Ball Shooting"), GearPush("Gear push"), GearBack("Gear back"),
+		Winch("Winch"), FrontSensor("Front Sensor", true), BackSensor("Back Sensor", true),
+		LeftEncoder("Left Encoder", true), RightEncoder("Right Encoder", true), Gyro("Gyro", true),
+		GyroDrive("Gyro Drive"), Move2Feets("Move 2 Feets"), Turn360("+360 Turn"), TurnNeg360("-360 Turn"),
 		CamTalonOut("Camera Talon Out"), CamTalonIn("Camera Talon In"), CamLightFront("Camera Light Front", false),
 		VisionHue("Vision Hue", true), VisionSaturation("Vision Saturation", true), VisionValue("Vision Value", true),
 		VisionDistance("Vision distance", true);
